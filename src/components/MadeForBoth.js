@@ -87,7 +87,7 @@ export default function MadeForBoth() {
 
         {/* SECTION HEADING */}
         <div className="mb-8 sm:mb-9">
-          <span className="font-jakarta text-[11px] font-bold uppercase tracking-wide text-[#24139b]">
+          <span className="font-jakarta text-base font-bold uppercase tracking-wide text-[#24139b]">
             Made for both of you
           </span>
 

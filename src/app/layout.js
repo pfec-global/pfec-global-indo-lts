@@ -7,17 +7,7 @@ import {
   Montserrat,
 } from "next/font/google";
 
-import localFont from "next/font/local";
 import "./globals.css";
-
-// Neue Reman GT local font
-const neueReman = localFont({
-  src: "../../public/fonts/NeueRemanGT-Heavy.otf",
-  variable: "--font-neue-reman",
-  weight: "900",
-  style: "normal",
-  display: "swap",
-});
 
 // Plus Jakarta Sans
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -58,21 +48,18 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
-// SEO Metadata
 export const metadata = {
   title: "PFEC Global | Study Abroad with Complete Expert Guidance",
   description:
     "Study abroad with free 1-on-1 expert mentorship from shortlisting to visa. Trusted by 22,000+ students across 11 destinations.",
 };
 
-// Root Layout
 export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
       data-scroll-behavior="smooth"
       className={`
-        ${neueReman.variable}
         ${titanOne.variable}
         ${bebasNeue.variable}
         ${plusJakartaSans.variable}

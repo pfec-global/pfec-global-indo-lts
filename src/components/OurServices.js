@@ -114,7 +114,7 @@ export default function OurServices() {
         <div className="mb-8 flex flex-col justify-between gap-4 sm:mb-9 sm:flex-row sm:items-end">
 
           <div>
-            <span className="font-jakarta text-[11px] font-bold uppercase tracking-wide text-white">
+            <span className="font-jakarta text-base font-bold uppercase tracking-wide text-white">
               Our Services
             </span>
 

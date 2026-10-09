@@ -127,7 +127,7 @@ export default function Countries() {
 
           {/* Left heading */}
           <div className="max-w-[550px]">
-            <span className="font-jakarta text-[11px] font-bold uppercase tracking-wide text-[#24139b]">
+            <span className="font-jakarta text-base font-bold uppercase tracking-wide text-[#24139b]">
               Countries
             </span>
 
