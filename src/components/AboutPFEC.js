@@ -153,7 +153,7 @@ export default function AboutPFEC() {
           <div className="max-w-[550px]">
 
             {/* Section label */}
-            <p className="mb-4 font-jakarta text-[11px] font-semibold uppercase text-[#FBCB20] sm:text-base">
+            <p className="mb-4 font-jakarta text-[11px] font-semibold uppercase text-[#FBCB20] sm:text-sm">
               About PFEC Global
             </p>
 

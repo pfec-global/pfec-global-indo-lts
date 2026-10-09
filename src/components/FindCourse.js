@@ -120,7 +120,7 @@ export default function FindCourse() {
         <div className="relative z-10">
 
           {/* Section Label */}
-          <span className="font-jakarta text-base font-bold uppercase tracking-wide text-[#24139b]">
+          <span className="font-jakarta text-sm font-bold uppercase tracking-wide text-[#24139b]">
             Popular Courses
           </span>
 

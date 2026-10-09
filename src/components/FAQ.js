@@ -50,7 +50,7 @@ export default function FAQ() {
         <div className="max-w-[380px]">
 
           {/* Section Label */}
-          <p className="mb-4 font-jakarta text-[10px] font-semibold uppercase text-[#24139B] sm:text-base">
+          <p className="mb-4 font-jakarta text-[10px] font-semibold uppercase text-[#24139B] sm:text-sm">
             Frequently Asked Questions
           </p>
 
@@ -70,7 +70,7 @@ export default function FAQ() {
           {/* Consultation Button */}
           <a
             href="#"
-            className="pop-up mt-4 inline-flex min-h-[39px] items-center gap-4 rounded-full bg-[#FFCC36] px-4 py-2 font-jakarta text-lg font-semibold text-[#100B36] transition-colors hover:bg-[#FBC21C] sm:text-base"
+            className="pop-up mt-4 inline-flex min-h-[39px] items-center gap-4 rounded-full bg-[#FFCC36] px-4 py-2 font-jakarta text-lg font-semibold text-[#100B36] transition-colors hover:bg-[#FBC21C] sm:text-[12px]"
           >
             Book a free consultation
 
@@ -94,7 +94,7 @@ export default function FAQ() {
             href="https://wa.me/"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-2 inline-flex min-h-[39px] items-center gap-3 rounded-full border border-[#B8DCCB] bg-white px-4 py-2 font-jakarta text-[11px] font-semibold text-[#18794E] transition-colors hover:bg-[#EFFAF4] sm:text-base"
+            className="mt-2 inline-flex min-h-[39px] items-center gap-3 rounded-full border border-[#B8DCCB] bg-white px-4 py-2 font-jakarta text-[11px] font-semibold text-[#18794E] transition-colors hover:bg-[#EFFAF4] sm:text-[12px]"
           >
             <svg
               viewBox="0 0 24 24"

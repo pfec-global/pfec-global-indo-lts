@@ -169,27 +169,29 @@ export default function Hero() {
 
           {/* Heading */}
           {isEnglish ? (
-            <h1 className="max-w-[610px] --font-neue-reman text-[clamp(2.3rem,6.1vw,3.7rem)] font-extrabold leading-[1.08] tracking-tight text-[#110b3c]">
-              Your Study Abroad
-              <br className="hidden sm:block" /> Dream Starts with
-              <br />
-              <span className="relative mt-1 inline-block -rotate-1 rounded-xl bg-[#ffd43b] px-2 py-1">
-                Free Expert Guidance!
-              </span>
-            </h1>
+           <h1 className="max-w-[610px] font-neue-reman text-[32px] sm:text-[36px] lg:text-[40px] font-extrabold leading-[1.08] tracking-tight text-[#110b3c]">
+  Your Study Abroad
+  <br className="hidden sm:block" /> Dream Starts with
+  <br />
+
+  <span className="relative mt-1 inline-block -rotate-1 rounded-xl bg-[#ffd43b] px-2 py-1">
+    Free Expert Guidance!
+  </span>
+</h1>
           ) : (
-            <h1 className="max-w-[610px] --font-neue-reman text-[clamp(2.3rem,6.1vw,3.7rem)] font-extrabold leading-[1.08] tracking-tight text-[#110b3c]">
-              Your Study Abroad
-              <br className="hidden sm:block" /> Dream Starts with
-              <br />
-              <span className="relative mt-1 inline-block -rotate-1 rounded-xl bg-[#ffd43b] px-2 py-1">
-               Free Expert Guidance!
-              </span>
-            </h1>
+            <h1 className="max-w-[610px] font-neue-reman text-[32px] sm:text-[36px] lg:text-[40px] font-extrabold leading-[1.08] tracking-tight text-[#110b3c]">
+  Your Study Abroad
+  <br className="hidden sm:block" /> Dream Starts with
+  <br />
+
+  <span className="relative mt-1 inline-block -rotate-1 rounded-xl bg-[#ffd43b] px-2 py-1">
+    Free Expert Guidance!
+  </span>
+</h1>
           )}
 
           {/* Description */}
-          <p className="mt-6 max-w-[530px] text-base leading-[1.65] text-black sm:text-lg">
+          <p className="mt-6 max-w-[530px] text-sm leading-[1.65] text-black sm:text-lg">
             {isEnglish
               ? "Each student's journey will be tailored according to their profile and aspirations. 1-on-1 Expert Mentorship from shortlisting to Visa."
               : "Each student's journey will be tailored according to their profile and aspirations. 1-on-1 Expert Mentorship from shortlisting to Visa."}
@@ -199,7 +201,7 @@ export default function Hero() {
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <a
               href="#"
-              className="group inline-flex min-h-[46px] items-center gap-3 rounded-full bg-[#ffd43b] px-5 py-3 text-sm font-bold text-[#120d36] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:text-base pop-up"
+              className="group inline-flex min-h-[46px] items-center gap-3 rounded-full bg-[#ffd43b] px-5 py-3 text-sm font-bold text-[#120d36] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:text-sm pop-up"
             >
               {isEnglish ? "Book a free consultation" : "Book a free consultation"}
               <ArrowIcon />
@@ -207,7 +209,7 @@ export default function Hero() {
 
             <a
               href="#"
-              className="inline-flex min-h-[46px] items-center gap-2 rounded-full border border-[#b8dec6] bg-white px-4 py-3 text-sm font-semibold text-[#187647] transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:text-base pop-up"
+              className="inline-flex min-h-[46px] items-center gap-2 rounded-full border border-[#b8dec6] bg-white px-4 py-3 text-sm font-semibold text-[#187647] transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:text-sm pop-up"
             >
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#55bd67] text-white">
                 <WhatsAppIcon />
@@ -217,7 +219,7 @@ export default function Hero() {
           </div>
 
           {/* Trust indicators */}
-          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm font-medium text-[#403b5b] sm:text-base">
+          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm font-medium text-[#403b5b] sm:text-sm">
             {[
               isEnglish ? "No consultation fee" : "No consultation fee",
               isEnglish
@@ -249,7 +251,7 @@ export default function Hero() {
           {/* Purple vector */}
           <div className="purple-wiggle pointer-events-none absolute left-[24%] top-[3%] z-0 h-[92%] w-[49%]">
             <Image
-              src={`${HERO}/Vector1.png`}
+              src={`${HERO}/Vector.png`}
               alt=""
               fill
               priority
