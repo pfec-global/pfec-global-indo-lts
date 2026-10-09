@@ -1,193 +1,434 @@
+
+"use client";
+
 import Image from "next/image";
-import Flag from "./Flag";
+import { useState } from "react";
 import Reveal from "./Reveal";
 
 const HERO = "/images/hero_banner_imags";
 
-const heroFlags = [
-  "au",
-  "uk",
-  "ca",
-  "nz",
-  "eu",
-  "us",
-  "ie",
-  "de",
-  "my",
-  "ae",
-  "jp",
+const flags = [
+  { code: "AU", icon: "🇦🇺" },
+  { code: "UK", icon: "🇬🇧" },
+  { code: "CA", icon: "🇨🇦" },
+  { code: "NZ", icon: "🇳🇿" },
+  { code: "EU", icon: "🇪🇺" },
+  { code: "US", icon: "🇺🇸" },
+  { code: "IE", icon: "🇮🇪" },
+  { code: "DE", icon: "🇩🇪" },
+  { code: "MY", icon: "🇲🇾" },
+  { code: "AE", icon: "🇦🇪" },
 ];
 
-const floatingIcons = [
-  {
-    icon: "degree-diploma-certificate_svgrepo.com.png",
-    circle: "Ellipse 7.png",
-    position: "left-[6%] top-[30%]",
-  },
-  {
-    icon: "plane_svgrepo.com.png",
-    circle: "Ellipse 8.png",
-    position: "left-[5%] top-[45%]",
-  },
-  {
-    icon: "Group-1.png",
-    circle: "Ellipse 5.png",
-    position: "right-0 top-[18%]",
-  },
-  {
-    icon: "read_svgrepo.com.png",
-    circle: "Ellipse 6.png",
-    position: "right-[5%] top-[31%]",
-  },
-];
+function CheckIcon() {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M5 12.5L10 17L19 7" />
+    </svg>
+  );
+}
+
+function CheckBox() {
+  return (
+    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#eaf7f0] text-[#287653] sm:h-11 sm:w-11">
+      <CheckIcon />
+    </span>
+  );
+}
+
+function AssuranceBadge({ title, subtitle }) {
+  return (
+    <div className="flex items-center gap-2.5 rounded-2xl bg-white px-3 py-2.5 shadow-[0_8px_24px_rgba(28,21,77,0.08)] sm:gap-3 sm:px-4 sm:py-3">
+      <CheckBox />
+
+      <div className="min-w-0">
+        <strong className="block text-[10px] font-bold leading-[1.2] text-[#151034] sm:text-[12px] lg:text-[14px]">
+          {title}
+        </strong>
+
+        <span className="mt-1 block text-[9px] leading-[1.2] text-[#696579] sm:text-[11px] lg:text-[12px]">
+          {subtitle}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function PartnerBadge() {
+  const countryIcons = [
+    { src: "australia.png", alt: "Australia" },
+    { src: "united kingdom.png", alt: "United Kingdom" },
+    { src: "canada.png", alt: "Canada" },
+    { src: "new zealand.png", alt: "New Zealand" },
+    { src: "european union.png", alt: "European Union" },
+    { src: "united states.png", alt: "United States" },
+    { src: "ireland.png", alt: "Ireland" },
+    { src: "germany.png", alt: "Germany" },
+    { src: "malaysia.png", alt: "Malaysia" },
+    { src: "dubai.png", alt: "Dubai" },
+  ];
+
+  return (
+    <div className="flex w-full items-center gap-2.5 rounded-2xl bg-white px-3 py-2.5 shadow-[0_8px_24px_rgba(28,21,77,0.08)] sm:gap-3 sm:px-4 sm:py-3">
+      <CheckBox />
+
+      <div className="min-w-0 flex-1">
+        <strong className="block text-[10px] font-bold leading-tight text-[#151034] sm:text-[12px] lg:text-[14px]">
+          550+ Partner Institutions
+        </strong>
+
+        <span className="mt-0.5 block text-[9px] leading-tight text-[#696579] sm:text-[11px]">
+          Across 11 Countries
+        </span>
+
+        <div className="mt-1 flex flex-wrap items-center gap-1.5">
+          {countryIcons.map((country) => (
+            <Image
+              key={country.src}
+              src={`/images/country_icon/${country.src}`}
+              alt={country.alt}
+              title={country.alt}
+              width={20}
+              height={20}
+              className="h-4 w-4 shrink-0 rounded-full object-cover sm:h-5 sm:w-5"
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ArrowIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M5 12h14M12 5l7 7-7 7" />
+    </svg>
+  );
+}
+
+function WhatsAppIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-4 w-4"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.2 1.6 6L0 24l6.4-1.7a11.8 11.8 0 0 0 5.7 1.4h.1C18.7 23.7 24 18.4 24 11.9c0-3.2-1.2-6.1-3.5-8.4ZM12.1 21.7a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.8 1 1-3.7-.3-.4a9.7 9.7 0 0 1-1.5-5.2 10 10 0 0 1 10-10 9.9 9.9 0 0 1 7.1 2.9 9.9 9.9 0 0 1 2.9 7.1 10 10 0 0 1-10 9.9Zm5.5-7.5c-.3-.1-1.8-.9-2.1-1s-.5-.1-.7.2-.8 1-1 1.2-.4.2-.7.1a8.2 8.2 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.5-.6.3-.5c.1-.2 0-.4 0-.6l-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.1 1.4 3.3c.1.2 2.3 3.6 5.6 4.9.8.3 1.4.5 1.9.6.8.3 1.5.2 2 .1.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4Z" />
+    </svg>
+  );
+}
 
 export default function Hero() {
+  const [language, setLanguage] = useState("English");
+  const isEnglish = language === "English";
+
   return (
-    <section className="mx-auto grid max-w-[110.625rem] items-end px-4 pb-10 pt-10 sm:px-8 lg:pb-0 lg:grid-cols-[1fr_1.05fr] lg:gap-6 lg:px-12 lg:pt-12 xl:grid-cols-[1fr_51.5rem] xl:pt-16">
-      {/* On mobile this wrapper dissolves so the artwork can sit between the
-          headline and the flags; from lg up it is the left column. */}
-      <div className="contents lg:block lg:pb-36 xl:pb-[8.3rem]">
-        <Image
-          src="/images/pfec_logo_line.png"
-          alt=""
-          width={344}
-          height={157}
-          className="h-auto w-24 sm:w-32 xl:w-[10.625rem]"
-        />
-
-        <h1 className="mt-4 whitespace-nowrap font-titan text-[min(11.5vw,5rem)] leading-[1.05] text-brand lg:text-[clamp(3.25rem,5.2vw,6.2rem)] xl:text-[6.1rem]">
-          Study Abroad
-        </h1>
-
-        <p className="relative isolate mt-1 inline-block justify-self-start whitespace-nowrap font-bebas text-[min(7.6vw,3.25rem)] leading-none text-neutral-900 lg:text-[clamp(2.5rem,3.7vw,4.4rem)] xl:text-[4.33rem]">
-          WITH COMPLETE EXPERT GUIDANCE
-          <span className="absolute -bottom-[0.75em] -right-2 -z-10 -rotate-[9deg] bg-accent motion-safe:animate-hop px-[0.2em] pb-[0.05em] font-titan text-[0.72em] leading-[1.25] text-white lg:-right-[0.5em]">
-            Free!
-          </span>
-        </p>
-
-        <div className="order-2 mt-8 lg:mt-7">
-          <div className="inline-flex items-center gap-1 border border-neutral-200 bg-[#fffcf2] px-2.5 py-2 xl:py-3 shadow-[4px_4px_0_var(--color-brand)] sm:gap-1.5">
-            {heroFlags.map((code, i) => (
-              <Reveal
-                as="span"
-                key={code}
-                className="flex shrink-0"
-                y={0}
-                scale={0}
-                duration={0.3}
-                delay={0.3 + 0.07 * i}
+    <section className="relative overflow-hidden bg-[#f7f6ff]">
+      <div className="mx-auto grid min-h-[540px] max-w-[1440px] items-center gap-8 px-5 py-10 sm:px-8 lg:grid-cols-[1fr_1.05fr] lg:px-12 lg:py-12 xl:px-16">
+        {/* LEFT CONTENT - FIRST ON MOBILE */}
+        <div className="relative z-10 order-1 lg:order-1">
+          {/* Language selector */}
+          <div className="mb-5 inline-flex rounded-full border border-[#ded9ee] bg-white p-1 shadow-sm">
+            {["English", "Bahasa"].map((item) => (
+              <button
+                key={item}
+                type="button"
+                onClick={() => setLanguage(item)}
+                aria-pressed={language === item}
+                className={`rounded-full px-4 py-2.5 text-base font-semibold transition-all duration-300 ${
+                  language === item
+                    ? "bg-[#24139b] text-white shadow-sm"
+                    : "text-[#4c4766] hover:bg-[#f2efff]"
+                }`}
               >
-                <Flag
-                  code={code}
-                  className="size-[min(6.3vw,1.75rem)] sm:size-9 xl:size-[2.625rem]"
-                />
-              </Reveal>
+                {item}
+              </button>
+            ))}
+          </div>
+
+          {/* Heading */}
+          {isEnglish ? (
+            <h1 className="max-w-[610px] --font-neue-reman text-[clamp(2.3rem,6.1vw,3.7rem)] font-extrabold leading-[1.08] tracking-tight text-[#110b3c]">
+              Your Study Abroad
+              <br className="hidden sm:block" /> Dream Starts with
+              <br />
+              <span className="relative mt-1 inline-block -rotate-1 rounded-xl bg-[#ffd43b] px-2 py-1">
+                Free Expert Guidance!
+              </span>
+            </h1>
+          ) : (
+            <h1 className="max-w-[610px] --font-neue-reman text-[clamp(2.3rem,6.1vw,3.7rem)] font-extrabold leading-[1.08] tracking-tight text-[#110b3c]">
+              Your Study Abroad
+              <br className="hidden sm:block" /> Dream Starts with
+              <br />
+              <span className="relative mt-1 inline-block -rotate-1 rounded-xl bg-[#ffd43b] px-2 py-1">
+               Free Expert Guidance!
+              </span>
+            </h1>
+          )}
+
+          {/* Description */}
+          <p className="mt-6 max-w-[530px] text-base leading-[1.65] text-black sm:text-lg">
+            {isEnglish
+              ? "Each student's journey will be tailored according to their profile and aspirations. 1-on-1 Expert Mentorship from shortlisting to Visa."
+              : "Each student's journey will be tailored according to their profile and aspirations. 1-on-1 Expert Mentorship from shortlisting to Visa."}
+          </p>
+
+          {/* CTA buttons */}
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <a
+              href="#"
+              className="group inline-flex min-h-[46px] items-center gap-3 rounded-full bg-[#ffd43b] px-5 py-3 text-sm font-bold text-[#120d36] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:text-base pop-up"
+            >
+              {isEnglish ? "Book a free consultation" : "Book a free consultation"}
+              <ArrowIcon />
+            </a>
+
+            <a
+              href="#"
+              className="inline-flex min-h-[46px] items-center gap-2 rounded-full border border-[#b8dec6] bg-white px-4 py-3 text-sm font-semibold text-[#187647] transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:text-base pop-up"
+            >
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#55bd67] text-white">
+                <WhatsAppIcon />
+              </span>
+              {isEnglish ? "Register on WhatsApp" : "Register on WhatsApp"}
+            </a>
+          </div>
+
+          {/* Trust indicators */}
+          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm font-medium text-[#403b5b] sm:text-base">
+            {[
+              isEnglish ? "No consultation fee" : "No consultation fee",
+              isEnglish
+                ? "Award Winning Consultant"
+                : "Award Winning Consultant",
+              isEnglish ? "Online or in Jakarta" : "Online or in Jakarta",
+            ].map((item) => (
+              <span key={item} className="inline-flex items-center gap-1.5">
+                <svg
+                  viewBox="0 0 20 20"
+                  className="h-3.5 w-3.5 shrink-0 text-[#24139b]"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m4 10 4 4 8-8" />
+                </svg>
+                {item}
+              </span>
             ))}
           </div>
         </div>
 
-        <p className="order-2 mt-8 max-w-[50rem] text-base leading-relaxed text-neutral-700 sm:text-lg xl:mt-12 xl:text-2xl xl:leading-9">
-          Each Student&rsquo;s journey will be tailored according to their
-          profile and aspirations. 1-on-1 Expert Mentorship from shortlisting to
-          Visa.
-        </p>
-
-        <a
-          href="#"
-          className="group order-2 mt-7 inline-flex items-center justify-self-start"
-        >
-          <span className="whitespace-nowrap rounded-full bg-brand px-5 py-3.5 font-poppins text-[15px] font-bold text-white sm:px-6 sm:text-xl xl:py-3.5 xl:text-2xl pop-up">
-            Book Free Consultation
-          </span>
-          <span className="flex aspect-square h-[52px] items-center justify-center rounded-full bg-accent transition-transform group-hover:translate-x-1 sm:h-14 xl:h-[3.75rem]">
-            <svg
-              viewBox="0 0 24 24"
-              className="h-1/2 w-1/2 text-white"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M5 19L19 5M7 5h12v12" />
-            </svg>
-          </span>
-        </a>
-      </div>
-
-      {/* Hero artwork: everything is sized in % so it scales as one piece */}
-      <div className="relative order-1 mx-auto mt-10 aspect-[872/725] w-full max-w-[560px] overflow-hidden lg:order-none lg:mx-0 lg:mt-0 lg:max-w-none xl:w-[calc(100%+3rem)]">
-        <Image
-          src={`${HERO}/Vector-1.png`}
-          alt=""
-          width={1210}
-          height={1452}
-          className="absolute left-[45.5%] top-0 h-auto w-[44.7%]"
-        />
-        <Image
-          src={`${HERO}/Vector.png`}
-          alt=""
-          width={1172}
-          height={1404}
-          className="absolute left-[41.5%] top-[4%] h-auto w-[43.3%]"
-        />
-        <Image
-          src={`${HERO}/Vector-2.png`}
-          alt=""
-          width={380}
-          height={380}
-          className="absolute left-[12%] top-[4%] h-auto w-[19%] motion-safe:animate-[spin_18s_linear_infinite]"
-        />
-        <Image
-          src={`${HERO}/indonesian Female 1.png`}
-          alt="Smiling female student holding notebooks"
-          width={1062}
-          height={1298}
-          priority
-          sizes="(min-width: 1024px) 30vw, 60vw"
-          className="absolute left-[38%] top-[11%] h-auto w-[60%]"
-        />
-        <Image
-          src={`${HERO}/Indonesian Male 1.png`}
-          alt="Smiling male student holding books"
-          width={1076}
-          height={1364}
-          priority
-          sizes="(min-width: 1024px) 30vw, 60vw"
-          className="absolute left-0 top-[6%] h-auto w-[61%]"
-        />
-        <Image
-          src={`${HERO}/Group.png`}
-          alt=""
-          width={179}
-          height={179}
-          className="absolute right-[4%] top-[52%] h-auto w-[10%] motion-safe:animate-[spin_12s_linear_infinite_reverse]"
-        />
-        {floatingIcons.map(({ icon, circle, position }, i) => (
-          <div
-            key={icon}
-            style={{ animationDelay: `${-0.9 * i}s` }}
-            className={`absolute aspect-square w-[7.5%] motion-safe:animate-float ${position}`}
-          >
+        {/* RIGHT HERO ARTWORK - SECOND ON MOBILE */}
+        <div className="relative order-2 mx-auto aspect-[560/455] w-full max-w-[560px] lg:order-2 lg:max-w-none">
+          {/* Purple vector */}
+          <div className="purple-wiggle pointer-events-none absolute left-[24%] top-[3%] z-0 h-[92%] w-[49%]">
             <Image
-              src={`${HERO}/${circle}`}
+              src={`${HERO}/Vector1.png`}
               alt=""
-              width={100}
-              height={100}
-              className="absolute bottom-0 left-0 h-auto w-[72%]"
-            />
-            <Image
-              src={`${HERO}/${icon}`}
-              alt=""
-              width={120}
-              height={120}
-              className="absolute right-0 top-0 h-auto w-[82%]"
+              fill
+              priority
+              sizes="(min-width: 1024px) 30vw, 90vw"
+              className="object-contain"
             />
           </div>
-        ))}
+
+          {/* Yellow vector */}
+          <div className="yellow-wiggle pointer-events-none absolute right-[9%] top-[18%] z-[1] h-[76%] w-[39%]">
+            <Image
+              src={`${HERO}/Vector (1).png`}
+              alt=""
+              fill
+              priority
+              sizes="(min-width: 1024px) 25vw, 80vw"
+              className="object-contain"
+            />
+          </div>
+
+          {/* Female student */}
+          <Reveal
+            as="div"
+            className="absolute bottom-[2%] right-[5%] z-10 h-[76%] w-[51%]"
+            y={30}
+            duration={0.8}
+          >
+            <Image
+              src={`${HERO}/indonesian Female 1.png`}
+              alt="Student smiling and holding notebooks"
+              fill
+              priority
+              sizes="(min-width: 1024px) 25vw, 80vw"
+              className="object-contain object-bottom"
+            />
+          </Reveal>
+
+          {/* Male student */}
+          <Reveal
+            as="div"
+            className="absolute bottom-[1%] left-[2%] z-20 h-[81%] w-[59%]"
+            y={30}
+            delay={0.15}
+            duration={0.8}
+          >
+            <Image
+              src={`${HERO}/Indonesian Male 1.png`}
+              alt="Student smiling and holding study books"
+              fill
+              priority
+              sizes="(min-width: 1024px) 30vw, 85vw"
+              className="object-contain object-bottom"
+            />
+          </Reveal>
+
+          {/* Assurance badge 1 */}
+          <div className="badge-float-one absolute left-[-1%] top-[12%] z-30 w-[49%] max-w-[285px] sm:left-[-3%]">
+            <AssuranceBadge
+              title={
+                <>
+                  From Shortlisting to
+                  <br />
+                  Visa Approval
+                </>
+              }
+              subtitle="We're Here to Help!"
+            />
+          </div>
+
+          {/* Assurance badge 2 */}
+          <div className="badge-float-two absolute right-[-2%] top-[52%] z-30 w-[46%] max-w-[270px] sm:right-[-3%]">
+            <AssuranceBadge
+              title="Certified Counsellors"
+              subtitle="Waiting to Assist You"
+            />
+          </div>
+
+          {/* Partner badge with country icons */}
+          <div className="badge-float-three absolute bottom-[1%] left-[19%] z-30 w-[70%] max-w-[360px]">
+            <PartnerBadge />
+          </div>
+        </div>
       </div>
+
+      {/* Animation CSS */}
+      <style jsx global>{`
+        .purple-wiggle {
+          transform-origin: center;
+          animation: purpleWiggle 8s ease-in-out infinite;
+          will-change: transform;
+        }
+
+        .yellow-wiggle {
+          transform-origin: center;
+          animation: yellowWiggle 9s ease-in-out infinite;
+          will-change: transform;
+        }
+
+        .badge-float-one {
+          animation: badgeFloatOne 5.5s ease-in-out infinite;
+          will-change: transform;
+        }
+
+        .badge-float-two {
+          animation: badgeFloatTwo 6.2s ease-in-out infinite;
+          will-change: transform;
+        }
+
+        .badge-float-three {
+          animation: badgeFloatThree 6.8s ease-in-out infinite;
+          will-change: transform;
+        }
+
+        @keyframes purpleWiggle {
+          0%,
+          100% {
+            transform: translate3d(0, 0, 0) rotate(0deg);
+          }
+
+          50% {
+            transform: translate3d(-4px, -6px, 0) rotate(-2deg);
+          }
+        }
+
+        @keyframes yellowWiggle {
+          0%,
+          100% {
+            transform: translate3d(0, 0, 0) rotate(0deg);
+          }
+
+          50% {
+            transform: translate3d(5px, 5px, 0) rotate(2deg);
+          }
+        }
+
+        @keyframes badgeFloatOne {
+          0%,
+          100% {
+            transform: translate3d(0, 0, 0);
+          }
+
+          50% {
+            transform: translate3d(0, -5px, 0);
+          }
+        }
+
+        @keyframes badgeFloatTwo {
+          0%,
+          100% {
+            transform: translate3d(0, 0, 0);
+          }
+
+          50% {
+            transform: translate3d(0, 6px, 0);
+          }
+        }
+
+        @keyframes badgeFloatThree {
+          0%,
+          100% {
+            transform: translate3d(0, 0, 0);
+          }
+
+          50% {
+            transform: translate3d(0, -4px, 0);
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .purple-wiggle,
+          .yellow-wiggle,
+          .badge-float-one,
+          .badge-float-two,
+          .badge-float-three {
+            animation: none !important;
+            will-change: auto;
+          }
+        }
+      `}</style>
     </section>
   );
 }

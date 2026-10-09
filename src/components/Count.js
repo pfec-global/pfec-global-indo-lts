@@ -1,69 +1,57 @@
-import CountUp from "./CountUp";
-import Flag, { flags } from "./Flag";
-import Reveal from "./Reveal";
 
-const destinations = [
-  "au",
-  "uk",
-  "nz",
-  "ae",
-  "eu",
-  "de",
-  "us",
-  "ie",
-  "ca",
-  "my",
-  "jp",
+"use client";
+
+import CountUp from "./CountUp";
+
+const stats = [
+  {
+    value: 22000,
+    suffix: "+",
+    label: "students helped abroad",
+  },
+  {
+    value: 19,
+    suffix: "+ years",
+    label: "of Expertise",
+  },
+  {
+    value: 17,
+    suffix: " Offices",
+    label: "Across 4 Countries",
+  },
+  {
+    value: null,
+    suffix: "",
+    label: "Expert Guidance",
+    heading: "End to End",
+  },
 ];
 
 export default function Count() {
   return (
-    <section className="relative z-10 mx-auto max-w-[110.625rem] px-4 pb-12 sm:px-8 lg:px-12 lg:pb-20">
-      <div className="relative">
-        <div className="absolute bottom-full left-0 hidden h-12 w-[17.2rem] bg-sun [clip-path:polygon(0_0,92%_0,100%_45%,100%_100%,0_100%)] lg:block" />
+    <section className="w-full bg-[#24139b]">
+      <div className="mx-auto grid min-h-[112px] w-full max-w-[1440px] grid-cols-2 items-center gap-y-6 px-6 py-7 sm:grid-cols-4 sm:gap-y-0 sm:px-8 lg:px-12 lg:py-8">
+        {stats.map((stat) => (
+          <div
+            key={stat.label}
+            className="min-w-0 sm:border-l sm:border-white/15 sm:pl-5 lg:pl-10 first:sm:border-l-0 first:sm:pl-0"
+          >
+            <h2 className="whitespace-nowrap font-poppins text-[22px] font-extrabold leading-tight tabular-nums text-[#ffd43b] sm:text-[24px] lg:text-[30px]">
+              {stat.value !== null ? (
+                <CountUp
+                  end={stat.value}
+                  suffix={stat.suffix}
+                />
+              ) : (
+                stat.heading
+              )}
+            </h2>
 
-        <div className="flex flex-col gap-8 bg-[#fffdf8] px-4 py-7 shadow-[0_4px_24px_rgba(0,0,0,0.12)] sm:px-10 xl:flex-row xl:items-center xl:justify-between xl:gap-6 xl:py-7 xl:pl-[6.2rem] xl:pr-12">
-          <div className="grid grid-cols-2 font-poppins text-[15px] text-neutral-800 sm:grid-cols-3 sm:text-lg lg:whitespace-nowrap lg:text-xl xl:flex xl:text-2xl">
-            <div className="pr-3 sm:py-2 sm:pr-6 xl:pr-[5.75rem]">
-              <p>Trusted by</p>
-              <p className="font-titan text-2xl text-brand sm:text-3xl">
-                <CountUp end={22000} suffix="+" />
-              </p>
-              <p>Happy Students</p>
-            </div>
-            <div className="border-l border-neutral-400 pl-3 sm:px-6 sm:py-2 xl:px-[5.4rem]">
-              <p className="font-titan text-2xl text-brand sm:text-3xl">
-                <CountUp end={19} suffix="+" /> Years
-              </p>
-              <p>of Service across</p>
-              <p className="font-bold text-neutral-900">17 Global Offices</p>
-            </div>
-            <div className="col-span-2 mt-5 border-t border-neutral-400 pt-5 text-center sm:col-span-1 sm:mt-0 sm:text-left sm:border-l sm:border-t-0 sm:py-2 sm:pl-6 xl:pl-[5.4rem]">
-              <p className="font-titan text-2xl text-brand sm:text-3xl">
-                <CountUp end={550} suffix="+" />
-              </p>
-              <p>Partner Institutions</p>
-              <p>Across 11 Destinations</p>
-            </div>
+            <p className="mt-1.5 text-[11px] font-medium leading-5 text-white sm:text-base">
+              {stat.label}
+            </p>
           </div>
-
-          <ul className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap xl:w-[31.5rem] xl:shrink-0">
-            {destinations.map((code, i) => (
-              <Reveal
-                as="li"
-                key={code}
-                y={0}
-                scale={0}
-                duration={0.3}
-                delay={0.2 + 0.07 * i}
-                className="flex items-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-2.5 py-1 text-[15px] text-neutral-800 shadow-sm xl:text-base"
-              >
-                <Flag code={code} className="h-6 w-6" />
-                {flags[code].name}
-              </Reveal>
-            ))}
-          </ul>
-        </div>
+        ))}
       </div>
     </section>
   );

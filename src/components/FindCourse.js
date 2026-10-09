@@ -1,9 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Reveal from "./Reveal";
 
 const ART = "/images/find_course_img";
 
-// Listed column by column, the way the desktop grid fills.
 const courses = [
   {
     name: "Engineering",
@@ -11,23 +12,34 @@ const courses = [
   },
   {
     name: "Business and Management",
-    icon: <path d="M4 8h16v11H4zM9 8V5h6v3M4 13h16M11 13v2h2v-2" />,
+    icon: (
+      <>
+        <rect x="3" y="8" width="18" height="12" rx="1" />
+        <path d="M8 8V5h8v3M3 12h18M10 12v3h4v-3" />
+      </>
+    ),
   },
   {
     name: "Information Technology",
     icon: (
-      <path d="M4 5h16v11H4zM8 20h8M12 16v4M9 9l-2 1.5L9 12M15 9l2 1.5-2 1.5" />
+      <>
+        <rect x="3" y="4" width="18" height="13" rx="1" />
+        <path d="M8 21h8M12 17v4M9 8l-2 2 2 2M15 8l2 2-2 2" />
+      </>
     ),
   },
   {
     name: "Environmental Sciences",
-    icon: <path d="M5 19C5 10 10 5 19 5c0 9-5 14-14 14zM5 19l8-8" />,
+    icon: (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 3c4 4 4 14 0 18M3 12h18M5 6l4 3-1 4 4 2 1 4" />
+      </>
+    ),
   },
   {
     name: "Architecture & Construction",
-    icon: (
-      <path d="M5 5h14M6 5v2.5h12V5M8 7.5V18M12 7.5V18M16 7.5V18M5 19h14" />
-    ),
+    icon: <path d="M5 5h14M6 5v2.5h12V5M8 7.5V18M12 7.5V18M16 7.5V18M5 19h14" />,
   },
   {
     name: "Computer Science",
@@ -39,15 +51,11 @@ const courses = [
   },
   {
     name: "Public Health",
-    icon: (
-      <path d="M12 20s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 9c0 6-8 11-8 11zM7 12h3l1.5-3 2 5 1-2h2.5" />
-    ),
+    icon: <path d="M12 20s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 9c0 6-8 11-8 11zM7 12h3l1.5-3 2 5 1-2h2.5" />,
   },
   {
     name: "Tourism and Hospitality",
-    icon: (
-      <path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h18M12 3c3.5 3 3.5 15 0 18M12 3c-3.5 3-3.5 15 0 18" />
-    ),
+    icon: <path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h18M12 3c3.5 3 3.5 15 0 18M12 3c-3.5 3-3.5 15 0 18" />,
   },
   {
     name: "Nursing",
@@ -60,146 +68,94 @@ const courses = [
         <circle cx="12" cy="12" r="1.2" />
         <ellipse cx="12" cy="12" rx="9" ry="3.8" />
         <ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(60 12 12)" />
-        <ellipse
-          cx="12"
-          cy="12"
-          rx="9"
-          ry="3.8"
-          transform="rotate(120 12 12)"
-        />
+        <ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(120 12 12)" />
       </>
     ),
   },
   {
     name: "Juris Doctor",
-    icon: (
-      <path d="M12 4v16M7 20h10M5 7h14M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z" />
-    ),
+    icon: <path d="M12 4v16M7 20h10M5 7h14M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z" />,
   },
 ];
 
 export default function FindCourse() {
   return (
-    <section className="bg-[#f9f9f9] font-poppins">
-      <div className="mx-auto grid max-w-[105rem] items-start gap-10 px-4 py-12 sm:px-8 lg:px-12 xl:grid-cols-[1fr_35rem] xl:pb-16 xl:pt-[5.6rem]">
-        <div className="xl:pt-4">
-          <h2 className="text-2xl leading-snug text-neutral-900 sm:text-3xl xl:text-[2.5rem]">
-            <span className="font-bold text-brand">Find a course</span> that
-            fits your future.
+    <section
+      id="courses"
+      className="w-full overflow-hidden bg-[#f7f6fc] font-poppins"
+    >
+      <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-5 py-14 sm:px-8 sm:py-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8 lg:px-12 lg:py-20">
+        
+        {/* Left: popular courses */}
+        <div className="relative z-10">
+          <span className="text-base font-bold uppercase tracking-wide text-[#24139b]">
+            Popular Courses
+          </span>
+
+          <h2 className="mt-4 font-neue-reman text-[27px] font-extrabold leading-[1.15] text-[#100B36] sm:text-[32px]">
+            What do you want to become?
           </h2>
-          <p className="mt-4 max-w-[56rem] text-base leading-relaxed text-neutral-600 xl:mt-6 xl:text-xl xl:leading-8">
-            Whether you already know what you want to study or you&rsquo;re
-            still figuring it out, we&rsquo;ll help{" "}
-            <br className="hidden xl:block" />
-            you explore courses that match your interests, academic background
-            and career goals.
+
+          <p className="mt-4 max-w-[390px] text-[13px] leading-[1.7] text-[#514b70]">
+            Start with what you enjoy. We&apos;ll show you where it&apos;s
+            taught best and what it leads to.
           </p>
 
-          <ul className="mt-8 flex flex-wrap gap-3 xl:mt-10 xl:grid xl:grid-flow-col xl:grid-cols-[repeat(3,19.6rem)] xl:grid-rows-4 xl:justify-items-start xl:gap-x-0 xl:gap-y-4">
-            {courses.map(({ name, icon }, i) => (
-              <Reveal as="li" key={name} y={20} delay={0.04 * i}>
-                <div className="group flex cursor-default items-center gap-3 rounded-lg border border-neutral-300 bg-white px-3 py-2.5 text-[15px] text-neutral-900 shadow-[0_2px_4px_rgba(0,0,0,0.12)] transition duration-300 ease-out hover:-translate-y-1 hover:border-brand hover:bg-brand hover:text-white hover:shadow-[0_10px_22px_rgba(16,6,148,0.25)] xl:py-3 xl:text-base">
+          {/* Course cards */}
+          <ul className="mt-5 flex flex-wrap gap-2.5 sm:gap-3">
+            {courses.map(({ name, icon }, index) => (
+              <Reveal
+                as="li"
+                key={name}
+                y={12}
+                delay={0.035 * index}
+              >
+                <a
+                  href="#consultation"
+                  className="group flex min-h-[41px] items-center gap-2.5 rounded-[7px] border border-[#ded9ed] bg-white px-2.5 py-2 text-[12px] text-[#514b70] shadow-[0_1px_3px_rgba(16,11,54,0.12)] transition-all duration-300 hover:-translate-y-1 hover:border-[#24139b] hover:bg-[#24139b] hover:text-white hover:shadow-md sm:px-3 sm:text-[13px]"
+                >
                   <svg
                     viewBox="0 0 24 24"
-                    className="h-6 w-6 shrink-0 text-brand transition duration-300 group-hover:scale-110 group-hover:text-sun xl:h-7 xl:w-7"
+                    className="h-5 w-5 shrink-0 text-[#24139b] transition-all duration-300 group-hover:scale-110 group-hover:text-[#ffd43b]"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="1.5"
+                    strokeWidth="1.4"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     aria-hidden="true"
                   >
                     {icon}
                   </svg>
-                  {name}
-                </div>
+
+                  <span>{name}</span>
+                </a>
               </Reveal>
             ))}
           </ul>
 
-          <p className="mt-10 text-base text-neutral-600 xl:mt-14">
-            Sounds good? Join us for a free instant profile assessment today!
-          </p>
-
-          <a href="#" className="group mt-5 inline-flex items-center pop-up">
-            <span className="rounded-full bg-brand px-6 py-3 text-base font-semibold text-white">
-              Book Free Consultation
-            </span>
-            <span className="flex aspect-square h-12 items-center justify-center rounded-full bg-accent transition-transform group-hover:translate-x-1">
-              <svg
-                viewBox="0 0 24 24"
-                className="h-1/2 w-1/2 text-white"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M5 19L19 5M7 5h12v12" />
-              </svg>
-            </span>
+          {/* Consultation CTA */}
+          <a
+            href="#"
+            className="mt-6 inline-flex items-center justify-center rounded-full bg-[#24139b] px-5 py-3 text-[12px] font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#100B36] hover:shadow-lg pop-up"
+          >
+            Get a free course match
+            <span className="ml-2">→</span>
           </a>
         </div>
 
-        {/* Artwork built from layers so the rings, star and cap can move */}
-        <div
-          role="img"
-          aria-label="Graduation cap resting on a rolled diploma"
-          className="relative mx-auto aspect-[1138/1202] w-full max-w-[24rem] xl:max-w-none"
-        >
-          <Image
-            src={`${ART}/Vector.png`}
-            alt=""
-            width={776}
-            height={970}
-            className="absolute left-[31%] top-[2.8%] h-auto w-[68%]"
-          />
-          {[
-            {
-              src: "Ellipse 7.png",
-              size: 1116,
-              box: "left-[0.6%] w-[98%]",
-              delay: "-2.6s",
-            },
-            {
-              src: "Ellipse 9.png",
-              size: 968,
-              box: "left-[7.1%] w-[85%]",
-              delay: "-1.3s",
-            },
-            {
-              src: "Ellipse 8.png",
-              size: 804,
-              box: "left-[14.3%] w-[70.6%]",
-              delay: "0s",
-            },
-          ].map(({ src, size, box, delay }, i) => (
-            <Image
-              key={src}
-              src={`${ART}/${src}`}
-              alt=""
-              width={size}
-              height={size}
-              style={{ animationDelay: delay, top: `${6.2 + 6.15 * i}%` }}
-              className={`absolute h-auto motion-safe:animate-ring ${box}`}
-            />
-          ))}
-          <Image
-            src={`${ART}/Vector-1.png`}
-            alt=""
-            width={328}
-            height={328}
-            className="absolute left-[2.5%] top-[0.8%] h-auto w-[28.8%] motion-safe:animate-[spin_18s_linear_infinite]"
-          />
-          <Image
-            src={`${ART}/Education 3d 2.png`}
-            alt=""
-            width={852}
-            height={760}
-            sizes="(min-width: 1280px) 24vw, 18rem"
-            className="absolute left-[12.5%] top-[23.7%] h-auto w-[74.9%] motion-safe:animate-bob"
-          />
+        {/* Right: single full artwork image */}
+        <div className="relative mx-auto w-full max-w-[450px] lg:max-w-none">
+          <div className="relative mx-auto aspect-[440/440] w-full max-w-[440px]">
+           <Image
+  src="/images/Group 58 (1).png"
+  alt="Graduate holding a diploma"
+  width={776}
+  height={970}
+  priority
+  sizes="(min-width: 1024px) 35vw, 80vw"
+  className="h-full w-full object-contain"
+/>
+          </div>
         </div>
       </div>
     </section>

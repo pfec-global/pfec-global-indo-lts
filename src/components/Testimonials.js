@@ -1,22 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import useLoopSlider from "./useLoopSlider";
+import { useEffect, useState } from "react";
 
 const AUTOPLAY_MS = 4000;
 
-const points = [
-  "Personalized Guidance based on your goals",
-  "Virtual & In Person Assistance",
-  "No Fluff. Just Honest Guidance Every Time.",
-];
-
-// Placeholder copy from the Figma file: replace with real student testimonials.
 const testimonials = [
   {
     photo: "Abdul-Deriya.png",
     quote:
-      "My name is Abdul Deriya, and I recently received my Dubai student visa. I would like to give special thanks to PFEC Global for supporting me throughout the entire process, from counselling to visa approval. I visited many local consultancies, but I did not receive the proper guidance I was looking for. am very satisfied with the support and professionalism of the PFEC counsellor team.",
+      "My name is Abdul Deriya, and I recently received my Dubai student visa. I would like to give special thanks to PFEC Global for supporting me throughout the entire process, from counselling to visa approval. I visited many local consultancies, but I did not receive the proper guidance I was looking for. I am very satisfied with the support and professionalism of the PFEC counsellor team.",
     name: "Abdul Deriya",
     role: "Manipal Academy of Higher Education - Dubai Campus",
   },
@@ -27,162 +20,177 @@ const testimonials = [
     name: "Giash Uddin",
     role: "RMIT University - Bachelor of Engineering (Mechanical)",
   },
-
-   {
+  {
     photo: "SACHINI.png",
     quote:
       "I had a very positive experience with PFEC Global Sri Lanka during my Australian student visa process. They handled my application with great professionalism and dedication from start to finish. My counselor guided me step by step, explained every detail clearly, and was always available whenever I had questions. The whole process was smooth and completely stress-free.",
-    name: "SACHINI THISHADI WEERASINGHE & Spouse",
+    name: "Sachini Thishadi Weerasinghe & Spouse",
     role: "Murdoch University - Master of Engineering (Practice)",
   },
 ];
 
-function Chevron({ label, onClick, flip }) {
+function Arrow({ direction = "right" }) {
   return (
-    <button
-      type="button"
-      aria-label={label}
-      onClick={onClick}
-      className="flex h-9 w-9 cursor-pointer items-center justify-center text-brand transition-opacity hover:opacity-70"
+    <svg
+      viewBox="0 0 24 24"
+      className={`h-5 w-5 ${
+        direction === "left" ? "rotate-180" : ""
+      }`}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
     >
-      <svg
-        viewBox="0 0 24 24"
-        className={`h-6 w-6 ${flip ? "rotate-180" : ""}`}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="3.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M15 4l-8 8 8 8" />
-      </svg>
-    </button>
+      <path d="m9 18 6-6-6-6" />
+    </svg>
   );
 }
 
 export default function Testimonials() {
-  const count = testimonials.length;
-  // The list is rendered twice so the track can loop without a visible jump.
-  const {
-    active,
-    animate,
-    trackStyle,
-    dragProps,
-    next,
-    prev,
-    goTo,
-    handleTransitionEnd,
-    setPaused,
-  } = useLoopSlider(count, AUTOPLAY_MS);
+  const [active, setActive] = useState(0);
+  const [visibleCards, setVisibleCards] = useState(2);
+  const maxIndex = Math.max(0, testimonials.length - visibleCards);
+
+  useEffect(() => {
+    const updateCards = () => {
+      setVisibleCards(window.innerWidth < 768 ? 1 : 2);
+    };
+
+    updateCards();
+    window.addEventListener("resize", updateCards);
+
+    return () => window.removeEventListener("resize", updateCards);
+  }, []);
+
+  useEffect(() => {
+    setActive((current) => Math.min(current, maxIndex));
+  }, [maxIndex]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActive((current) => (current >= maxIndex ? 0 : current + 1));
+    }, AUTOPLAY_MS);
+
+    return () => clearInterval(timer);
+  }, [maxIndex]);
+
+  const prev = () => {
+    setActive((current) => (current <= 0 ? maxIndex : current - 1));
+  };
+
+  const next = () => {
+    setActive((current) => (current >= maxIndex ? 0 : current + 1));
+  };
 
   return (
-    <section className="overflow-hidden bg-gradient-to-b from-[#fdfdfd] to-[#fff0bc] font-poppins">
-      <div className="mx-auto grid max-w-[105rem] gap-10 px-4 pt-12 sm:px-8 lg:px-12 xl:grid-cols-[37.5rem_1fr] xl:gap-0 xl:pt-0">
-        <div className="min-w-0 xl:pb-16 xl:pt-[6.2rem]">
-          <span className="inline-block bg-brand px-2.5 py-1.5 text-xs font-semibold text-white xl:text-[0.8rem]">
-            Testimonials
-          </span>
-          <h2 className="mt-4 text-3xl font-bold leading-tight text-brand sm:text-4xl xl:text-[2.45rem] xl:leading-[3rem]">
-            Honest Advice.
-            <br />
-            Real Outcomes.
-          </h2>
-          <p className="mt-4 text-lg text-neutral-600 xl:text-xl">
-            Hear it from our Students
-          </p>
-          <div className="mt-6 h-0.5 w-[12.8rem] bg-accent" />
+    <section className="overflow-hidden bg-[#100B36] font-poppins text-white">
+      <div className="mx-auto max-w-[1440px] px-5 py-12 sm:px-8 lg:px-[7.3%] lg:py-[72px]">
+        {/* Heading */}
+        <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end lg:mb-7">
+          <div>
+            <p className="mb-3 text-[11px] font-semibold uppercase leading-none text-[#FBCB20] sm:text-xs">
+              Student Stories
+            </p>
 
-          <ul className="mt-7 space-y-3.5 text-base text-neutral-700 xl:text-[1.06rem]">
-            {points.map((point) => (
-              <li key={point} className="flex items-center gap-3">
-                <Image
-                  src="/images/rectangle_bar.svg"
-                  alt=""
-                  width={21}
-                  height={24}
-                  className="h-6 w-auto shrink-0"
-                />
-                {point}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="relative min-w-0 pb-10 pt-8 xl:pb-[4.2rem] xl:pt-[4.25rem]">
-          {/* Yellow panel running off the right edge of the screen */}
-          <div className="absolute -inset-x-4 inset-y-0 rounded-tl-[2rem] bg-sun sm:-inset-x-8 lg:-inset-x-12 xl:left-[5.6rem] xl:right-auto xl:top-[1.8rem] xl:w-screen xl:rounded-tl-[3rem]" />
-
-          {/* Clips cards at the left edge so they never slide over the text column */}
-          <div className="relative xl:[clip-path:inset(0_-100vw_0_0)]">
-            <ul
-              onTransitionEnd={handleTransitionEnd}
-              onMouseEnter={() => setPaused(true)}
-              onMouseLeave={() => setPaused(false)}
-              {...dragProps}
-              style={trackStyle}
-              className={`relative flex cursor-grab touch-pan-y select-none gap-4 active:cursor-grabbing [--step:20rem] sm:[--step:25rem] xl:gap-[1.9rem] xl:[--step:53.2rem] ${
-                animate ? "transition-transform duration-700 ease-out" : ""
-              }`}
-            >
-              {[...testimonials, ...testimonials].map(
-                ({ photo, quote, name, role }, i) => (
-                  <li
-                    key={i}
-                    aria-hidden={i >= count}
-                    className="group relative flex w-[19rem] shrink-0 flex-col gap-5 rounded-br-[1.75rem] rounded-tl-[1.75rem] border border-neutral-300 bg-white transition-colors duration-300 hover:border-brand p-4 sm:w-[24rem] xl:h-[22.8rem] xl:w-[51.3rem] xl:flex-row xl:gap-6 xl:p-[1.55rem]"
-                  >
-                    <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded-xl xl:aspect-auto xl:h-full xl:w-[18.15rem]">
-                      <Image
-                        src={`/images/testimonial/${photo}`}
-                        alt={name}
-                        fill
-                        sizes="(min-width: 1280px) 18rem, 24rem"
-                        className="object-cover object-[30%_20%] transition-transform duration-700 ease-out group-hover:scale-110"
-                      />
-                    </div>
-
-                    <div className="flex flex-col justify-center xl:pr-16">
-                      <p className="text-[15px] leading-relaxed text-neutral-900 xl:text-[1.06rem] xl:leading-[1.5rem]">
-                        &ldquo;{quote}&rdquo;
-                      </p>
-                      <p className="mt-4 font-semibold uppercase text-neutral-900 xl:text-[1.06rem]">
-                        {name}
-                      </p>
-                      <p className="mt-1 text-sm text-neutral-600 xl:text-[0.9rem]">
-                        {role}
-                      </p>
-                    </div>
-
-                    <span
-                      aria-hidden="true"
-                      className="absolute right-5 top-2 hidden font-serif text-[5rem] font-bold leading-none text-brand transition-colors duration-300 group-hover:text-accent xl:block"
-                    >
-                      &rdquo;
-                    </span>
-                  </li>
-                ),
-              )}
-            </ul>
+            <h2 className="font-neue-reman text-[26px] font-bold leading-tight tracking-[-0.5px] sm:text-[32px]">
+              Honest advice. Real outcomes.
+            </h2>
           </div>
 
-          <div className="relative mt-6 flex items-center gap-8 xl:mt-9">
-            <Chevron label="Previous testimonial" onClick={prev} />
-            <div className="flex items-center gap-4">
-              {testimonials.map(({ photo }, i) => (
-                <button
-                  key={photo}
-                  type="button"
-                  aria-label={`Go to testimonial ${i + 1}`}
-                  aria-current={i === active}
-                  onClick={() => goTo(i)}
-                  className={`h-3.5 w-3.5 cursor-pointer rounded-full transition-colors ${
-                    i === active ? "bg-brand" : "bg-white"
-                  }`}
-                />
-              ))}
-            </div>
-            <Chevron label="Next testimonial" onClick={next} flip />
+          <p className="pb-1 text-[12px] leading-5 text-white/85 sm:text-[13px]">
+            Personal guidance based on your goals, virtual or in person.
+          </p>
+        </div>
+
+        {/* Carousel */}
+        <div className="overflow-hidden">
+          <div
+            className="flex items-stretch gap-[30px] transition-transform duration-700 ease-in-out"
+            style={{
+              transform: `translateX(calc(${active} * (-100% - 30px) / ${visibleCards}))`,
+            }}
+          >
+            {testimonials.map((item) => (
+              <article
+                key={item.name}
+                className="group flex min-h-[282px] w-full shrink-0 flex-col gap-5 rounded-[16px] border border-white/15 bg-[#261F57] p-[18px] transition-colors duration-300 hover:border-[#FBCB20]/60 sm:p-[18px] md:flex-row md:items-stretch md:gap-[18px]"
+                style={{
+                  width: `calc((100% - ${
+                    (visibleCards - 1) * 30
+                  }px) / ${visibleCards})`,
+                }}
+              >
+                {/* Student photo */}
+                <div className="relative h-[210px] w-full shrink-0 overflow-hidden rounded-[10px] bg-[#FBCB20] md:h-auto md:w-[42%]">
+                  <Image
+                    src={`/images/testimonial/${item.photo}`}
+                    alt={item.name}
+                    fill
+                    sizes="(max-width: 767px) 90vw, 22vw"
+                    className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
+
+                {/* Testimonial content */}
+                <div className="flex min-w-0 flex-1 flex-col justify-center py-1 md:py-2">
+                  <p className="text-[13px] leading-[1.4rem] text-white/90 sm:text-[13px]">
+                    {item.quote}
+                  </p>
+
+                  <div className="mt-4">
+                    <h3 className="text-[13px] font-medium uppercase leading-5 text-[#FBCB20]">
+                      {item.name}
+                    </h3>
+
+                    <p className="mt-1 text-[10px] leading-[1.1rem] text-white/60 sm:text-[11px]">
+                      {item.role}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        {/* Carousel controls */}
+        <div className="mt-6 flex items-center justify-between md:mt-7">
+          <div className="flex items-center gap-2">
+            {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                aria-label={`Go to testimonial slide ${index + 1}`}
+                aria-current={active === index}
+                onClick={() => setActive(index)}
+                className={`h-[7px] rounded-full transition-all duration-300 ${
+                  active === index
+                    ? "w-7 bg-[#FBCB20]"
+                    : "w-[7px] bg-white/35 hover:bg-white/70"
+                }`}
+              />
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              aria-label="Previous testimonials"
+              onClick={prev}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-white transition hover:border-[#FBCB20] hover:text-[#FBCB20]"
+            >
+              <Arrow direction="left" />
+            </button>
+
+            <button
+              type="button"
+              aria-label="Next testimonials"
+              onClick={next}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-white transition hover:border-[#FBCB20] hover:text-[#FBCB20]"
+            >
+              <Arrow />
+            </button>
           </div>
         </div>
       </div>

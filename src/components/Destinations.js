@@ -1,183 +1,211 @@
+
 "use client";
 
-import { useEffect, useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
-import Flag from "./Flag";
-
-const AUTOPLAY_MS = 3000;
 
 const destinations = [
-  { name: "Australia", flag: "au", image: "au.jpg" },
-  { name: "New Zealand", flag: "nz", image: "nz.jpg" },
-  { name: "Canada", flag: "ca", image: "ca.jpg" },
-  { name: "USA", flag: "us", image: "usa.jpg" },
-  { name: "Ireland", flag: "ie", image: "airland.jpg" },
-  { name: "UK", flag: "uk", image: "uk.jpg" },
-  { name: "Europe", flag: "eu", image: "europ.jpg" },
-  { name: "Germany", flag: "de", image: "germany.jpg" },
-  { name: "Malaysia", flag: "my", image: "malaysia.jpg" },
-  { name: "Dubai", flag: "ae", image: "dubai.jpg" },
-  { name: "Japan", flag: "jp", image: "japan.jpg" },
+  {
+    name: "Australia",
+    image: "au.jpg",
+    description: "Study in Australia",
+  },
+  {
+    name: "United Kingdom",
+    image: "uk.jpg",
+    description: "Study in the UK",
+  },
+  {
+    name: "Canada",
+    image: "ca.jpg",
+    description: "Study in Canada",
+  },
+  {
+    name: "New Zealand",
+    image: "nz.jpg",
+    description: "Study in New Zealand",
+  },
+  {
+    name: "USA",
+    image: "usa.jpg",
+    description: "Study in the USA",
+  },
+  {
+    name: "Ireland",
+    image: "airland.jpg",
+    description: "Study in Ireland",
+  },
+  {
+    name: "Germany",
+    image: "germany.jpg",
+    description: "Study in Germany",
+  },
+  {
+    name: "Europe",
+    image: "europ.jpg",
+    description: "Study in Europe",
+  },
+  {
+    name: "Malaysia",
+    image: "malaysia.jpg",
+    description: "Study in Malaysia",
+  },
+  {
+    name: "Dubai",
+    image: "dubai.jpg",
+    description: "Study in Dubai",
+  },
+  {
+    name: "Japan",
+    image: "japan.jpg",
+    description: "Study in Japan",
+  },
 ];
 
-// Card placement by distance from the active (centre) card.
-const slots = {
-  "-2": "z-10 -translate-x-[148%] scale-[0.7]",
-  "-1": "z-20 -translate-x-[85%] scale-[0.8]",
-  0: "z-30 shadow-[0_10px_40px_rgba(0,0,0,0.3)]",
-  1: "z-20 translate-x-[85%] scale-[0.8]",
-  2: "z-10 translate-x-[148%] scale-[0.7]",
-};
+function ArrowButton({ direction, onClick, label }) {
+  const isLeft = direction === "left";
 
-// Cards further out wait, invisible, behind the outermost visible card.
-const hiddenLeft =
-  "pointer-events-none z-0 -translate-x-[185%] scale-[0.6] opacity-0";
-const hiddenRight =
-  "pointer-events-none z-0 translate-x-[185%] scale-[0.6] opacity-0";
-
-function ArrowButton({ label, onClick, flip }) {
   return (
     <button
       type="button"
-      aria-label={label}
       onClick={onClick}
-      className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-brand text-white transition-opacity hover:opacity-85 xl:h-[3.6rem] xl:w-[3.6rem]"
+      aria-label={label}
+      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#24139b] text-white transition-all duration-300 hover:scale-110 hover:bg-[#100B36] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#24139b] sm:h-10 sm:w-10"
     >
       <svg
         viewBox="0 0 24 24"
-        className={`h-1/2 w-1/2 ${flip ? "rotate-180" : ""}`}
+        className={`h-5 w-5 ${isLeft ? "" : "rotate-180"}`}
         fill="none"
         stroke="currentColor"
-        strokeWidth="2.5"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
         aria-hidden="true"
       >
-        <path d="M15 5l-7 7 7 7" />
+        <path d="m15 18-6-6 6-6" />
       </svg>
     </button>
   );
 }
 
-export default function Destinations() {
-  const [active, setActive] = useState(0);
-  const count = destinations.length;
-  const [paused, setPaused] = useState(false);
-  const move = (step) => setActive((active + step + count) % count);
+export default function Countries() {
+  const carouselRef = useRef(null);
 
-  // Restarts on every change, so a click or arrow press gets a full interval.
-  useEffect(() => {
-    if (paused) return;
-    const timer = setTimeout(
-      () => setActive((active + 1) % count),
-      AUTOPLAY_MS,
-    );
-    return () => clearTimeout(timer);
-  }, [active, paused, count]);
+  const scrollCarousel = (direction) => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    const firstCard = carousel.querySelector("[data-country-card]");
+    const cardWidth = firstCard
+      ? firstCard.getBoundingClientRect().width
+      : 210;
+
+    const gap = 16;
+
+    carousel.scrollBy({
+      left: direction * (cardWidth + gap),
+      behavior: "smooth",
+    });
+  };
 
   return (
-    <section className="relative overflow-hidden bg-[#f9f9f9] font-poppins">
-      {/* Decorations */}
-      <Image
-        src="/images/net_img_1.png"
-        alt=""
-        width={360}
-        height={360}
-        className="absolute -right-24 -top-28 h-auto w-[22rem] -rotate-[28deg] opacity-10 xl:-right-16 xl:-top-40 xl:w-[42rem]"
-      />
-      <Image
-        src="/images/net_img_2.png"
-        alt=""
-        width={360}
-        height={360}
-        className="absolute -bottom-28 -left-24 h-auto w-[22rem] -rotate-[28deg] opacity-10 xl:-bottom-40 xl:-left-16 xl:w-[42rem]"
-      />
-      <Image
-        src="/images/circle_star.png"
-        alt=""
-        width={328}
-        height={328}
-        className="absolute left-[8.9rem] top-[11.2rem] hidden h-auto w-[8.3rem] motion-safe:animate-[spin_18s_linear_infinite] xl:block"
-      />
-      <Image
-        src="/images/circle_line.png"
-        alt=""
-        width={235}
-        height={235}
-        className="absolute right-[6.5rem] top-[6.2rem] hidden h-auto w-[7.5rem] motion-safe:animate-[spin_12s_linear_infinite_reverse] xl:block"
-      />
-      <Image
-        src="/images/pfec_logo_line.png"
-        alt=""
-        width={344}
-        height={157}
-        className="absolute bottom-8 right-[4.9rem] hidden h-auto w-[17.3rem] opacity-25 xl:block"
-      />
+    <section
+      id="destinations"
+      className="w-full overflow-hidden bg-[#f7f6fc] py-14 sm:py-16 lg:py-[72px]"
+    >
+      <div className="mx-auto max-w-[1440px]">
+        {/* Section heading and carousel controls */}
+        <div className="mb-7 flex flex-col justify-between gap-5 px-5 sm:mb-8 sm:px-8 lg:flex-row lg:items-end lg:px-12">
+          <div className="max-w-[550px]">
+            <span className="text-[11px] font-bold uppercase tracking-wide text-[#24139b]">
+              Countries
+            </span>
 
-      <div className="relative mx-auto max-w-[105rem] px-4 py-12 sm:px-8 lg:px-12 xl:pb-9 xl:pt-[5.6rem]">
-        <h2 className="text-center text-2xl leading-snug text-neutral-900 sm:text-3xl xl:text-[2.4rem]">
-          Explore &amp; Apply to{" "}
-          <span className="font-bold text-brand">
-            11 Global Study Destinations
-          </span>
-        </h2>
-        <p className="mx-auto mt-3 max-w-[60rem] text-center text-base text-neutral-600 xl:mt-5 xl:text-xl xl:leading-[1.9rem]">
-          PFEC Global is a partner of renowned institutions across major study
-          destinations. <br className="hidden xl:block" />
-          Pick a destination and learn everything you need to make an informed
-          decision.
-        </p>
+            <h2 className="mt-3 font-neue-reman text-[27px] font-extrabold leading-[1.12] text-[#100B36] sm:text-[32px]">
+              Explore &amp; Apply to 11 Global
+              <br className="hidden sm:block" /> Study Destinations
+            </h2>
+          </div>
 
-        {/* Carousel */}
-        <div
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          className="relative mx-auto mt-8 aspect-[238/322] w-[min(58vw,17rem)] xl:mt-10 xl:w-[24.7rem]"
-        >
-          {destinations.map(({ name, flag, image }, i) => {
-            let offset = (i - active + count) % count;
-            if (offset > count / 2) offset -= count;
-            return (
-              <button
-                key={name}
-                type="button"
-                onClick={() => setActive(i)}
-                aria-label={`Study in ${name}`}
-                aria-current={offset === 0}
-                aria-hidden={Math.abs(offset) > 2}
-                tabIndex={Math.abs(offset) > 2 ? -1 : 0}
-                className={`group absolute inset-0 cursor-pointer overflow-hidden rounded-xl text-left transition duration-500 ease-out hover:-translate-y-2 hover:shadow-[0_18px_44px_rgba(16,6,148,0.35)] ${slots[offset] ?? (offset < 0 ? hiddenLeft : hiddenRight)}`}
-              >
-                <Image
-                  src={`/images/county/${image}`}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1280px) 22vw, 17rem"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                />
-                <span className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/60 to-transparent transition-[height] duration-500 group-hover:h-2/3" />
-                <span className="absolute bottom-[7%] left-[6%] flex flex-col items-start">
-                  <span className="text-lg font-light leading-tight text-white xl:text-[1.75rem]">
-                    Study in
-                  </span>
-                  <span className="mt-1 -rotate-2 bg-white px-2 py-0.5 text-xl font-bold text-brand xl:px-3 xl:py-1 xl:text-[2rem] xl:leading-[2.5rem]">
-                    {name}
-                  </span>
-                </span>
-                <Flag
-                  code={flag}
-                  className="absolute bottom-[7%] right-[5%] h-10 w-10 border-2 border-white xl:h-[4.1rem] xl:w-[4.1rem]"
-                />
-              </button>
-            );
-          })}
+          <div className="flex items-end justify-between gap-5 lg:max-w-[360px]">
+            <p className="max-w-[300px] text-[12px] leading-[1.65] text-[#514b70] sm:text-[13px] lg:text-right">
+              Pick a country to see universities, courses and visa steps, or
+              let a counsellor help you compare.
+            </p>
+
+            <div className="flex shrink-0 gap-2">
+              <ArrowButton
+                direction="left"
+                label="Previous countries"
+                onClick={() => scrollCarousel(-1)}
+              />
+              <ArrowButton
+                direction="right"
+                label="Next countries"
+                onClick={() => scrollCarousel(1)}
+              />
+            </div>
+          </div>
         </div>
 
-        <div className="relative mt-7 flex justify-center gap-3 xl:mt-9">
-          <ArrowButton label="Previous destination" onClick={() => move(-1)} />
-          <ArrowButton label="Next destination" onClick={() => move(1)} flip />
+        {/* Horizontal country carousel */}
+        <div
+          ref={carouselRef}
+          className="country-carousel flex gap-4 overflow-x-auto px-5 pb-2 sm:px-8 lg:px-12"
+          aria-label="Study destinations"
+        >
+          {destinations.map((country) => (
+            <a
+              key={country.name}
+              data-country-card
+              href={`#${country.name.toLowerCase().replaceAll(" ", "-")}`}
+              className="group relative h-[245px] w-[195px] shrink-0 snap-start overflow-hidden rounded-[16px] bg-[#100B36] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:h-[264px] sm:w-[212px] lg:h-[264px] lg:w-[212px]"
+              aria-label={country.description}
+            >
+              {/* Country image */}
+              <Image
+                src={`/images/county/${country.image}`}
+                alt={`${country.name} study destination`}
+                fill
+                sizes="(max-width: 640px) 195px, 212px"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+              />
+
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#100B36] via-[#100B36]/45 to-transparent opacity-95 transition-opacity duration-300 group-hover:opacity-100" />
+
+              {/* Country title */}
+              <div className="absolute inset-x-0 bottom-0 p-3.5 text-white sm:p-[14px]">
+                <h3 className="font-neue-reman text-[16px] font-extrabold leading-tight sm:text-[17px]">
+                  {country.name}
+                </h3>
+
+                <p className="mt-1 text-[10px] leading-relaxed text-white/90">
+                  {country.description}{" "}
+                  <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
+                    →
+                  </span>
+                </p>
+              </div>
+            </a>
+          ))}
         </div>
       </div>
+
+      {/* Hide scrollbar while retaining touch and trackpad scrolling */}
+      <style jsx>{`
+        .country-carousel {
+          scroll-snap-type: x mandatory;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+          overscroll-behavior-x: contain;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .country-carousel::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </section>
   );
 }

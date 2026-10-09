@@ -1,15 +1,17 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Count from "@/components/Count";
-import Services from "@/components/Services";
-import Aspirations from "@/components/Aspirations";
+
 import Destinations from "@/components/Destinations";
+import MadeForBoth from "@/components/MadeForBoth";
+import HowItWorks from "@/components/HowItWorks";
+import OurServices from "@/components/OurServices";
 import FindCourse from "@/components/FindCourse";
-import Awards from "@/components/Awards";
-import Affiliations from "@/components/Affiliations";
+import AwardsAndAffiliations from "@/components/AwardsAndAffiliations";
+import AboutPFEC from "@/components/AboutPFEC";
+import FAQ from "@/components/FAQ";
+import ObligationForm from "@/components/ObligationForm";
 import Testimonials from "@/components/Testimonials";
-import Journey from "@/components/Journey";
-import Consultation from "@/components/Consultation";
 import ConsultationPopup from "@/components/ConsultationPopup";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
@@ -27,32 +29,38 @@ export default function Home() {
           <Count />
         </Reveal>
         <Reveal id="services">
-          <Services />
+          <MadeForBoth />
         </Reveal>
         <Reveal>
-          <Aspirations />
+          <HowItWorks  />
         </Reveal>
         <Reveal id="destinations">
           <Destinations />
         </Reveal>
+          <Reveal>
+          <OurServices  />
+        </Reveal>
         <Reveal id="courses">
           <FindCourse />
         </Reveal>
-        <Reveal id="awards">
-          <Awards />
-        </Reveal>
-        <Reveal id="affiliations">
-          <Affiliations />
-        </Reveal>
-        <Reveal id="testimonials">
+
+          <Reveal id="testimonials">
           <Testimonials />
         </Reveal>
+        
+        <Reveal id="awards">
+          <AwardsAndAffiliations />
+        </Reveal>
         <Reveal id="about">
-          <Journey />
+          <AboutPFEC />
         </Reveal>
-        <Reveal id="consultation">
-          <Consultation />
+        <Reveal>
+          <FAQ />
         </Reveal>
+         <Reveal>
+          <ObligationForm />
+        </Reveal>
+       
        
       </main>
       <ConsultationPopup />
