@@ -94,7 +94,7 @@ export default function FAQ() {
             href="https://wa.me/"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-2 inline-flex min-h-[39px] items-center gap-3 rounded-full border border-[#B8DCCB] bg-white px-4 py-2 font-jakarta text-[11px] font-semibold text-[#18794E] transition-colors hover:bg-[#EFFAF4] sm:text-[12px]"
+            className="mt-2 inline-flex min-h-[39px] items-center gap-3 rounded-full border border-[#B8DCCB] bg-white px-4 py-2 font-jakarta text-[12px] font-semibold text-[#18794E] transition-colors hover:bg-[#EFFAF4] sm:text-[12px]"
           >
             <svg
               viewBox="0 0 24 24"
@@ -174,7 +174,7 @@ export default function FAQ() {
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <p className="px-4 pb-3 font-jakarta text-[11px] leading-[1.55] text-[#57536D] sm:px-[14px] sm:text-[12px]">
+                    <p className="px-4 pb-3 font-jakarta text-[13px] leading-[1.55] text-[#57536D] sm:px-[14px] sm:text-[13px]">
                       {faq.answer}
                     </p>
                   </div>
