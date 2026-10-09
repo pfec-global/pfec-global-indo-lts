@@ -201,7 +201,7 @@ export default function Hero() {
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <a
               href="#"
-              className="group inline-flex min-h-[46px] items-center gap-3 rounded-full bg-[#ffd43b] px-5 py-3 text-sm font-bold text-[#120d36] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:text-sm pop-up"
+              className="group inline-flex min-h-[46px] items-center gap-3 rounded-full bg-[#ffd43b] px-5 py-3 text-sm font-bold text-[#120d36] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:text-[12px] pop-up"
             >
               {isEnglish ? "Book a free consultation" : "Book a free consultation"}
               <ArrowIcon />
@@ -209,7 +209,7 @@ export default function Hero() {
 
             <a
               href="#"
-              className="inline-flex min-h-[46px] items-center gap-2 rounded-full border border-[#b8dec6] bg-white px-4 py-3 text-sm font-semibold text-[#187647] transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:text-sm pop-up"
+              className="inline-flex min-h-[46px] items-center gap-2 rounded-full border border-[#b8dec6] bg-white px-4 py-3 text-sm font-semibold text-[#187647] transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:text-[12px] pop-up"
             >
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#55bd67] text-white">
                 <WhatsAppIcon />
