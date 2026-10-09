@@ -1,13 +1,20 @@
 @import "tailwindcss";
 
 @theme inline {
+  /* Brand Colors */
   --color-brand: #100694;
   --color-sun: #fbcb20;
   --color-accent: #e84b37;
-  --font-sans: var(--font-montserrat);
-  --font-neue-reman: var(--font-neue-reman);
+
+  /* Font Families */
+  --font-sans: var(--font-plus-jakarta-sans);
+  --font-jakarta: var(--font-plus-jakarta-sans);
+  --font-neue: var(--font-neue-reman);
   --font-bebas: var(--font-bebas-neue);
-  --font-poppins: var(--font-poppins);
+  --font-poppins-custom: var(--font-poppins);
+  --font-titan: var(--font-titan-one);
+
+  /* Animations */
   --animate-float: float 3.5s ease-in-out infinite;
   --animate-ring: ring 4s ease-in-out infinite;
   --animate-bob: bob 4s ease-in-out infinite;
@@ -15,8 +22,7 @@
   --animate-breathe: breathe 7s ease-in-out infinite;
 
   @keyframes float {
-    0%,
-    100% {
+    0%, 100% {
       transform: translateY(0) rotate(0deg);
     }
     50% {
@@ -25,8 +31,7 @@
   }
 
   @keyframes bob {
-    0%,
-    100% {
+    0%, 100% {
       transform: translateY(0);
     }
     50% {
@@ -35,8 +40,7 @@
   }
 
   @keyframes hop {
-    0%,
-    100% {
+    0%, 100% {
       transform: translateY(0);
     }
     50% {
@@ -45,8 +49,7 @@
   }
 
   @keyframes breathe {
-    0%,
-    100% {
+    0%, 100% {
       transform: scale(1);
     }
     50% {
@@ -55,8 +58,7 @@
   }
 
   @keyframes ring {
-    0%,
-    100% {
+    0%, 100% {
       transform: scale(1);
       opacity: 1;
     }
@@ -67,12 +69,14 @@
   }
 }
 
-/* Desktop is drawn on a 1900px Figma frame: scale the root font size with the
-   viewport (16px at 1900px) so every rem-based size keeps the Figma proportions. */
+/* Base Styles */
 @layer base {
-  /* Footer and nav links glide to their section, stopping below the sticky navbar. */
   html {
     scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    font-family: var(--font-plus-jakarta-sans), Arial, Helvetica, sans-serif;
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -81,6 +85,7 @@
     }
   }
 
+  /* Scale desktop based on 1900px Figma design */
   @media (width >= 1280px) {
     html {
       font-size: min(16px, 0.8421vw);
@@ -88,8 +93,24 @@
   }
 }
 
+/* Body */
 body {
   background: #fffdf3;
   color: #1c1c1c;
-  font-family: var(--font-montserrat), Arial, Helvetica, sans-serif;
+}
+
+/* Hero Banner Heading */
+.hero-title {
+  font-family: var(--font-neue-reman), Arial, Helvetica, sans-serif;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }

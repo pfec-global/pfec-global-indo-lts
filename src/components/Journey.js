@@ -14,7 +14,7 @@ export default function Journey() {
     <section className="overflow-hidden bg-[#050768] text-white">
       <div className="mx-auto grid max-w-[105rem] items-center gap-10 px-4 py-12 sm:px-8 lg:px-12 xl:grid-cols-[1fr_55.4rem] xl:gap-6 xl:py-[3.1rem]">
         <Reveal x={-40} y={0}>
-          <h2 className="mt-6 font-poppins text-3xl font-bold leading-tight sm:text-4xl xl:mt-8 xl:text-[2.5rem] xl:leading-[3rem]">
+          <h2 className="mt-6 --font-sans text-3xl font-bold leading-tight sm:text-4xl xl:mt-8 xl:text-[2.5rem] xl:leading-[3rem]">
             Your study abroad journey
             <br className="hidden sm:block" /> starts with one conversation.
           </h2>

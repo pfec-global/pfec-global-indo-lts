@@ -82,85 +82,104 @@ const parentPoints = [
 
 export default function MadeForBoth() {
   return (
-    <section className="w-full bg-[#f7f6fc] py-16 sm:py-20 lg:py-24">
+    <section className="w-full bg-[#f7f6fc] py-16 font-jakarta sm:py-20 lg:py-24">
       <div className="mx-auto w-full max-w-[1100px] px-5 sm:px-8">
-        {/* Section heading */}
+
+        {/* SECTION HEADING */}
         <div className="mb-8 sm:mb-9">
-          <span className="text-[11px] font-bold uppercase tracking-wide text-[#24139b]">
+          <span className="font-jakarta text-[11px] font-bold uppercase tracking-wide text-[#24139b]">
             Made for both of you
           </span>
 
-          <h2 className="mt-3 font-neue-reman text-2xl font-extrabold leading-[1.15] text-[#100B36] sm:text-3xl">
+          <h2 className="mt-3 font-jakarta text-2xl font-extrabold leading-[1.15] text-[#100B36] sm:text-3xl">
             Studying abroad is a family decision.
             <br className="hidden sm:block" /> We talk to both of you.
           </h2>
         </div>
 
-        {/* Cards */}
+        {/* CARDS */}
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-[18px]">
-          {/* FIRST BOX — STUDENTS */}
+
+          {/* FIRST BOX - STUDENTS */}
           <article className="group rounded-[22px] border border-transparent bg-[#100B36] p-6 text-white transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-[#ded9ed] hover:bg-white hover:shadow-[0_15px_35px_rgba(16,11,54,0.14)] sm:p-[30px]">
-            <span className="inline-flex rounded-full bg-[#ffd43b] px-3 py-1.5 text-[10px] font-bold text-[#100B36] transition-colors duration-300 group-hover:bg-[#e9e4ff]">
+
+            {/* Student Label */}
+            <span className="inline-flex rounded-full bg-[#ffd43b] px-3 py-1.5 font-jakarta text-[10px] font-bold text-[#100B36] transition-colors duration-300 group-hover:bg-[#e9e4ff]">
               For students
             </span>
 
-            <h3 className="mt-4 max-w-[390px] font-neue-reman text-base font-extrabold leading-[1.12] text-white transition-colors duration-300 group-hover:text-[#100B36] sm:text-[25px]">
+            {/* Student Heading */}
+            <h3 className="mt-4 max-w-[390px] font-jakarta text-base font-extrabold leading-[1.12] text-white transition-colors duration-300 group-hover:text-[#100B36] sm:text-[25px]">
               Find a course and a city that feel like you.
             </h3>
 
+            {/* Student Benefits */}
             <ul className="mt-4 space-y-2.5">
               {studentPoints.map((point) => (
                 <li
                   key={point}
-                  className="flex items-start gap-2.5 text-[12px] leading-[1.5] text-white/85 transition-colors duration-300 group-hover:text-[#514b70]"
+                  className="flex items-start gap-2.5 font-jakarta text-[12px] leading-[1.5] text-white/85 transition-colors duration-300 group-hover:text-[#514b70]"
                 >
                   <span className="mt-0.5 shrink-0 text-[#ffd43b] transition-colors duration-300 group-hover:text-[#100B36]">
                     <CheckIcon />
                   </span>
+
                   <span>{point}</span>
                 </li>
               ))}
             </ul>
 
+            {/* Student CTA */}
             <a
-              href="#"
-              className="mt-5 inline-flex items-center justify-center rounded-full bg-[#ffd43b] px-4 py-3 text-[12px] font-bold text-[#100B36] transition-all duration-300 hover:scale-[1.03] hover:bg-[#100B36] hover:text-white pop-up"
+              href="#consultation"
+              className="pop-up mt-5 inline-flex items-center justify-center rounded-full bg-[#ffd43b] px-4 py-3 font-jakarta text-[12px] font-bold text-[#100B36] transition-all duration-300 hover:scale-[1.03] hover:bg-[#100B36] hover:text-white"
             >
               Book Free Consultation
             </a>
           </article>
 
-          {/* SECOND BOX — PARENTS */}
+          {/* SECOND BOX - PARENTS */}
           <article className="group rounded-[22px] border border-[#ded9ed] bg-white p-6 text-[#100B36] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-[#100B36] hover:bg-[#100B36] hover:shadow-[0_15px_35px_rgba(16,11,54,0.14)] sm:p-[30px]">
-            <span className="inline-flex rounded-full bg-[#e9e4ff] px-3 py-1.5 text-[10px] font-bold text-[#100B36] transition-colors duration-300 group-hover:bg-[#ffd43b]">
+
+            {/* Parent Label */}
+            <span className="inline-flex rounded-full bg-[#e9e4ff] px-3 py-1.5 font-jakarta text-[10px] font-bold text-[#100B36] transition-colors duration-300 group-hover:bg-[#ffd43b]">
               For parents
             </span>
 
-            <h3 className="mt-4 max-w-[410px] font-neue-reman text-[23px] font-extrabold leading-[1.12] text-[#100B36] transition-colors duration-300 group-hover:text-white sm:text-[25px]">
+            {/* Parent Heading */}
+            <h3 className="mt-4 max-w-[410px] font-jakarta text-[23px] font-extrabold leading-[1.12] text-[#100B36] transition-colors duration-300 group-hover:text-white sm:text-[25px]">
               Honest guidance you can check, and people you can meet.
             </h3>
 
+            {/* Parent Benefits */}
             <ul className="mt-4 space-y-2.5">
               {parentPoints.map((point, index) => (
                 <li
                   key={point}
-                  className="flex items-start gap-2.5 text-[12px] leading-[1.5] text-[#514b70] transition-colors duration-300 group-hover:text-white"
+                  className="flex items-start gap-2.5 font-jakarta text-[12px] leading-[1.5] text-[#514b70] transition-colors duration-300 group-hover:text-white"
                 >
                   <span className="mt-0.5 shrink-0 text-[#24139b] transition-colors duration-300 group-hover:text-white">
                     <ParentIcon
                       type={
-                        ["shield", "wallet", "location", "people"][index]
+                        [
+                          "shield",
+                          "wallet",
+                          "location",
+                          "people",
+                        ][index]
                       }
                     />
                   </span>
+
                   <span>{point}</span>
                 </li>
               ))}
             </ul>
 
+            {/* Parent CTA */}
             <a
-              href="#"
-              className="mt-5 inline-flex items-center justify-center rounded-full bg-[#24139b] px-4 py-3 text-[12px] font-bold text-white transition-all duration-300 hover:scale-[1.03] hover:bg-[#ffd43b] hover:text-[#100B36] pop-up"
+              href="#consultation"
+              className="pop-up mt-5 inline-flex items-center justify-center rounded-full bg-[#24139b] px-4 py-3 font-jakarta text-[12px] font-bold text-white transition-all duration-300 hover:scale-[1.03] hover:bg-[#ffd43b] hover:text-[#100B36]"
             >
               Book a family consultation
             </a>

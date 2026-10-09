@@ -35,18 +35,18 @@ export default function HowItWorks() {
         {/* Section heading */}
         <div className="mb-8 flex flex-col justify-between gap-4 sm:mb-9 sm:flex-row sm:items-end">
           <div>
-            <span className="text-[11px] font-bold uppercase tracking-wide text-[#24139b]">
+            <span className="font-jakarta text-[11px] font-bold uppercase tracking-wide text-[#24139b]">
               How it works
             </span>
 
-            <h2 className="mt-3 font-neue-reman text-2xl font-extrabold leading-[1.15] text-[#100B36] sm:text-3xl">
+            <h2 className="mt-3 font-jakarta text-2xl font-extrabold leading-[1.15] text-[#100B36] sm:text-3xl">
               Your plan, your goals.
               <br />
               We just make it happen.
             </h2>
           </div>
 
-          <p className="max-w-[330px] text-sm leading-relaxed text-[#514b70] sm:text-right">
+          <p className="max-w-[330px] font-jakarta text-sm leading-relaxed text-[#514b70] sm:text-base">
             We’re here to assist you, not to change your plans.
             <br className="hidden sm:block" />
             Four steps from first chat to take-off.
@@ -69,7 +69,7 @@ export default function HowItWorks() {
               >
                 {/* Number badge */}
                 <span
-                  className={`flex h-10 w-10 items-center justify-center rounded-xl text-lg font-extrabold transition-colors duration-300 ${
+                  className={`flex h-10 w-10 items-center justify-center rounded-xl font-jakarta text-lg font-extrabold transition-colors duration-300 ${
                     isDefaultActive
                       ? "bg-[#ffd43b] text-[#100B36]"
                       : "bg-[#24139b] text-[#ffd43b] group-hover:bg-[#ffd43b] group-hover:text-[#100B36]"
@@ -80,7 +80,7 @@ export default function HowItWorks() {
 
                 {/* Step title */}
                 <h3
-                  className={`mt-4 font-neue-reman text-[16px] font-extrabold leading-snug transition-colors duration-300 ${
+                  className={`mt-4 font-jakarta text-[16px] font-extrabold leading-snug transition-colors duration-300 ${
                     isDefaultActive
                       ? "text-white"
                       : "text-[#100B36] group-hover:text-white"
@@ -91,7 +91,7 @@ export default function HowItWorks() {
 
                 {/* Description */}
                 <p
-                  className={`mt-3 text-[12px] leading-[1.6] transition-colors duration-300 ${
+                  className={`mt-3 font-jakarta text-[12px] leading-[1.6] transition-colors duration-300 ${
                     isDefaultActive
                       ? "text-white/85"
                       : "text-[#514b70] group-hover:text-white/85"

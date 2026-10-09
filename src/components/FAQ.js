@@ -40,29 +40,37 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="border-t-2 border-[#24139B] bg-[#F7F6FC] font-poppins">
+    <section className="border-t-2 border-[#24139B] bg-[#F7F6FC] font-jakarta">
       <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-10 px-5 py-12 sm:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 lg:px-[9.1%] lg:py-[58px]">
-        {/* Left content */}
+
+        {/* ===================================== */}
+        {/* LEFT CONTENT */}
+        {/* ===================================== */}
+
         <div className="max-w-[380px]">
-          <p className="mb-4 text-[10px] font-semibold uppercase text-[#24139B] sm:text-base">
+
+          {/* Section Label */}
+          <p className="mb-4 font-jakarta text-[10px] font-semibold uppercase text-[#24139B] sm:text-base">
             Frequently Asked Questions
           </p>
 
-          <h2 className="font-neue-reman text-[25px] font-bold leading-[1.12] tracking-[-0.4px] text-[#100B36] sm:text-[30px]">
+          {/* Main Heading */}
+          <h2 className="font-jakarta text-[25px] font-bold leading-[1.12] tracking-[-0.4px] text-[#100B36] sm:text-[30px]">
             Things students and
             <br />
             parents ask us first.
           </h2>
 
-          <p className="mt-4 max-w-[280px] text-[12px] leading-[1.65] text-[#57536D] sm:text-[13px]">
+          {/* Description */}
+          <p className="mt-4 max-w-[280px] font-jakarta text-[12px] leading-[1.65] text-[#57536D] sm:text-[13px]">
             Still unsure? Message a counsellor on WhatsApp and get a real
             answer.
           </p>
 
-          {/* Consultation button */}
+          {/* Consultation Button */}
           <a
             href="#"
-            className="mt-4 inline-flex min-h-[39px] items-center gap-4 rounded-full bg-[#FFCC36] px-4 py-2 text-lg font-semibold text-[#100B36] transition-colors hover:bg-[#FBC21C] sm:text-base pop-up"
+            className="pop-up mt-4 inline-flex min-h-[39px] items-center gap-4 rounded-full bg-[#FFCC36] px-4 py-2 font-jakarta text-lg font-semibold text-[#100B36] transition-colors hover:bg-[#FBC21C] sm:text-base"
           >
             Book a free consultation
 
@@ -81,12 +89,12 @@ export default function FAQ() {
             </svg>
           </a>
 
-          {/* WhatsApp button */}
+          {/* WhatsApp Button */}
           <a
             href="https://wa.me/"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-2 inline-flex min-h-[39px] items-center gap-3 rounded-full border border-[#B8DCCB] bg-white px-4 py-2 text-[11px] font-semibold text-[#18794E] transition-colors hover:bg-[#EFFAF4] sm:text-base "
+            className="mt-2 inline-flex min-h-[39px] items-center gap-3 rounded-full border border-[#B8DCCB] bg-white px-4 py-2 font-jakarta text-[11px] font-semibold text-[#18794E] transition-colors hover:bg-[#EFFAF4] sm:text-base"
           >
             <svg
               viewBox="0 0 24 24"
@@ -106,7 +114,10 @@ export default function FAQ() {
           </a>
         </div>
 
-        {/* Right FAQ accordion */}
+        {/* ===================================== */}
+        {/* RIGHT FAQ ACCORDION */}
+        {/* ===================================== */}
+
         <div className="flex flex-col gap-2">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
@@ -120,18 +131,22 @@ export default function FAQ() {
                     : "border-[#E9E6F0] hover:border-[#CFC8E8]"
                 }`}
               >
+
+                {/* Accordion Question */}
                 <button
                   type="button"
                   onClick={() =>
                     setOpenIndex(isOpen ? -1 : index)
                   }
                   aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${index}`}
                   className="flex min-h-[44px] w-full items-center justify-between gap-4 px-4 py-3 text-left sm:min-h-[44px] sm:px-[14px]"
                 >
-                  <span className="text-[11px] font-semibold leading-5 text-[#100B36] sm:text-[12px]">
+                  <span className="font-jakarta text-[11px] font-semibold leading-5 text-[#100B36] sm:text-[12px]">
                     {faq.question}
                   </span>
 
+                  {/* Arrow Icon */}
                   <svg
                     viewBox="0 0 24 24"
                     className={`h-4 w-4 shrink-0 text-[#24139B] transition-transform duration-300 ${
@@ -148,7 +163,10 @@ export default function FAQ() {
                   </svg>
                 </button>
 
+                {/* Accordion Answer */}
                 <div
+                  id={`faq-answer-${index}`}
+                  aria-hidden={!isOpen}
                   className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out ${
                     isOpen
                       ? "grid-rows-[1fr] opacity-100"
@@ -156,15 +174,17 @@ export default function FAQ() {
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <p className="px-4 pb-3 text-[11px] leading-[1.55] text-[#57536D] sm:px-[14px] sm:text-[12px]">
+                    <p className="px-4 pb-3 font-jakarta text-[11px] leading-[1.55] text-[#57536D] sm:px-[14px] sm:text-[12px]">
                       {faq.answer}
                     </p>
                   </div>
                 </div>
+
               </div>
             );
           })}
         </div>
+
       </div>
     </section>
   );

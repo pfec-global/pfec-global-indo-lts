@@ -7,47 +7,18 @@ const ZOHO_FORM_URL =
   "https://forms.zohopublic.in/pfecglobal/form/LeadScoringIndonesia/formperma/AJgNhFcZrtsB6hsVKwGIDyJOwPhYSrXaoo441w9SmJM/htmlRecords/submit";
 
 const fieldClass =
-  "h-11 w-full rounded-lg border border-[#e5d5d1] bg-white px-3 text-sm text-neutral-800 outline-none transition focus:border-[#f4513b] focus:ring-1 focus:ring-[#f4513b]/20 placeholder:text-neutral-400";
+  "h-11 w-full rounded-lg border border-[#e5d5d1] bg-white px-3 font-jakarta text-sm text-neutral-800 outline-none transition focus:border-[#f4513b] focus:ring-1 focus:ring-[#f4513b]/20 placeholder:text-neutral-400";
 
 const destinationOptions = [
-  "Australia",
-  "USA",
-  "UK",
-  "Canada",
-  "Germany",
-  "Ireland",
-  "Dubai",
-  "Malaysia",
-  "New Zealand",
-  "Indonesia",
-  "Japan",
-  "France",
-  "Netherlands",
-  "Italy",
-  "Spain",
-  "Sweden",
-  "Finland",
-  "Norway",
-  "Denmark",
-  "Switzerland",
-  "Austria",
-  "Belgium",
-  "Poland",
-  "Hungary",
-  "Czech Republic",
-  "Portugal",
-  "Lithuania",
-  "Latvia",
-  "Estonia",
-  "Romania",
-  "Slovakia",
-  "Slovenia",
-  "Croatia",
-  "Bulgaria",
-  "Greece",
-  "Cyprus",
-  "Malta",
-  "Help me decide",
+  "Australia", "USA", "UK", "Canada", "Germany",
+  "Ireland", "Dubai", "Malaysia", "New Zealand",
+  "Indonesia", "Japan", "France", "Netherlands",
+  "Italy", "Spain", "Sweden", "Finland", "Norway",
+  "Denmark", "Switzerland", "Austria", "Belgium",
+  "Poland", "Hungary", "Czech Republic", "Portugal",
+  "Lithuania", "Latvia", "Estonia", "Romania",
+  "Slovakia", "Slovenia", "Croatia", "Bulgaria",
+  "Greece", "Cyprus", "Malta", "Help me decide",
 ];
 
 const selectFields = [
@@ -175,7 +146,7 @@ const requiredSelectMessages = {
   Dropdown5: "Please select your education funding source.",
 };
 
-// Validate an individual field.
+// Field validation
 function validateField(name, value) {
   if (name === "SingleLine") {
     if (!value.trim()) {
@@ -203,11 +174,9 @@ function validateField(name, value) {
     if (!digits) {
       return "Please enter your phone number.";
     }
-
     if (digits.length < 7 || digits.length > 15) {
       return "Please enter a valid phone number (7–15 digits).";
     }
-
     return "";
   }
 
@@ -217,16 +186,19 @@ function validateField(name, value) {
       : "Please accept the Privacy Policy and Terms of Use.";
   }
 
-  if (Object.prototype.hasOwnProperty.call(
-    requiredSelectMessages,
-    name
-  )) {
+  if (
+    Object.prototype.hasOwnProperty.call(
+      requiredSelectMessages,
+      name
+    )
+  ) {
     return value ? "" : requiredSelectMessages[name];
   }
 
   return "";
 }
 
+// Dropdown arrow
 function SelectArrow() {
   return (
     <svg
@@ -244,6 +216,7 @@ function SelectArrow() {
   );
 }
 
+// Field-level error
 function ErrorMessage({ id, children }) {
   if (!children) return null;
 
@@ -251,7 +224,7 @@ function ErrorMessage({ id, children }) {
     <p
       id={id}
       role="alert"
-      className="mt-1.5 flex items-start gap-1 text-xs font-medium leading-4 text-red-600"
+      className="mt-1.5 flex items-start gap-1 font-jakarta text-xs font-medium leading-4 text-red-600"
     >
       <svg
         className="mt-0.5 h-3.5 w-3.5 shrink-0"
@@ -280,16 +253,13 @@ export default function ObligationForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  // Show error only after interaction or submit.
   const getError = (name) => {
     if (!submitted && !touched[name]) return "";
     return errors[name] || "";
   };
 
-  // Update value and validation.
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
-
     const nextValue = type === "checkbox" ? checked : value;
 
     setFormData((previous) => ({
@@ -297,7 +267,6 @@ export default function ObligationForm() {
       [name]: nextValue,
     }));
 
-    // Revalidate already touched fields or after form submit.
     if (touched[name] || submitted) {
       setErrors((previous) => ({
         ...previous,
@@ -306,10 +275,8 @@ export default function ObligationForm() {
     }
   };
 
-  // Validate a field when user leaves it.
   const handleBlur = (event) => {
     const { name, value, type, checked } = event.target;
-
     const nextValue = type === "checkbox" ? checked : value;
 
     setTouched((previous) => ({
@@ -323,17 +290,10 @@ export default function ObligationForm() {
     }));
   };
 
-  // Restrict invalid phone characters.
   const handlePhoneKeyDown = (event) => {
     const allowedKeys = [
-      "Backspace",
-      "Delete",
-      "Tab",
-      "ArrowLeft",
-      "ArrowRight",
-      "Home",
-      "End",
-      "Enter",
+      "Backspace", "Delete", "Tab", "ArrowLeft",
+      "ArrowRight", "Home", "End", "Enter",
     ];
 
     if (
@@ -349,7 +309,6 @@ export default function ObligationForm() {
     }
   };
 
-  // Validate entire form.
   const validateForm = () => {
     const nextErrors = {};
 
@@ -364,28 +323,25 @@ export default function ObligationForm() {
     });
 
     setErrors(nextErrors);
-
     return nextErrors;
   };
 
-  // Submit form.
   const handleSubmit = (event) => {
     event.preventDefault();
-
     if (submitting) return;
 
     setSubmitted(true);
-
     const nextErrors = validateForm();
 
     if (Object.keys(nextErrors).length > 0) {
-      // Focus the first invalid field after React updates.
       const firstInvalidName = Object.keys(nextErrors)[0];
 
       requestAnimationFrame(() => {
         const firstInvalid = Array.from(
           formRef.current?.elements || []
-        ).find((element) => element.name === firstInvalidName);
+        ).find(
+          (element) => element.name === firstInvalidName
+        );
 
         if (firstInvalid) {
           firstInvalid.focus();
@@ -400,12 +356,9 @@ export default function ObligationForm() {
     }
 
     setSubmitting(true);
-
-    // Native Zoho submission using original field names.
     formRef.current?.submit();
   };
 
-  // Render dropdown and error under it.
   const renderSelect = (field) => {
     const error = getError(field.name);
 
@@ -424,7 +377,9 @@ export default function ObligationForm() {
             onChange={handleChange}
             onBlur={handleBlur}
             className={`${fieldClass} cursor-pointer appearance-none pr-10 ${
-              !formData[field.name] ? "text-neutral-400" : ""
+              !formData[field.name]
+                ? "text-neutral-400"
+                : ""
             } ${
               error
                 ? "!border-red-500 !ring-1 !ring-red-100"
@@ -459,40 +414,34 @@ export default function ObligationForm() {
   return (
     <section
       id="consultation"
-      className="bg-[#F7F6FC] px-4 py-10 font-poppins sm:px-8 lg:py-16"
+      className="bg-[#F7F6FC] px-4 py-10 font-jakarta sm:px-8 lg:py-16"
     >
       <div className="mx-auto grid max-w-[1100px] grid-cols-1 gap-8 rounded-[24px] bg-[#24139B] p-5 sm:p-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12 lg:p-[38px]">
 
-        {/* ==================================== */}
         {/* LEFT CONTENT */}
-        {/* ==================================== */}
-
         <div className="pt-1 text-white">
-          <span className="inline-flex rounded-full bg-[#FFCC36] px-3 py-1 text-base font-semibold text-[#100B36]">
+          <span className="inline-flex rounded-full bg-[#FFCC36] px-3 py-1 font-jakarta text-base font-semibold text-[#100B36]">
             Free, no obligation
           </span>
 
-          <h2 className="mt-5 font-neue-reman text-[26px] font-bold leading-[1.15] sm:text-[30px]">
+          <h2 className="mt-5 font-jakarta text-[26px] font-bold leading-[1.15] sm:text-[30px]">
             Ready? Book your free
             <br className="hidden sm:block" /> consultation.
           </h2>
 
-          <p className="mt-4 max-w-[350px] text-[12px] leading-[1.65] text-white/90">
+          <p className="mt-4 max-w-[350px] font-jakarta text-[12px] leading-[1.65] text-white/90">
             Tell us a little about you. A counsellor will
             contact you on WhatsApp to set a time that suits
             you and your family.
           </p>
 
-          <ul className="mt-5 space-y-3 text-[12px] text-white/90">
+          <ul className="mt-5 space-y-3 font-jakarta text-[12px] text-white/90">
             {[
               "Takes under a minute",
               "Parents are welcome to join",
               "Online or at our Jakarta office",
             ].map((item) => (
-              <li
-                key={item}
-                className="flex items-center gap-3"
-              >
+              <li key={item} className="flex items-center gap-3">
                 <svg
                   viewBox="0 0 24 24"
                   className="h-4 w-4 shrink-0 text-[#FFCC00]"
@@ -505,17 +454,13 @@ export default function ObligationForm() {
                 >
                   <path d="m5 12 4 4L19 6" />
                 </svg>
-
                 {item}
               </li>
             ))}
           </ul>
         </div>
 
-        {/* ==================================== */}
         {/* ZOHO FORM */}
-        {/* ==================================== */}
-
         <form
           ref={formRef}
           action={ZOHO_FORM_URL}
@@ -526,72 +471,38 @@ export default function ObligationForm() {
           encType="multipart/form-data"
           noValidate
           onSubmit={handleSubmit}
-          className="flex flex-col gap-4 rounded-xl bg-white p-5 text-left shadow-[0_4px_20px_rgba(0,0,0,0.08)] sm:p-6"
+          className="flex flex-col gap-4 rounded-xl bg-white p-5 font-jakarta text-left shadow-[0_4px_20px_rgba(0,0,0,0.08)] sm:p-6"
         >
-
           {/* Zoho hidden fields */}
-          <input
-            type="hidden"
-            name="zf_referrer_name"
-            value=""
-          />
-          <input
-            type="hidden"
-            name="zf_redirect_url"
-            value=""
-          />
-          <input
-            type="hidden"
-            name="zc_gad"
-            value=""
-          />
-          <input
-            type="hidden"
-            name="utm_source"
-            value=""
-          />
-          <input
-            type="hidden"
-            name="utm_medium"
-            value=""
-          />
-          <input
-            type="hidden"
-            name="utm_campaign"
-            value=""
-          />
-          <input
-            type="hidden"
-            name="utm_term"
-            value=""
-          />
-          <input
-            type="hidden"
-            name="utm_content"
-            value=""
-          />
-          <input
-            type="hidden"
-            name="utm_details"
-            value=""
-          />
-          <input
-            type="hidden"
-            name="referrername"
-            value=""
-          />
+          {[
+            "zf_referrer_name",
+            "zf_redirect_url",
+            "zc_gad",
+            "utm_source",
+            "utm_medium",
+            "utm_campaign",
+            "utm_term",
+            "utm_content",
+            "utm_details",
+            "referrername",
+          ].map((name) => (
+            <input
+              key={name}
+              type="hidden"
+              name={name}
+              value=""
+              readOnly
+            />
+          ))}
 
-          {/* ==================================== */}
           {/* BASIC DETAILS */}
-          {/* ==================================== */}
-
           <div className="rounded-xl bg-[#fff0ee] p-4 sm:p-5">
             <div className="mb-4 flex items-center justify-between gap-3">
-              <h3 className="text-sm font-semibold text-[#111827]">
+              <h3 className="font-jakarta text-sm font-semibold text-[#111827]">
                 Basic Details
               </h3>
 
-              <span className="text-[10px] font-medium text-[#f4513b] sm:text-xs">
+              <span className="font-jakarta text-[10px] font-medium text-[#f4513b] sm:text-xs">
                 *Mandatory Fields
               </span>
             </div>
@@ -607,9 +518,7 @@ export default function ObligationForm() {
                   maxLength={255}
                   placeholder="Student's Name *"
                   aria-label="Student's Name"
-                  aria-invalid={Boolean(
-                    getError("SingleLine")
-                  )}
+                  aria-invalid={Boolean(getError("SingleLine"))}
                   aria-describedby={
                     getError("SingleLine")
                       ? "SingleLine-error"
@@ -631,7 +540,7 @@ export default function ObligationForm() {
                 </ErrorMessage>
               </div>
 
-              {/* Student Email */}
+              {/* Email */}
               <div>
                 <input
                   type="email"
@@ -662,37 +571,26 @@ export default function ObligationForm() {
                 </ErrorMessage>
               </div>
 
-              {/* Phone Number */}
+              {/* Phone */}
               <div>
                 <div className="flex gap-2">
-
-                  {/* Country code */}
                   <div className="w-[76px] shrink-0">
                     <input
                       type="text"
-                      name="PhoneNumber_countrycodeval"
-                      compname="PhoneNumber_countrycodeval"
-                      phoneformat="1"
                       id="international_PhoneNumber_countrycodeval"
-                      value={
-                        formData.PhoneNumber_countrycodeval
-                      }
+                      name="PhoneNumber_countrycodeval"
+                      value={formData.PhoneNumber_countrycodeval}
                       readOnly
                       aria-label="Country code"
                       className={`${fieldClass} cursor-not-allowed bg-neutral-100 px-2 text-center font-semibold text-neutral-600`}
                     />
                   </div>
 
-                  {/* Phone input */}
                   <div className="min-w-0 flex-1">
                     <input
                       type="tel"
                       id="international_PhoneNumber_countrycode"
                       name="PhoneNumber_countrycode"
-                      compname="PhoneNumber"
-                      phoneformat="1"
-                      iscountrycodeenabled="true"
-                      fieldtype="11"
                       maxLength={20}
                       inputMode="tel"
                       placeholder="Phone Number *"
@@ -706,9 +604,7 @@ export default function ObligationForm() {
                           : undefined
                       }
                       autoComplete="tel-national"
-                      value={
-                        formData.PhoneNumber_countrycode
-                      }
+                      value={formData.PhoneNumber_countrycode}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       onKeyDown={handlePhoneKeyDown}
@@ -737,12 +633,9 @@ export default function ObligationForm() {
             </div>
           </div>
 
-          {/* ==================================== */}
           {/* OTHER INFORMATION */}
-          {/* ==================================== */}
-
           <div className="rounded-xl bg-[#fff0ee] p-4 sm:p-5">
-            <h3 className="mb-4 text-sm font-semibold text-[#111827]">
+            <h3 className="mb-4 font-jakarta text-sm font-semibold text-[#111827]">
               Other Information
             </h3>
 
@@ -751,12 +644,9 @@ export default function ObligationForm() {
             </div>
           </div>
 
-          {/* ==================================== */}
           {/* PRIVACY POLICY */}
-          {/* ==================================== */}
-
           <div>
-            <label className="flex items-start gap-2 text-xs leading-5 text-neutral-800">
+            <label className="flex items-start gap-2 font-jakarta text-xs leading-5 text-neutral-800">
               <input
                 type="checkbox"
                 id="agree"
@@ -805,14 +695,11 @@ export default function ObligationForm() {
             </ErrorMessage>
           </div>
 
-          {/* ==================================== */}
           {/* SUBMIT BUTTON */}
-          {/* ==================================== */}
-
           <button
             type="submit"
             disabled={submitting}
-            className="mt-2 h-11 w-full cursor-pointer rounded-lg bg-[#f4513b] px-4 text-sm font-bold text-white transition-all duration-300 hover:bg-[#e84430] hover:shadow-lg disabled:cursor-wait disabled:opacity-70 sm:text-base"
+            className="mt-2 h-11 w-full cursor-pointer rounded-lg bg-[#f4513b] px-4 font-jakarta text-sm font-bold text-white transition-all duration-300 hover:bg-[#e84430] hover:shadow-lg disabled:cursor-wait disabled:opacity-70 sm:text-base"
           >
             {submitting
               ? "Submitting..."

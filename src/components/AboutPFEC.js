@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -30,7 +31,7 @@ const stats = [
   },
 ];
 
-// Update these paths to match your actual image filenames.
+// Office map images
 const mapImages = [
   {
     src: "/images/about/Group 67.png",
@@ -53,6 +54,10 @@ const mapImages = [
     alt: "PFEC Global Indonesia office",
   },
 ];
+
+// =====================================
+// ANIMATED COUNTER
+// =====================================
 
 function AnimatedCounter({ value, suffix, start }) {
   const [count, setCount] = useState(0);
@@ -97,12 +102,17 @@ function AnimatedCounter({ value, suffix, start }) {
   );
 }
 
+// =====================================
+// ABOUT PFEC COMPONENT
+// =====================================
+
 export default function AboutPFEC() {
   const sectionRef = useRef(null);
+
   const [started, setStarted] = useState(false);
   const [visibleMaps, setVisibleMaps] = useState(false);
 
-  // Start the animations when the section enters the viewport.
+  // Start animations when section enters viewport
   useEffect(() => {
     const section = sectionRef.current;
 
@@ -116,7 +126,9 @@ export default function AboutPFEC() {
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      {
+        threshold: 0.2,
+      }
     );
 
     observer.observe(section);
@@ -127,23 +139,32 @@ export default function AboutPFEC() {
   return (
     <section
       ref={sectionRef}
-      className="overflow-hidden bg-[#24139B] font-poppins text-white"
+      className="overflow-hidden bg-[#24139B] font-jakarta text-white"
     >
       <div className="mx-auto max-w-[1440px] px-5 pb-12 pt-12 sm:px-8 md:pb-16 md:pt-16 lg:px-[9.1%] lg:pb-[70px] lg:pt-[65px]">
-        {/* Introduction and statistics */}
+
+        {/* ===================================== */}
+        {/* INTRODUCTION AND STATISTICS */}
+        {/* ===================================== */}
+
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.5fr_0.9fr] lg:items-start lg:gap-12">
-          {/* About content */}
+
+          {/* ABOUT CONTENT */}
           <div className="max-w-[550px]">
-            <p className="mb-4 text-[11px] font-semibold uppercase text-[#FBCB20] sm:text-base">
+
+            {/* Section label */}
+            <p className="mb-4 font-jakarta text-[11px] font-semibold uppercase text-[#FBCB20] sm:text-base">
               About PFEC Global
             </p>
 
-            <h2 className="font-neue-reman text-[27px] font-bold leading-[1.12] tracking-[-0.5px] sm:text-[32px]">
+            {/* Section heading */}
+            <h2 className="font-jakarta text-[27px] font-bold leading-[1.12] tracking-[-0.5px] sm:text-[32px]">
               Your study abroad journey starts
               <br className="hidden sm:block" /> with one conversation.
             </h2>
 
-            <p className="mt-4 max-w-[500px] text-[12px] leading-[1.65] text-white/90 sm:text-[13px]">
+            {/* Description */}
+            <p className="mt-4 max-w-[500px] font-jakarta text-[12px] leading-[1.65] text-white/90 sm:text-[13px]">
               Beginning in 2006, PFEC Global&apos;s expertise in student
               migration consultancy evolved from a single Melbourne office
               to a multinational presence, spanning Australia, Bangladesh,
@@ -153,14 +174,20 @@ export default function AboutPFEC() {
             </p>
           </div>
 
-          {/* Animated statistic cards */}
+          {/* ===================================== */}
+          {/* ANIMATED STATISTIC CARDS */}
+          {/* ===================================== */}
+
           <div className="grid grid-cols-2 gap-4 lg:ml-auto lg:w-full lg:max-w-[340px]">
+
             {stats.map((stat) => (
               <div
                 key={stat.label}
                 className="flex min-h-[65px] flex-col justify-center rounded-[10px] bg-[#261F57] px-3 py-2.5 transition-transform duration-300 hover:-translate-y-1 sm:px-4"
               >
-                <p className="text-[18px] font-bold leading-tight text-[#FBCB20] sm:text-[20px]">
+
+                {/* Animated number */}
+                <p className="font-jakarta text-[18px] font-bold leading-tight text-[#FBCB20] sm:text-[20px]">
                   <AnimatedCounter
                     value={stat.value}
                     suffix={stat.suffix}
@@ -168,18 +195,24 @@ export default function AboutPFEC() {
                   />
                 </p>
 
-                <p className="mt-0.5 text-[11px] leading-[1.3] text-white/75 sm:text-[12px]">
+                {/* Statistic description */}
+                <p className="mt-0.5 font-jakarta text-[11px] leading-[1.3] text-white/75 sm:text-[12px]">
                   {stat.label}
                   <br />
                   {stat.description}
                 </p>
+
               </div>
             ))}
           </div>
         </div>
 
-        {/* Five map images with staggered fade-in animation */}
+        {/* ===================================== */}
+        {/* OFFICE MAP IMAGES */}
+        {/* ===================================== */}
+
         <div className="mt-8 grid grid-cols-2 items-center gap-4 sm:mt-10 sm:grid-cols-3 lg:mt-7 lg:grid-cols-5 lg:gap-3">
+
           {mapImages.map((map, index) => (
             <div
               key={map.src}
@@ -204,6 +237,7 @@ export default function AboutPFEC() {
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );

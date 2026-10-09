@@ -106,58 +106,68 @@ export default function OurServices() {
   return (
     <section
       id="services"
-      className="w-full bg-[#24139b] py-16 sm:py-20 lg:py-[72px]"
+      className="w-full bg-[#24139b] py-16 font-jakarta sm:py-20 lg:py-[72px]"
     >
       <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
-        {/* Section heading */}
+
+        {/* SECTION HEADING */}
         <div className="mb-8 flex flex-col justify-between gap-4 sm:mb-9 sm:flex-row sm:items-end">
+
           <div>
-            <span className="text-[11px] font-bold uppercase tracking-wide text-white">
+            <span className="font-jakarta text-[11px] font-bold uppercase tracking-wide text-white">
               Our Services
             </span>
 
-            <h2 className="mt-3 font-neue-reman text-[27px] font-bold leading-[1.12] text-white sm:text-[32px]">
+            <h2 className="mt-3 font-jakarta text-[27px] font-bold leading-[1.12] text-white sm:text-[32px]">
               Everything you need to Study
               <br className="hidden sm:block" /> Abroad, in One Place.
             </h2>
           </div>
 
-          <p className="max-w-[340px] text-[12px] leading-[1.7] text-white/90 sm:text-[13px] sm:text-right">
-            From your first conversation to your departure, get expert support
-            across your study abroad journey.
+          <p className="max-w-[340px] font-jakarta text-[12px] leading-[1.7] text-white/90 sm:text-right sm:text-[13px]">
+            From your first conversation to your departure,
+            get expert support across your study abroad journey.
           </p>
         </div>
 
-        {/* Service cards */}
+        {/* SERVICE CARDS */}
         <div className="grid grid-cols-1 gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
+
           {services.map((service) => (
             <a
               key={service.title}
               href="#consultation"
               className="group flex min-h-[105px] items-center gap-[18px] rounded-[15px] border border-transparent bg-white px-[18px] py-4 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-[#FBCB20] hover:bg-[#FBCB20] hover:shadow-[0_10px_24px_rgba(0,0,0,0.16)] sm:px-[18px]"
             >
-              {/* Icon container */}
+
+              {/* ICON CONTAINER */}
               <span className="flex h-[49px] w-[49px] shrink-0 items-center justify-center rounded-[11px] bg-[#eeedf0] text-[#24139b] transition-colors duration-300 group-hover:bg-white group-hover:text-[#100B36]">
                 <ServiceIcon type={service.icon} />
               </span>
 
-              {/* Text */}
+              {/* SERVICE CONTENT */}
               <span className="flex min-w-0 flex-col">
-                <span className="font-neue-reman text-[17px] font-extrabold leading-[1.2] text-[#171717] transition-colors duration-300 group-hover:text-[#100B36] sm:text-[18px]">
+
+                {/* Service title */}
+                <span className="font-jakarta text-[17px] font-extrabold leading-[1.2] text-[#171717] transition-colors duration-300 group-hover:text-[#100B36] sm:text-[18px]">
                   {service.title}
                   <br />
                   {service.secondLine}
                 </span>
 
-                <span className="mt-2 inline-flex items-center gap-1 text-[12px] text-[#737373] transition-colors duration-300 group-hover:text-[#100B36]">
+                {/* Get Started */}
+                <span className="mt-2 inline-flex items-center gap-1 font-jakarta text-[12px] font-medium text-[#737373] transition-colors duration-300 group-hover:text-[#100B36]">
                   Get Started
+
                   <span className="transition-transform duration-300 group-hover:translate-x-1">
                     ›
                   </span>
                 </span>
+
               </span>
             </a>
           ))}
+
         </div>
       </div>
     </section>
