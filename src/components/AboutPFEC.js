@@ -158,7 +158,7 @@ export default function AboutPFEC() {
             </p>
 
             {/* Section heading */}
-            <h2 className="font-jakarta text-[27px] font-bold leading-[1.12] tracking-[-0.5px] sm:text-[32px]">
+            <h2 className="font-jakarta text-[27px] font-bold leading-[1.12] tracking-[-0.5px] sm:text-[26px]">
               Your study abroad journey starts
               <br className="hidden sm:block" /> with one conversation.
             </h2>

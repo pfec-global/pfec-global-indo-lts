@@ -424,7 +424,7 @@ export default function ObligationForm() {
             Free, no obligation
           </span>
 
-          <h2 className="mt-5 font-jakarta text-[26px] font-bold leading-[1.15] sm:text-[30px]">
+          <h2 className="mt-5 font-jakarta text-[26px] font-bold leading-[1.15] sm:text-[26px]">
             Ready? Book your free
             <br className="hidden sm:block" /> consultation.
           </h2>

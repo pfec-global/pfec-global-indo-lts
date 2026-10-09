@@ -131,7 +131,7 @@ export default function Countries() {
               Countries
             </span>
 
-            <h2 className="mt-3 font-jakarta text-[27px] font-extrabold leading-[1.12] text-[#100B36] sm:text-[32px]">
+            <h2 className="mt-3 font-jakarta text-[27px] font-extrabold leading-[1.12] text-[#100B36] sm:text-[26px]">
               Explore &amp; Apply to 11 Global
               <br className="hidden sm:block" /> Study Destinations
             </h2>

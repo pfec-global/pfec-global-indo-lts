@@ -39,7 +39,7 @@ export default function HowItWorks() {
               How it works
             </span>
 
-            <h2 className="mt-3 font-jakarta text-2xl font-extrabold leading-[1.15] text-[#100B36] sm:text-3xl">
+            <h2 className="mt-3 font-jakarta text-2xl font-extrabold leading-[1.15] text-[#100B36] sm:text-[26px]">
               Your plan, your goals.
               <br />
               We just make it happen.

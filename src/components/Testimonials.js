@@ -115,7 +115,7 @@ export default function Testimonials() {
               Student Stories
             </p>
 
-            <h2 className="font-jakarta text-[26px] font-bold leading-tight tracking-[-0.5px] sm:text-[32px]">
+            <h2 className="font-jakarta text-[26px] font-bold leading-tight tracking-[-0.5px] sm:text-[26px]">
               Honest advice. Real outcomes.
             </h2>
           </div>

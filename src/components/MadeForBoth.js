@@ -91,7 +91,7 @@ export default function MadeForBoth() {
             Made for both of you
           </span>
 
-          <h2 className="mt-3 font-jakarta text-2xl font-extrabold leading-[1.15] text-[#100B36] sm:text-3xl">
+          <h2 className="mt-3 font-jakarta text-2xl font-extrabold leading-[1.15] text-[#100B36] sm:text-[26px]">
             Studying abroad is a family decision.
             <br className="hidden sm:block" /> We talk to both of you.
           </h2>

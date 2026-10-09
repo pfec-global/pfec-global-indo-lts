@@ -313,7 +313,7 @@ export default function AwardsAndAffiliations() {
               Why Trust PFEC
             </p>
 
-            <h2 className="font-jakarta text-[26px] font-bold leading-[1.15] tracking-[-0.4px] text-[#100B36] sm:text-[30px]">
+            <h2 className="font-jakarta text-[26px] font-bold leading-[1.15] tracking-[-0.4px] text-[#100B36] sm:text-[26px]">
               Recognised by universities.
               <br />
               Accredited by the industry.

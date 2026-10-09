@@ -55,7 +55,7 @@ export default function FAQ() {
           </p>
 
           {/* Main Heading */}
-          <h2 className="font-jakarta text-[25px] font-bold leading-[1.12] tracking-[-0.4px] text-[#100B36] sm:text-[30px]">
+          <h2 className="font-jakarta text-[25px] font-bold leading-[1.12] tracking-[-0.4px] text-[#100B36] sm:text-[26px]">
             Things students and
             <br />
             parents ask us first.

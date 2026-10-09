@@ -118,7 +118,7 @@ export default function OurServices() {
               Our Services
             </span>
 
-            <h2 className="mt-3 font-jakarta text-[27px] font-bold leading-[1.12] text-white sm:text-[32px]">
+            <h2 className="mt-3 font-jakarta text-[27px] font-bold leading-[1.12] text-white sm:text-[26px]">
               Everything you need to Study
               <br className="hidden sm:block" /> Abroad, in One Place.
             </h2>

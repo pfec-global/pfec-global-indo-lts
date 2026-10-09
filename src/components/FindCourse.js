@@ -125,7 +125,7 @@ export default function FindCourse() {
           </span>
 
           {/* Section Heading */}
-          <h2 className="mt-4 font-jakarta text-[27px] font-extrabold leading-[1.15] text-[#100B36] sm:text-[32px]">
+          <h2 className="mt-4 font-jakarta text-[27px] font-extrabold leading-[1.15] text-[#100B36] sm:text-[26px]">
             What do you want to become?
           </h2>
 
