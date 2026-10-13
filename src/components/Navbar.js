@@ -68,7 +68,7 @@ export default function Navbar() {
               +62 821 282 0300
             </a>
 
-            <div className="flex items-center gap-2">
+            {/* <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => setLanguage("EN")}
@@ -94,7 +94,7 @@ export default function Navbar() {
               >
                 ID
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

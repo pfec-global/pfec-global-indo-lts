@@ -145,7 +145,7 @@ export default function Hero() {
         <div className="relative z-10 min-w-0">
 
           {/* Language selector */}
-          <div className="mb-5 inline-flex rounded-full border border-[#ded9ee] bg-white p-1 shadow-sm">
+          {/* <div className="mb-5 inline-flex rounded-full border border-[#ded9ee] bg-white p-1 shadow-sm">
             {["English", "Bahasa"].map((item) => (
               <button
                 key={item}
@@ -161,7 +161,7 @@ export default function Hero() {
                 {item}
               </button>
             ))}
-          </div>
+          </div> */}
 
           {/* Main heading */}
           <h1 className="max-w-[610px] font-neue text-[32px] font-extrabold leading-[1.08] tracking-tight text-[#110b3c] sm:text-[36px] lg:text-[40px]">
