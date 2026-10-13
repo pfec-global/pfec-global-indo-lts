@@ -52,6 +52,14 @@ export const metadata = {
   title: "PFEC Global | Study Abroad with Complete Expert Guidance",
   description:
     "Study abroad with free 1-on-1 expert mentorship from shortlisting to visa. Trusted by 22,000+ students across 11 destinations.",
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
 };
 
 export default function RootLayout({ children }) {
