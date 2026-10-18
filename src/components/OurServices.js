@@ -1,38 +1,98 @@
-
 "use client";
 
-const services = [
-  {
-    title: "Profile Review",
-    secondLine: "& Counselling",
-    icon: "checklist",
+import { useLanguage } from "@/context/LanguageContext";
+
+const content = {
+  EN: {
+    eyebrow: "Our Services",
+
+    heading1: "Everything you need to Study",
+    heading2: "Abroad, in One Place.",
+
+    description:
+      "From your first conversation to your departure, get expert support across your study abroad journey.",
+
+    cta: "Get Started",
+
+    services: [
+      {
+        title: "Profile Review",
+        secondLine: "& Counselling",
+        icon: "checklist",
+      },
+      {
+        title: "University &",
+        secondLine: "Course Selection",
+        icon: "university",
+      },
+      {
+        title: "Application",
+        secondLine: "Assistance",
+        icon: "application",
+      },
+      {
+        title: "Scholarship",
+        secondLine: "Guidance",
+        icon: "scholarship",
+      },
+      {
+        title: "Visa",
+        secondLine: "Assistance",
+        icon: "plane",
+      },
+      {
+        title: "Pre-Departure",
+        secondLine: "Support",
+        icon: "support",
+      },
+    ],
   },
-  {
-    title: "University &",
-    secondLine: "Course Selection",
-    icon: "university",
+
+  ID: {
+    eyebrow: "Layanan Kami",
+
+    heading1: "Semua yang Anda butuhkan untuk Kuliah",
+    heading2: "di Luar Negeri, ada di PFEC Global",
+
+    description:
+      "Dari konseling pertama hingga keberangkatan Anda, dapatkan dukungan konselor berpengalaman di sepanjang perjalanan studi Anda ke luar negeri.",
+
+    cta: "Mulai Sekarang",
+
+    services: [
+      {
+        title: "Tinjauan Profil",
+        secondLine: "& Konseling",
+        icon: "checklist",
+      },
+      {
+        title: "Pemilihan Universitas",
+        secondLine: "& Program Studi",
+        icon: "university",
+      },
+      {
+        title: "Bantuan",
+        secondLine: "Pendaftaran",
+        icon: "application",
+      },
+      {
+        title: "Panduan",
+        secondLine: "Beasiswa",
+        icon: "scholarship",
+      },
+      {
+        title: "Bantuan",
+        secondLine: "Visa",
+        icon: "plane",
+      },
+      {
+        title: "Pre-Departure",
+        secondLine: "",
+        icon: "support",
+      },
+    ],
   },
-  {
-    title: "Application",
-    secondLine: "Assistance",
-    icon: "application",
-  },
-  {
-    title: "Scholarship",
-    secondLine: "Guidance",
-    icon: "scholarship",
-  },
-  {
-    title: "Visa",
-    secondLine: "Assistance",
-    icon: "plane",
-  },
-  {
-    title: "Pre-Departure",
-    secondLine: "Support",
-    icon: "support",
-  },
-];
+};
 
 function ServiceIcon({ type }) {
   const common = {
@@ -103,6 +163,11 @@ function ServiceIcon({ type }) {
 }
 
 export default function OurServices() {
+  const { language } = useLanguage();
+
+  const text = content[language] || content.EN;
+  const services = text.services;
+
   return (
     <section
       id="services"
@@ -115,31 +180,28 @@ export default function OurServices() {
 
           <div>
             <span className="font-jakarta text-sm font-bold uppercase tracking-wide text-white">
-              Our Services
+              {text.eyebrow}
             </span>
 
             <h2 className="mt-3 font-jakarta text-[27px] font-bold leading-[1.12] text-white sm:text-[26px]">
-              Everything you need to Study
-              <br className="hidden sm:block" /> Abroad, in One Place.
+              {text.heading1}
+              <br className="hidden sm:block" /> {text.heading2}
             </h2>
           </div>
 
           <p className="max-w-[340px] font-jakarta text-[12px] leading-[1.7] text-white/90 sm:text-right sm:text-[13px]">
-            From your first conversation to your departure,
-            get expert support across your study abroad journey.
+            {text.description}
           </p>
         </div>
 
         {/* SERVICE CARDS */}
         <div className="grid grid-cols-1 gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
-
           {services.map((service) => (
             <a
-              key={service.title}
+              key={`${service.title}-${service.secondLine}`}
               href="#consultation"
               className="group flex min-h-[105px] items-center gap-[18px] rounded-[15px] border border-transparent bg-white px-[18px] py-4 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-[#FBCB20] hover:bg-[#FBCB20] hover:shadow-[0_10px_24px_rgba(0,0,0,0.16)] sm:px-[18px]"
             >
-
               {/* ICON CONTAINER */}
               <span className="flex h-[49px] w-[49px] shrink-0 items-center justify-center rounded-[11px] bg-[#eeedf0] text-[#24139b] transition-colors duration-300 group-hover:bg-white group-hover:text-[#100B36]">
                 <ServiceIcon type={service.icon} />
@@ -151,13 +213,18 @@ export default function OurServices() {
                 {/* Service title */}
                 <span className="font-jakarta text-[17px] font-extrabold leading-[1.2] text-[#171717] transition-colors duration-300 group-hover:text-[#100B36] sm:text-[18px]">
                   {service.title}
-                  <br />
-                  {service.secondLine}
+
+                  {service.secondLine && (
+                    <>
+                      <br />
+                      {service.secondLine}
+                    </>
+                  )}
                 </span>
 
-                {/* Get Started */}
+                {/* Get Started / Mulai Sekarang */}
                 <span className="mt-2 inline-flex items-center gap-1 font-jakarta text-[12px] font-medium text-[#737373] transition-colors duration-300 group-hover:text-[#100B36]">
-                  Get Started
+                  {text.cta}
 
                   <span className="transition-transform duration-300 group-hover:translate-x-1">
                     ›
@@ -167,7 +234,6 @@ export default function OurServices() {
               </span>
             </a>
           ))}
-
         </div>
       </div>
     </section>

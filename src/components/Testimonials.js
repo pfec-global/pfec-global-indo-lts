@@ -1,8 +1,8 @@
-
 "use client";
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const AUTOPLAY_MS = 4000;
 
@@ -30,6 +30,28 @@ const testimonials = [
   },
 ];
 
+const content = {
+  EN: {
+    eyebrow: "Student Stories",
+    heading: "Honest advice. Real outcomes.",
+    description:
+      "Personal guidance based on your goals, virtual or in person.",
+    previous: "Previous testimonials",
+    next: "Next testimonials",
+    slideLabel: "Go to testimonial slide",
+  },
+
+  ID: {
+    eyebrow: "Kisah Mahasiswa",
+    heading: "Informasi yang jujur. Hasil yang nyata.",
+    description:
+      "Bimbingan personal sesuai tujuan Anda, secara virtual maupun tatap muka.",
+    previous: "Testimoni sebelumnya",
+    next: "Testimoni berikutnya",
+    slideLabel: "Buka slide testimoni",
+  },
+};
+
 function Arrow({ direction = "right" }) {
   return (
     <svg
@@ -50,6 +72,9 @@ function Arrow({ direction = "right" }) {
 }
 
 export default function Testimonials() {
+  const { language } = useLanguage();
+  const text = content[language] || content.EN;
+
   const [active, setActive] = useState(0);
   const [visibleCards, setVisibleCards] = useState(2);
 
@@ -105,31 +130,24 @@ export default function Testimonials() {
     <section className="overflow-hidden bg-[#100B36] font-jakarta text-white">
       <div className="mx-auto max-w-[1440px] px-5 py-12 sm:px-8 lg:px-[7.3%] lg:py-[72px]">
 
-        {/* ===================================== */}
         {/* SECTION HEADING */}
-        {/* ===================================== */}
-
         <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end lg:mb-7">
           <div>
             <p className="mb-3 font-jakarta text-[11px] font-semibold uppercase leading-none text-[#FBCB20] sm:text-base">
-              Student Stories
+              {text.eyebrow}
             </p>
 
             <h2 className="font-jakarta text-[26px] font-bold leading-tight tracking-[-0.5px] sm:text-[26px]">
-              Honest advice. Real outcomes.
+              {text.heading}
             </h2>
           </div>
 
           <p className="pb-1 font-jakarta text-[12px] leading-5 text-white/85 sm:text-[13px]">
-            Personal guidance based on your goals,
-            virtual or in person.
+            {text.description}
           </p>
         </div>
 
-        {/* ===================================== */}
         {/* TESTIMONIAL CAROUSEL */}
-        {/* ===================================== */}
-
         <div className="overflow-hidden">
           <div
             className="flex items-stretch gap-[30px] transition-transform duration-700 ease-in-out"
@@ -147,7 +165,6 @@ export default function Testimonials() {
                   }px) / ${visibleCards})`,
                 }}
               >
-
                 {/* STUDENT PHOTO */}
                 <div className="relative h-[210px] w-full shrink-0 overflow-hidden rounded-[10px] bg-[#FBCB20] md:h-auto md:w-[42%]">
                   <Image
@@ -183,10 +200,7 @@ export default function Testimonials() {
           </div>
         </div>
 
-        {/* ===================================== */}
         {/* CAROUSEL CONTROLS */}
-        {/* ===================================== */}
-
         <div className="mt-6 flex items-center justify-between md:mt-7">
 
           {/* Slide indicators */}
@@ -197,7 +211,7 @@ export default function Testimonials() {
               <button
                 key={index}
                 type="button"
-                aria-label={`Go to testimonial slide ${
+                aria-label={`${text.slideLabel} ${
                   index + 1
                 }`}
                 aria-current={active === index}
@@ -215,7 +229,7 @@ export default function Testimonials() {
           <div className="flex items-center gap-2">
             <button
               type="button"
-              aria-label="Previous testimonials"
+              aria-label={text.previous}
               onClick={prev}
               className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-white transition hover:border-[#FBCB20] hover:text-[#FBCB20]"
             >
@@ -224,7 +238,7 @@ export default function Testimonials() {
 
             <button
               type="button"
-              aria-label="Next testimonials"
+              aria-label={text.next}
               onClick={next}
               className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-white transition hover:border-[#FBCB20] hover:text-[#FBCB20]"
             >

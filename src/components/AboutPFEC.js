@@ -1,35 +1,84 @@
-
 "use client";
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
-const stats = [
-  {
-    value: 22000,
-    suffix: "+",
-    label: "Students",
-    description: "Assisted",
+const content = {
+  EN: {
+    eyebrow: "About PFEC Global",
+
+    heading1: "Your study abroad journey starts",
+    heading2: "with one conversation.",
+
+    description:
+      "Beginning in 2006, PFEC Global's expertise in student migration consultancy evolved from a single Melbourne office to a multinational presence, spanning Australia, Bangladesh, Sri Lanka, and India. We now proudly represent international educational institutions, consistently turning students' dreams into their reality.",
+
+    stats: [
+      {
+        value: 22000,
+        suffix: "+",
+        label: "Students",
+        description: "Assisted",
+      },
+      {
+        value: 550,
+        suffix: "+",
+        label: "Institutions across",
+        description: "11 Countries",
+      },
+      {
+        value: 19,
+        suffix: "+",
+        label: "Years of",
+        description: "Experience",
+      },
+      {
+        value: 17,
+        suffix: "",
+        label: "Offices across",
+        description: "the Globe",
+      },
+    ],
   },
-  {
-    value: 550,
-    suffix: "+",
-    label: "Institutions across",
-    description: "11 Countries",
+
+  ID: {
+    eyebrow: "Tentang PFEC Global",
+
+    heading1: "Perjalanan studi Anda ke luar negeri",
+    heading2: "dimulai dengan satu percakapan.",
+
+    description:
+      "Berawal pada tahun 2006, keahlian PFEC Global dalam konsultasi migrasi pelajar berkembang dari satu kantor di Melbourne menjadi kehadiran multinasional yang mencakup Australia, Bangladesh, Sri Lanka, India, dan Indonesia. Kini kami dengan bangga mewakili institusi pendidikan internasional dan secara konsisten mewujudkan impian para mahasiswa.",
+
+    stats: [
+      {
+        value: 22000,
+        suffix: "+",
+        label: "Mahasiswa",
+        description: "Dibantu",
+      },
+      {
+        value: 550,
+        suffix: "+",
+        label: "Institusi di 11",
+        description: "Negara",
+      },
+      {
+        value: 19,
+        suffix: "+",
+        label: "Tahun",
+        description: "Pengalaman",
+      },
+      {
+        value: 17,
+        suffix: "",
+        label: "Kantor di Seluruh",
+        description: "Dunia",
+      },
+    ],
   },
-  {
-    value: 19,
-    suffix: "+",
-    label: "Years of",
-    description: "Experience",
-  },
-  {
-    value: 17,
-    suffix: "",
-    label: "Offices across",
-    description: "the Globe",
-  },
-];
+};
 
 // Office map images
 const mapImages = [
@@ -109,6 +158,10 @@ function AnimatedCounter({ value, suffix, start }) {
 export default function AboutPFEC() {
   const sectionRef = useRef(null);
 
+  const { language } = useLanguage();
+  const text = content[language] || content.EN;
+  const stats = text.stats;
+
   const [started, setStarted] = useState(false);
   const [visibleMaps, setVisibleMaps] = useState(false);
 
@@ -143,10 +196,7 @@ export default function AboutPFEC() {
     >
       <div className="mx-auto max-w-[1440px] px-5 pb-12 pt-12 sm:px-8 md:pb-16 md:pt-16 lg:px-[9.1%] lg:pb-[70px] lg:pt-[65px]">
 
-        {/* ===================================== */}
         {/* INTRODUCTION AND STATISTICS */}
-        {/* ===================================== */}
-
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.5fr_0.9fr] lg:items-start lg:gap-12">
 
           {/* ABOUT CONTENT */}
@@ -154,38 +204,29 @@ export default function AboutPFEC() {
 
             {/* Section label */}
             <p className="mb-4 font-jakarta text-[11px] font-semibold uppercase text-[#FBCB20] sm:text-sm">
-              About PFEC Global
+              {text.eyebrow}
             </p>
 
             {/* Section heading */}
             <h2 className="font-jakarta text-[27px] font-bold leading-[1.12] tracking-[-0.5px] sm:text-[26px]">
-              Your study abroad journey starts
-              <br className="hidden sm:block" /> with one conversation.
+              {text.heading1}
+              <br className="hidden sm:block" /> {text.heading2}
             </h2>
 
             {/* Description */}
             <p className="mt-4 max-w-[500px] font-jakarta text-[12px] leading-[1.65] text-white/90 sm:text-[13px]">
-              Beginning in 2006, PFEC Global&apos;s expertise in student
-              migration consultancy evolved from a single Melbourne office
-              to a multinational presence, spanning Australia, Bangladesh,
-              Sri Lanka, and India. We now proudly represent international
-              educational institutions, consistently turning students&apos;
-              dreams into their reality.
+              {text.description}
             </p>
           </div>
 
-          {/* ===================================== */}
           {/* ANIMATED STATISTIC CARDS */}
-          {/* ===================================== */}
-
           <div className="grid grid-cols-2 gap-4 lg:ml-auto lg:w-full lg:max-w-[340px]">
 
             {stats.map((stat) => (
               <div
-                key={stat.label}
+                key={`${stat.value}-${stat.label}`}
                 className="flex min-h-[65px] flex-col justify-center rounded-[10px] bg-[#261F57] px-3 py-2.5 transition-transform duration-300 hover:-translate-y-1 sm:px-4"
               >
-
                 {/* Animated number */}
                 <p className="font-jakarta text-[18px] font-bold leading-tight text-[#FBCB20] sm:text-[20px]">
                   <AnimatedCounter
@@ -201,16 +242,12 @@ export default function AboutPFEC() {
                   <br />
                   {stat.description}
                 </p>
-
               </div>
             ))}
           </div>
         </div>
 
-        {/* ===================================== */}
         {/* OFFICE MAP IMAGES */}
-        {/* ===================================== */}
-
         <div className="mt-8 grid grid-cols-2 items-center gap-4 sm:mt-10 sm:grid-cols-3 lg:mt-7 lg:grid-cols-5 lg:gap-3">
 
           {mapImages.map((map, index) => (

@@ -1,5 +1,6 @@
-
 "use client";
+
+import { useLanguage } from "@/context/LanguageContext";
 
 function CheckIcon() {
   return (
@@ -66,34 +67,90 @@ function ParentIcon({ type }) {
   );
 }
 
-const studentPoints = [
-  "A shortlist matched to your grades, interests and budget",
-  "Help finding and applying for scholarships",
-  "Applications, visa and pre-departure, made easy",
-  "Ask anything on WhatsApp, no question is too small",
-];
+const content = {
+  EN: {
+    eyebrow: "Made for both of you",
 
-const parentPoints = [
-  "Accredited by AIRC and ICEF; Certified counsellors",
-  "Options planned around your budget in Rupiah",
-  "Visit us at Pondok Indah Plaza 5, Jakarta Selatan",
-  "Join every session with your child, online or in person",
-];
+    heading1: "Studying abroad is a family decision.",
+    heading2: "We talk to both of you.",
+
+    studentLabel: "For students",
+    studentHeading: "Find a course and a city that feel like you.",
+
+    studentPoints: [
+      "A shortlist matched to your grades, interests and budget",
+      "Help finding and applying for scholarships",
+      "Applications, visa and pre-departure, made easy",
+      "Ask anything on WhatsApp, no question is too small",
+    ],
+
+    studentCTA: "Book Free Consultation",
+
+    parentLabel: "For parents",
+    parentHeading:
+      "Honest guidance you can check, and people you can meet.",
+
+    parentPoints: [
+      "Accredited by AIRC and ICEF; Certified counsellors",
+      "Options planned around your budget in Rupiah",
+      "Visit us at Pondok Indah Plaza 5, Jakarta Selatan",
+      "Join every session with your child, online or in person",
+    ],
+
+    parentCTA: "Book a family consultation",
+  },
+
+  ID: {
+    eyebrow: "Dibuat untuk Anda berdua",
+
+    heading1: "Kuliah di luar negeri adalah keputusan keluarga.",
+    heading2: "Kami berbicara dengan Anda berdua.",
+
+    studentLabel: "Untuk mahasiswa",
+    studentHeading: "Temukan program studi dan kota yang sesuai untuk Anda.",
+
+    studentPoints: [
+      "Daftar pilihan kampus yang disesuaikan dengan nilai akademik, minat, dan anggaran Anda",
+      "Bantuan mencari dan mendaftar beasiswa",
+      "Pendaftaran visa, dan persiapan keberangkatan jadi lebih mudah",
+      "Tanyakan apa saja via WhatsApp, tidak ada pertanyaan yang tidak kami tanggapi",
+    ],
+
+    studentCTA: "Pesan Konsultasi Gratis",
+
+    parentLabel: "Untuk orang tua",
+    parentHeading:
+      "Bimbingan yang bisa Anda pelajari, dari konselor kami yang bisa anda temui.",
+
+    parentPoints: [
+      "Terakreditasi AIRC dan ICEF. Konselor bersertifikat",
+      "Pilihan bisa disesuaikan dengan kemampuan finansial",
+      "Kunjungi kami di Ruko Pondok Indah Plaza 5, Jakarta Selatan",
+      "Ikuti setiap sesi bersama anak Anda, online maupun tatap muka langsung di kantor kami",
+    ],
+
+    parentCTA: "Pesan konsultasi keluarga",
+  },
+};
 
 export default function MadeForBoth() {
+  const { language } = useLanguage();
+
+  const text = content[language] || content.EN;
+
   return (
     <section className="w-full bg-[#f7f6fc] py-16 font-jakarta sm:py-20 lg:py-24">
-      <div className="mx-auto w-full max-w-[1100px] px-5 sm:px-8">
+      <div className="mx-auto w-full max-w-[1440px] px-5 sm:px-8">
 
         {/* SECTION HEADING */}
         <div className="mb-8 sm:mb-9">
           <span className="font-jakarta text-sm font-bold uppercase tracking-wide text-[#24139b]">
-            Made for both of you
+            {text.eyebrow}
           </span>
 
           <h2 className="mt-3 font-jakarta text-2xl font-extrabold leading-[1.15] text-[#100B36] sm:text-[26px]">
-            Studying abroad is a family decision.
-            <br className="hidden sm:block" /> We talk to both of you.
+            {text.heading1}
+            <br className="hidden sm:block" /> {text.heading2}
           </h2>
         </div>
 
@@ -105,17 +162,17 @@ export default function MadeForBoth() {
 
             {/* Student Label */}
             <span className="inline-flex rounded-full bg-[#ffd43b] px-3 py-1.5 font-jakarta text-[10px] font-bold text-[#100B36] transition-colors duration-300 group-hover:bg-[#e9e4ff]">
-              For students
+              {text.studentLabel}
             </span>
 
             {/* Student Heading */}
             <h3 className="mt-4 max-w-[390px] font-jakarta text-base font-extrabold leading-[1.12] text-white transition-colors duration-300 group-hover:text-[#100B36] sm:text-[25px]">
-              Find a course and a city that feel like you.
+              {text.studentHeading}
             </h3>
 
             {/* Student Benefits */}
             <ul className="mt-4 space-y-2.5">
-              {studentPoints.map((point) => (
+              {text.studentPoints.map((point) => (
                 <li
                   key={point}
                   className="flex items-start gap-2.5 font-jakarta text-[12px] leading-[1.5] text-white/85 transition-colors duration-300 group-hover:text-[#514b70]"
@@ -134,7 +191,7 @@ export default function MadeForBoth() {
               href="#consultation"
               className="pop-up mt-5 inline-flex items-center justify-center rounded-full bg-[#ffd43b] px-4 py-3 font-jakarta text-[12px] font-bold text-[#100B36] transition-all duration-300 hover:scale-[1.03] hover:bg-[#100B36] hover:text-white"
             >
-              Book Free Consultation
+              {text.studentCTA}
             </a>
           </article>
 
@@ -143,17 +200,17 @@ export default function MadeForBoth() {
 
             {/* Parent Label */}
             <span className="inline-flex rounded-full bg-[#e9e4ff] px-3 py-1.5 font-jakarta text-[10px] font-bold text-[#100B36] transition-colors duration-300 group-hover:bg-[#ffd43b]">
-              For parents
+              {text.parentLabel}
             </span>
 
             {/* Parent Heading */}
             <h3 className="mt-4 max-w-[410px] font-jakarta text-[23px] font-extrabold leading-[1.12] text-[#100B36] transition-colors duration-300 group-hover:text-white sm:text-[25px]">
-              Honest guidance you can check, and people you can meet.
+              {text.parentHeading}
             </h3>
 
             {/* Parent Benefits */}
             <ul className="mt-4 space-y-2.5">
-              {parentPoints.map((point, index) => (
+              {text.parentPoints.map((point, index) => (
                 <li
                   key={point}
                   className="flex items-start gap-2.5 font-jakarta text-[12px] leading-[1.5] text-[#514b70] transition-colors duration-300 group-hover:text-white"
@@ -181,7 +238,7 @@ export default function MadeForBoth() {
               href="#consultation"
               className="pop-up mt-5 inline-flex items-center justify-center rounded-full bg-[#24139b] px-4 py-3 font-jakarta text-[12px] font-bold text-white transition-all duration-300 hover:scale-[1.03] hover:bg-[#ffd43b] hover:text-[#100B36]"
             >
-              Book a family consultation
+              {text.parentCTA}
             </a>
           </article>
         </div>

@@ -1,9 +1,8 @@
-
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 import Reveal from "./Reveal";
+import { useLanguage } from "@/context/LanguageContext";
 
 const HERO = "/images/hero_banner_imags";
 
@@ -19,6 +18,62 @@ const countryIcons = [
   { src: "malaysia.png", alt: "Malaysia" },
   { src: "dubai.png", alt: "Dubai" },
 ];
+
+const heroContent = {
+  EN: {
+    heading1: "Your Study Abroad",
+    heading2: "Dream Starts with",
+    highlight: "Free Expert Guidance!",
+
+    description:
+      "Each student's journey will be tailored according to their profile and aspirations. 1-on-1 Expert Mentorship from shortlisting to Visa.",
+
+    consultation: "Book a free consultation",
+    whatsapp: "Register on WhatsApp",
+
+    trust: [
+      "No consultation fee",
+      "Award Winning Consultant",
+      "Online or in Jakarta",
+    ],
+
+    card1Title: "From Shortlisting to Visa Approval",
+    card1Subtitle: "We're Here to Help!",
+
+    card2Title: "Certified Counsellors",
+    card2Subtitle: "Waiting to Assist You",
+
+    partnerTitle: "550+ Partner Institutions",
+    partnerSubtitle: "Across 11 Countries",
+  },
+
+  ID: {
+    heading1: "Impian Kuliah di Luar Negeri",
+    heading2: "Anda Dimulai dengan",
+    highlight: "Bimbingan Konselor Berpengalaman. Gratis!",
+
+    description:
+      "Perjalanan setiap mahasiswa akan disesuaikan dengan profil dan aspirasinya. Mentoring 1-on-1 bersama konselor berpengalaman, mulai dari pemilihan kampus hingga visa dan pemberangkatan.",
+
+    consultation: "Pesan konsultasi gratis",
+    whatsapp: "Daftar via WhatsApp",
+
+    trust: [
+      "Tanpa biaya konsultasi",
+      "Konsultan peraih penghargaan",
+      "Online atau datang ke kantor kami di Jakarta",
+    ],
+
+    card1Title: "Dari Pemilihan Kampus hingga aplikasi Visa",
+    card1Subtitle: "Kami siap membantu!",
+
+    card2Title: "Konselor Berpengalaman dan Bersertifikat",
+    card2Subtitle: "Siap membantu Anda",
+
+    partnerTitle: "550+ Institusi Mitra",
+    partnerSubtitle: "Di 11 negara",
+  },
+};
 
 // Checkmark icon
 function CheckIcon() {
@@ -68,18 +123,18 @@ function AssuranceBadge({ title, subtitle }) {
 }
 
 // Partner card
-function PartnerBadge() {
+function PartnerBadge({ title, subtitle }) {
   return (
     <div className="flex w-full min-w-0 items-start gap-3 rounded-2xl bg-white px-4 py-3 shadow-[0_8px_24px_rgba(28,21,77,0.08)]">
       <CheckBox />
 
       <div className="min-w-0 flex-1">
         <strong className="block font-jakarta text-[12px] font-bold leading-tight text-[#151034] sm:text-[13px] lg:text-[14px]">
-          550+ Partner Institutions
+          {title}
         </strong>
 
         <span className="mt-1 block font-jakarta text-[11px] leading-tight text-[#696579]">
-          Across 11 Countries
+          {subtitle}
         </span>
 
         <div className="mt-2 flex flex-wrap items-center gap-1.5">
@@ -133,9 +188,9 @@ function WhatsAppIcon() {
 }
 
 export default function Hero() {
-  const [language, setLanguage] = useState("English");
+  const { language, changeLanguage } = useLanguage();
 
-  const isEnglish = language === "English";
+  const content = heroContent[language] || heroContent.EN;
 
   return (
     <section className="relative w-full overflow-hidden bg-[#f7f6ff] font-jakarta">
@@ -146,39 +201,51 @@ export default function Hero() {
 
           {/* Language selector */}
           <div className="mb-5 inline-flex rounded-full border border-[#ded9ee] bg-white p-1 shadow-sm">
-            {["English", "Bahasa"].map((item) => (
-              <button
-                key={item}
-                type="button"
-                onClick={() => setLanguage(item)}
-                aria-pressed={language === item}
-                className={`rounded-full px-4 py-2.5 font-jakarta text-sm font-semibold transition-all duration-300 sm:text-base ${
-                  language === item
-                    ? "bg-[#24139b] text-white shadow-sm"
-                    : "text-[#4c4766] hover:bg-[#f2efff]"
-                }`}
-              >
-                {item}
-              </button>
-            ))}
+            <button
+              type="button"
+              onClick={() => changeLanguage("EN")}
+              aria-pressed={language === "EN"}
+              className={`rounded-full px-4 py-2.5 font-jakarta text-sm font-semibold transition-all duration-300 sm:text-base ${
+                language === "EN"
+                  ? "bg-[#24139b] text-white shadow-sm"
+                  : "text-[#4c4766] hover:bg-[#f2efff]"
+              }`}
+            >
+              English
+            </button>
+
+            <button
+              type="button"
+              onClick={() => changeLanguage("ID")}
+              aria-pressed={language === "ID"}
+              className={`rounded-full px-4 py-2.5 font-jakarta text-sm font-semibold transition-all duration-300 sm:text-base ${
+                language === "ID"
+                  ? "bg-[#24139b] text-white shadow-sm"
+                  : "text-[#4c4766] hover:bg-[#f2efff]"
+              }`}
+            >
+              Bahasa
+            </button>
           </div>
 
           {/* Main heading */}
           <h1 className="max-w-[610px] font-neue text-[32px] font-extrabold leading-[1.08] tracking-tight text-[#110b3c] sm:text-[36px] lg:text-[40px]">
-            Your Study Abroad
-            <br className="hidden sm:block" /> Dream Starts with
+            {content.heading1}
+
+            <br className="hidden sm:block" />
+
+            {content.heading2}
+
             <br />
 
             <span className="relative mt-1 inline-block max-w-full -rotate-1 rounded-xl bg-[#ffd43b] px-2 py-1">
-              Free Expert Guidance!
+              {content.highlight}
             </span>
           </h1>
 
           {/* Description */}
           <p className="mt-6 max-w-[530px] font-jakarta text-sm leading-[1.65] text-black sm:text-lg">
-            Each student&apos;s journey will be tailored according to
-            their profile and aspirations. 1-on-1 Expert Mentorship
-            from shortlisting to Visa.
+            {content.description}
           </p>
 
           {/* CTA buttons */}
@@ -187,7 +254,7 @@ export default function Hero() {
               href="#consultation"
               className="pop-up group inline-flex min-h-[46px] items-center gap-3 rounded-full bg-[#ffd43b] px-5 py-3 font-jakarta text-sm font-bold text-[#120d36] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
             >
-              Book a free consultation
+              {content.consultation}
               <ArrowIcon />
             </a>
 
@@ -199,17 +266,13 @@ export default function Hero() {
                 <WhatsAppIcon />
               </span>
 
-              Register on WhatsApp
+              {content.whatsapp}
             </a>
           </div>
 
           {/* Trust indicators */}
           <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 font-jakarta text-sm font-medium text-[#403b5b]">
-            {[
-              "No consultation fee",
-              "Award Winning Consultant",
-              "Online or in Jakarta",
-            ].map((item) => (
+            {content.trust.map((item) => (
               <span
                 key={item}
                 className="inline-flex items-center gap-1.5"
@@ -303,28 +366,25 @@ export default function Hero() {
             {/* Card 1 */}
             <div className="badge-float-one absolute left-[-1%] top-[12%] z-30 hidden w-[49%] max-w-[285px] lg:block">
               <AssuranceBadge
-                title={
-                  <>
-                    From Shortlisting to
-                    <br />
-                    Visa Approval
-                  </>
-                }
-                subtitle="We're Here to Help!"
+                title={content.card1Title}
+                subtitle={content.card1Subtitle}
               />
             </div>
 
             {/* Card 2 */}
             <div className="badge-float-two absolute right-[-2%] top-[52%] z-30 hidden w-[46%] max-w-[270px] lg:block">
               <AssuranceBadge
-                title="Certified Counsellors"
-                subtitle="Waiting to Assist You"
+                title={content.card2Title}
+                subtitle={content.card2Subtitle}
               />
             </div>
 
             {/* Card 3 */}
             <div className="badge-float-three absolute bottom-[1%] left-[19%] z-30 hidden w-[70%] max-w-[360px] lg:block">
-              <PartnerBadge />
+              <PartnerBadge
+                title={content.partnerTitle}
+                subtitle={content.partnerSubtitle}
+              />
             </div>
           </div>
 
@@ -333,19 +393,22 @@ export default function Hero() {
 
             {/* Mobile Card 1 */}
             <AssuranceBadge
-              title="From Shortlisting to Visa Approval"
-              subtitle="We're Here to Help!"
+              title={content.card1Title}
+              subtitle={content.card1Subtitle}
             />
 
             {/* Mobile Card 2 */}
             <AssuranceBadge
-              title="Certified Counsellors"
-              subtitle="Waiting to Assist You"
+              title={content.card2Title}
+              subtitle={content.card2Subtitle}
             />
 
             {/* Mobile Card 3 */}
             <div className="sm:col-span-2">
-              <PartnerBadge />
+              <PartnerBadge
+                title={content.partnerTitle}
+                subtitle={content.partnerSubtitle}
+              />
             </div>
           </div>
         </div>

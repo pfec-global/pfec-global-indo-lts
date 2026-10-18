@@ -1,8 +1,8 @@
-
 "use client";
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const AUTOPLAY_MS = 3000;
 
@@ -121,6 +121,50 @@ const affiliations = [
   },
 ];
 
+const content = {
+  EN: {
+    eyebrow: "Why Trust PFEC",
+
+    heading1: "Recognised by universities.",
+    heading2: "Accredited by the industry.",
+
+    description:
+      "Founded in Melbourne in 2006, now with offices in Australia, Bangladesh, India, Sri Lanka and Indonesia.",
+
+    previousAward: "Previous award",
+    nextAward: "Next award",
+
+    recognizedBy: "Recognized by",
+
+    affiliationTitle1: "Our Affiliations",
+    affiliationTitle2: "& Recognition",
+
+    affiliationDescription:
+      "Prestigious recognitions that speak volumes about the quality of our service.",
+  },
+
+  ID: {
+    eyebrow: "Mengapa Mempercayai PFEC",
+
+    heading1: "Diakui oleh universitas.",
+    heading2: "Terakreditasi oleh industri.",
+
+    description:
+      "Didirikan di Melbourne pada tahun 2006, kini memiliki kantor di Australia, Bangladesh, India, Sri Lanka, dan Indonesia.",
+
+    previousAward: "Penghargaan sebelumnya",
+    nextAward: "Penghargaan berikutnya",
+
+    recognizedBy: "Diakui oleh",
+
+    affiliationTitle1: "Afiliasi",
+    affiliationTitle2: "& Pengakuan Kami",
+
+    affiliationDescription:
+      "Pengakuan bergengsi yang membuktikan kualitas layanan kami.",
+  },
+};
+
 // Laurel decoration
 function Laurel({ className = "" }) {
   return (
@@ -138,15 +182,77 @@ function Laurel({ className = "" }) {
         strokeLinecap="round"
       />
 
-      <ellipse cx="22" cy="8" rx="2" ry="6" transform="rotate(20 22 8)" />
-      <ellipse cx="11" cy="20" rx="2" ry="6" transform="rotate(-35 11 20)" />
-      <ellipse cx="24" cy="22" rx="2" ry="6" transform="rotate(50 24 22)" />
-      <ellipse cx="7" cy="36" rx="2" ry="6" transform="rotate(-50 7 36)" />
-      <ellipse cx="22" cy="38" rx="2" ry="6" transform="rotate(55 22 38)" />
-      <ellipse cx="8" cy="53" rx="2" ry="6" transform="rotate(-65 8 53)" />
-      <ellipse cx="24" cy="54" rx="2" ry="6" transform="rotate(50 24 54)" />
-      <ellipse cx="14" cy="69" rx="2" ry="6" transform="rotate(-75 14 69)" />
-      <ellipse cx="30" cy="70" rx="2" ry="6" transform="rotate(40 30 70)" />
+      <ellipse
+        cx="22"
+        cy="8"
+        rx="2"
+        ry="6"
+        transform="rotate(20 22 8)"
+      />
+
+      <ellipse
+        cx="11"
+        cy="20"
+        rx="2"
+        ry="6"
+        transform="rotate(-35 11 20)"
+      />
+
+      <ellipse
+        cx="24"
+        cy="22"
+        rx="2"
+        ry="6"
+        transform="rotate(50 24 22)"
+      />
+
+      <ellipse
+        cx="7"
+        cy="36"
+        rx="2"
+        ry="6"
+        transform="rotate(-50 7 36)"
+      />
+
+      <ellipse
+        cx="22"
+        cy="38"
+        rx="2"
+        ry="6"
+        transform="rotate(55 22 38)"
+      />
+
+      <ellipse
+        cx="8"
+        cy="53"
+        rx="2"
+        ry="6"
+        transform="rotate(-65 8 53)"
+      />
+
+      <ellipse
+        cx="24"
+        cy="54"
+        rx="2"
+        ry="6"
+        transform="rotate(50 24 54)"
+      />
+
+      <ellipse
+        cx="14"
+        cy="69"
+        rx="2"
+        ry="6"
+        transform="rotate(-75 14 69)"
+      />
+
+      <ellipse
+        cx="30"
+        cy="70"
+        rx="2"
+        ry="6"
+        transform="rotate(40 30 70)"
+      />
     </svg>
   );
 }
@@ -179,17 +285,18 @@ function ArrowButton({ label, direction, onClick }) {
 }
 
 // Award Card
-function AwardCard({ award }) {
+function AwardCard({ award, recognizedBy }) {
   return (
     <article className="group relative flex h-[183px] min-w-0 flex-col items-center justify-center overflow-hidden rounded-[15px] border border-[#e2dfeb] bg-gradient-to-br from-[#f5f5f5] to-[#e6e6e6] px-10 py-4 text-center transition duration-300 hover:-translate-y-1 hover:shadow-lg sm:h-[183px] sm:px-12">
-
       <Laurel className="left-[12%]" />
       <Laurel className="right-[12%] -scale-x-100" />
 
       <div className="relative z-[1] flex w-full flex-col items-center">
-
         {award.lines.map((line) => (
-          <div key={line.title} className="mb-1 leading-tight">
+          <div
+            key={line.title}
+            className="mb-1 leading-tight"
+          >
             <h3 className="font-jakarta text-[15px] font-semibold text-[#171717] sm:text-[17px]">
               {line.title}
             </h3>
@@ -207,7 +314,7 @@ function AwardCard({ award }) {
         ))}
 
         <p className="mt-1 font-jakarta text-[8px] text-[#777]">
-          Recognized by
+          {recognizedBy}
         </p>
 
         {award.logo ? (
@@ -233,6 +340,9 @@ function AwardCard({ award }) {
 }
 
 export default function AwardsAndAffiliations() {
+  const { language } = useLanguage();
+  const text = content[language] || content.EN;
+
   const [active, setActive] = useState(0);
   const [visibleCards, setVisibleCards] = useState(3);
 
@@ -310,33 +420,31 @@ export default function AwardsAndAffiliations() {
 
           <div className="max-w-[480px]">
             <p className="mb-3 font-jakarta text-[11px] font-semibold uppercase text-[#24139B] sm:text-base">
-              Why Trust PFEC
+              {text.eyebrow}
             </p>
 
             <h2 className="font-jakarta text-[26px] font-bold leading-[1.15] tracking-[-0.4px] text-[#100B36] sm:text-[26px]">
-              Recognised by universities.
+              {text.heading1}
               <br />
-              Accredited by the industry.
+              {text.heading2}
             </h2>
           </div>
 
           <div className="flex flex-col items-start gap-3 md:items-end">
-
             <p className="max-w-[370px] font-jakarta text-left text-[12px] leading-[1.6] text-[#56516f] sm:text-[13px] md:text-right">
-              Founded in Melbourne in 2006, now with offices in Australia,
-              Bangladesh, India, Sri Lanka and Indonesia.
+              {text.description}
             </p>
 
             {/* Carousel arrows */}
             <div className="flex gap-1.5">
               <ArrowButton
-                label="Previous award"
+                label={text.previousAward}
                 direction="left"
                 onClick={prev}
               />
 
               <ArrowButton
-                label="Next award"
+                label={text.nextAward}
                 direction="right"
                 onClick={next}
               />
@@ -364,7 +472,10 @@ export default function AwardsAndAffiliations() {
                   }px) / ${visibleCards})`,
                 }}
               >
-                <AwardCard award={award} />
+                <AwardCard
+                  award={award}
+                  recognizedBy={text.recognizedBy}
+                />
               </div>
             ))}
           </div>
@@ -377,20 +488,18 @@ export default function AwardsAndAffiliations() {
             <div className="shrink-0 lg:max-w-[335px]">
               <h3 className="font-jakarta text-[18px] font-semibold leading-snug text-[#171717] sm:text-[19px]">
                 <span className="text-[#24139B]">
-                  Our Affiliations
+                  {text.affiliationTitle1}
                 </span>{" "}
-                &amp; Recognition
+                {text.affiliationTitle2}
               </h3>
 
               <p className="mt-1 max-w-[320px] font-jakarta text-[12px] leading-[1.6] text-[#56516f] sm:text-[13px]">
-                Prestigious recognitions that speak volumes about the quality
-                of our service.
+                {text.affiliationDescription}
               </p>
             </div>
 
             {/* Affiliation logos */}
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-4 sm:gap-x-5 lg:flex-1 lg:justify-end lg:gap-x-4">
-
               {affiliations.map((logo) => (
                 <div
                   key={logo.src}
@@ -405,7 +514,6 @@ export default function AwardsAndAffiliations() {
                   />
                 </div>
               ))}
-
             </div>
           </div>
         </div>
