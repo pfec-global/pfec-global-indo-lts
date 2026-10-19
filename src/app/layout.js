@@ -1,4 +1,3 @@
-
 import {
   Titan_One,
   Bebas_Neue,
@@ -8,6 +7,7 @@ import {
 } from "next/font/google";
 
 import "./globals.css";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 // Plus Jakarta Sans
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -80,7 +80,9 @@ export default function RootLayout({ children }) {
         className="flex min-h-full flex-col"
         suppressHydrationWarning
       >
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

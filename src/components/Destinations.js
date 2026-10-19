@@ -1,66 +1,170 @@
-
 "use client";
 
 import { useRef } from "react";
 import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
 
-const destinations = [
-  {
-    name: "Australia",
-    image: "au.jpg",
-    description: "Study in Australia",
+const content = {
+  EN: {
+    eyebrow: "Countries",
+    heading1: "Explore & Apply to 11 Global",
+    heading2: "Study Destinations",
+    description:
+      "Pick a country to see universities, courses and visa steps, or let a counsellor help you compare.",
+    previous: "Previous countries",
+    next: "Next countries",
+    ariaLabel: "Study destinations",
+
+    destinations: [
+      {
+        name: "Australia",
+        slug: "australia",
+        image: "au.jpg",
+        description: "Study in Australia",
+      },
+      {
+        name: "United Kingdom",
+        slug: "united-kingdom",
+        image: "uk.jpg",
+        description: "Study in the UK",
+      },
+      {
+        name: "Canada",
+        slug: "canada",
+        image: "ca.jpg",
+        description: "Study in Canada",
+      },
+      {
+        name: "New Zealand",
+        slug: "new-zealand",
+        image: "nz.jpg",
+        description: "Study in New Zealand",
+      },
+      {
+        name: "USA",
+        slug: "usa",
+        image: "usa.jpg",
+        description: "Study in the USA",
+      },
+      {
+        name: "Ireland",
+        slug: "ireland",
+        image: "airland.jpg",
+        description: "Study in Ireland",
+      },
+      {
+        name: "Germany",
+        slug: "germany",
+        image: "germany.jpg",
+        description: "Study in Germany",
+      },
+      {
+        name: "Europe",
+        slug: "europe",
+        image: "europ.jpg",
+        description: "Study in Europe",
+      },
+      {
+        name: "Malaysia",
+        slug: "malaysia",
+        image: "malaysia.jpg",
+        description: "Study in Malaysia",
+      },
+      {
+        name: "Dubai",
+        slug: "dubai",
+        image: "dubai.jpg",
+        description: "Study in Dubai",
+      },
+      {
+        name: "Japan",
+        slug: "japan",
+        image: "japan.jpg",
+        description: "Study in Japan",
+      },
+    ],
   },
-  {
-    name: "United Kingdom",
-    image: "uk.jpg",
-    description: "Study in the UK",
+
+  ID: {
+    eyebrow: "Negara",
+    heading1: "Jelajahi & Daftar ke 11",
+    heading2: "Destinasi Studi Global",
+    description:
+      "Pilih negara untuk melihat universitas, program studi, dan tahapan visa, atau biarkan konselor kami membantu Anda.",
+    previous: "Negara sebelumnya",
+    next: "Negara berikutnya",
+    ariaLabel: "Destinasi studi",
+
+    destinations: [
+      {
+        name: "Australia",
+        slug: "australia",
+        image: "au.jpg",
+        description: "Kuliah di Australia",
+      },
+      {
+        name: "Inggris",
+        slug: "united-kingdom",
+        image: "uk.jpg",
+        description: "Kuliah di Inggris",
+      },
+      {
+        name: "Kanada",
+        slug: "canada",
+        image: "ca.jpg",
+        description: "Kuliah di Kanada",
+      },
+      {
+        name: "Selandia Baru",
+        slug: "new-zealand",
+        image: "nz.jpg",
+        description: "Kuliah di Selandia Baru",
+      },
+      {
+        name: "Amerika Serikat",
+        slug: "usa",
+        image: "usa.jpg",
+        description: "Kuliah di Amerika Serikat",
+      },
+      {
+        name: "Irlandia",
+        slug: "ireland",
+        image: "airland.jpg",
+        description: "Kuliah di Irlandia",
+      },
+      {
+        name: "Jerman",
+        slug: "germany",
+        image: "germany.jpg",
+        description: "Kuliah di Jerman",
+      },
+      {
+        name: "Eropa",
+        slug: "europe",
+        image: "europ.jpg",
+        description: "Kuliah di Eropa",
+      },
+      {
+        name: "Malaysia",
+        slug: "malaysia",
+        image: "malaysia.jpg",
+        description: "Kuliah di Malaysia",
+      },
+      {
+        name: "Dubai",
+        slug: "dubai",
+        image: "dubai.jpg",
+        description: "Kuliah di Dubai",
+      },
+      {
+        name: "Jepang",
+        slug: "japan",
+        image: "japan.jpg",
+        description: "Kuliah di Jepang",
+      },
+    ],
   },
-  {
-    name: "Canada",
-    image: "ca.jpg",
-    description: "Study in Canada",
-  },
-  {
-    name: "New Zealand",
-    image: "nz.jpg",
-    description: "Study in New Zealand",
-  },
-  {
-    name: "USA",
-    image: "usa.jpg",
-    description: "Study in the USA",
-  },
-  {
-    name: "Ireland",
-    image: "airland.jpg",
-    description: "Study in Ireland",
-  },
-  {
-    name: "Germany",
-    image: "germany.jpg",
-    description: "Study in Germany",
-  },
-  {
-    name: "Europe",
-    image: "europ.jpg",
-    description: "Study in Europe",
-  },
-  {
-    name: "Malaysia",
-    image: "malaysia.jpg",
-    description: "Study in Malaysia",
-  },
-  {
-    name: "Dubai",
-    image: "dubai.jpg",
-    description: "Study in Dubai",
-  },
-  {
-    name: "Japan",
-    image: "japan.jpg",
-    description: "Study in Japan",
-  },
-];
+};
 
 function ArrowButton({ direction, onClick, label }) {
   const isLeft = direction === "left";
@@ -91,6 +195,11 @@ function ArrowButton({ direction, onClick, label }) {
 export default function Countries() {
   const carouselRef = useRef(null);
 
+  const { language } = useLanguage();
+
+  const text = content[language] || content.EN;
+  const destinations = text.destinations;
+
   const scrollCarousel = (direction) => {
     const carousel = carouselRef.current;
 
@@ -119,21 +228,18 @@ export default function Countries() {
     >
       <div className="mx-auto max-w-[1440px]">
 
-        {/* ===================================== */}
         {/* SECTION HEADING AND CAROUSEL CONTROLS */}
-        {/* ===================================== */}
-
         <div className="mb-7 flex flex-col justify-between gap-5 px-5 sm:mb-8 sm:px-8 lg:flex-row lg:items-end lg:px-12">
 
           {/* Left heading */}
           <div className="max-w-[550px]">
             <span className="font-jakarta text-sm font-bold uppercase tracking-wide text-[#24139b]">
-              Countries
+              {text.eyebrow}
             </span>
 
             <h2 className="mt-3 font-jakarta text-[27px] font-extrabold leading-[1.12] text-[#100B36] sm:text-[26px]">
-              Explore &amp; Apply to 11 Global
-              <br className="hidden sm:block" /> Study Destinations
+              {text.heading1}
+              <br className="hidden sm:block" /> {text.heading2}
             </h2>
           </div>
 
@@ -141,47 +247,40 @@ export default function Countries() {
           <div className="flex items-end justify-between gap-5 lg:max-w-[360px]">
 
             <p className="max-w-[300px] font-jakarta text-[12px] leading-[1.65] text-[#514b70] sm:text-[13px] lg:text-right">
-              Pick a country to see universities, courses and visa steps,
-              or let a counsellor help you compare.
+              {text.description}
             </p>
 
             {/* Carousel controls */}
             <div className="flex shrink-0 gap-2">
               <ArrowButton
                 direction="left"
-                label="Previous countries"
+                label={text.previous}
                 onClick={() => scrollCarousel(-1)}
               />
 
               <ArrowButton
                 direction="right"
-                label="Next countries"
+                label={text.next}
                 onClick={() => scrollCarousel(1)}
               />
             </div>
           </div>
         </div>
 
-        {/* ===================================== */}
         {/* HORIZONTAL COUNTRY CAROUSEL */}
-        {/* ===================================== */}
-
         <div
           ref={carouselRef}
           className="country-carousel flex gap-4 overflow-x-auto px-5 pb-2 sm:px-8 lg:px-12"
-          aria-label="Study destinations"
+          aria-label={text.ariaLabel}
         >
           {destinations.map((country) => (
             <a
-              key={country.name}
+              key={country.slug}
               data-country-card
-              href={`#${country.name
-                .toLowerCase()
-                .replaceAll(" ", "-")}`}
+              href={`#${country.slug}`}
               className="group relative h-[245px] w-[195px] shrink-0 snap-start overflow-hidden rounded-[16px] bg-[#100B36] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:h-[264px] sm:w-[212px] lg:h-[264px] lg:w-[212px]"
               aria-label={country.description}
             >
-
               {/* COUNTRY IMAGE */}
               <Image
                 src={`/images/county/${country.image}`}
@@ -202,7 +301,7 @@ export default function Countries() {
                   {country.name}
                 </h3>
 
-                {/* Country description */}
+                {/* Country subtitle */}
                 <p className="mt-1 font-jakarta text-[10px] leading-relaxed text-white/90">
                   {country.description}{" "}
 
@@ -216,10 +315,7 @@ export default function Countries() {
         </div>
       </div>
 
-      {/* ===================================== */}
       {/* CAROUSEL STYLES */}
-      {/* ===================================== */}
-
       <style jsx>{`
         .country-carousel {
           scroll-snap-type: x mandatory;

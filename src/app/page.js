@@ -32,22 +32,22 @@ export default function Home() {
           <MadeForBoth />
         </Reveal>
         <Reveal>
-          <HowItWorks  />
+          <HowItWorks />
         </Reveal>
         <Reveal id="destinations">
           <Destinations />
         </Reveal>
-          <Reveal>
-          <OurServices  />
+        <Reveal>
+          <OurServices />
         </Reveal>
         <Reveal id="courses">
           <FindCourse />
         </Reveal>
 
-          <Reveal id="testimonials">
+        <Reveal id="testimonials">
           <Testimonials />
         </Reveal>
-        
+
         <Reveal id="awards">
           <AwardsAndAffiliations />
         </Reveal>
@@ -57,11 +57,9 @@ export default function Home() {
         <Reveal>
           <FAQ />
         </Reveal>
-         <Reveal>
+        <Reveal>
           <ObligationForm />
         </Reveal>
-       
-       
       </main>
       <ConsultationPopup />
       <Reveal>
