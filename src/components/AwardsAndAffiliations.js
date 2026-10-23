@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -165,12 +166,15 @@ const content = {
   },
 };
 
-// Laurel decoration
+// =====================================
+// LAUREL DECORATION
+// =====================================
+
 function Laurel({ className = "" }) {
   return (
     <svg
       viewBox="0 0 40 90"
-      className={`absolute top-5 h-[76px] w-8 text-[#252525] sm:h-[84px] sm:w-9 ${className}`}
+      className={`pointer-events-none absolute top-[28px] h-[65px] w-[27px] text-[#252525] sm:top-[32px] sm:h-[70px] sm:w-[30px] ${className}`}
       fill="currentColor"
       aria-hidden="true"
     >
@@ -257,7 +261,10 @@ function Laurel({ className = "" }) {
   );
 }
 
-// Carousel arrow
+// =====================================
+// CAROUSEL ARROWS
+// =====================================
+
 function ArrowButton({ label, direction, onClick }) {
   return (
     <button
@@ -284,63 +291,87 @@ function ArrowButton({ label, direction, onClick }) {
   );
 }
 
-// Award Card
+// =====================================
+// AWARD CARD - FIXED LAUREL OVERLAP
+// =====================================
+
 function AwardCard({ award, recognizedBy }) {
   return (
-    <article className="group relative flex h-[183px] min-w-0 flex-col items-center justify-center overflow-hidden rounded-[15px] border border-[#e2dfeb] bg-gradient-to-br from-[#f5f5f5] to-[#e6e6e6] px-10 py-4 text-center transition duration-300 hover:-translate-y-1 hover:shadow-lg sm:h-[183px] sm:px-12">
-      <Laurel className="left-[12%]" />
-      <Laurel className="right-[12%] -scale-x-100" />
+    <article
+      className="group relative flex h-[195px] min-w-0 flex-col items-center justify-center overflow-hidden rounded-[15px] border border-[#e2dfeb] bg-gradient-to-br from-[#f5f5f5] to-[#e6e6e6] text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+    >
+      {/* Left Laurel */}
+      <Laurel className="left-[10px] sm:left-[14px]" />
 
-      <div className="relative z-[1] flex w-full flex-col items-center">
-        {award.lines.map((line) => (
-          <div
-            key={line.title}
-            className="mb-1 leading-tight"
-          >
-            <h3 className="font-jakarta text-[15px] font-semibold text-[#171717] sm:text-[17px]">
-              {line.title}
-            </h3>
+      {/* Right Laurel */}
+      <Laurel className="right-[10px] -scale-x-100 sm:right-[14px]" />
 
-            {line.sub && (
-              <p className="mt-0.5 font-jakarta text-[15px] text-[#252525] sm:text-base">
-                {line.sub}
+      {/* Main content: reserved space for feathers */}
+      <div className="relative z-10 flex h-full w-full min-w-0 flex-col items-center justify-center px-[48px] py-3 sm:px-[53px]">
+
+        {/* Award Titles */}
+        <div className="flex w-full flex-col items-center justify-center gap-1">
+          {award.lines.map((line) => (
+            <div
+              key={line.title}
+              className="w-full min-w-0 text-center"
+            >
+              <h3 className="mx-auto max-w-full break-words font-jakarta text-[13px] font-semibold leading-[1.25] text-[#171717] sm:text-[14px]">
+                {line.title}
+              </h3>
+
+              {line.sub && (
+                <p className="mt-0.5 font-jakarta text-[12px] text-[#252525]">
+                  {line.sub}
+                </p>
+              )}
+
+              <p className="mt-1 font-jakarta text-[11px] leading-tight text-[#666]">
+                {line.year}
               </p>
-            )}
+            </div>
+          ))}
+        </div>
 
-            <p className="mt-1 font-jakarta text-[12px] text-[#666]">
-              {line.year}
-            </p>
-          </div>
-        ))}
-
-        <p className="mt-1 font-jakarta text-[8px] text-[#777]">
+        {/* Recognition */}
+        <p className="mt-2 font-jakarta text-[8px] leading-tight text-[#777]">
           {recognizedBy}
         </p>
 
+        {/* University Logo */}
         {award.logo ? (
-          <Image
-            src={award.logo}
-            alt={award.university}
-            width={240}
-            height={64}
-            className="mt-1 h-[35px] max-w-[150px] object-contain"
-          />
+          <div className="mt-1 flex h-[32px] w-full items-center justify-center">
+            <Image
+              src={award.logo}
+              alt={award.university}
+              width={240}
+              height={64}
+              className="max-h-[32px] max-w-[140px] object-contain"
+            />
+          </div>
         ) : (
-          <p className="mt-1 max-w-[170px] font-jakarta text-[12px] font-bold leading-tight text-[#183b8c] sm:text-[13px]">
+          <p className="mt-1 max-w-[140px] font-jakarta text-[11px] font-bold leading-tight text-[#183b8c]">
             {award.university}
           </p>
         )}
 
-        <p className="mt-1 font-jakarta text-[7px] text-[#555]">
+        {/* CRICOS */}
+        <p className="mt-1 font-jakarta text-[7px] leading-tight text-[#555]">
           CRICOS: {award.cricos}
         </p>
+
       </div>
     </article>
   );
 }
 
+// =====================================
+// MAIN COMPONENT
+// =====================================
+
 export default function AwardsAndAffiliations() {
   const { language } = useLanguage();
+
   const text = content[language] || content.EN;
 
   const [active, setActive] = useState(0);
@@ -351,7 +382,7 @@ export default function AwardsAndAffiliations() {
     awards.length - visibleCards
   );
 
-  // Responsive number of cards
+  // Responsive cards
   useEffect(() => {
     const updateVisibleCards = () => {
       if (window.innerWidth < 640) {
@@ -377,7 +408,7 @@ export default function AwardsAndAffiliations() {
       );
   }, []);
 
-  // Keep active slide in range
+  // Keep active slide within range
   useEffect(() => {
     setActive((current) =>
       Math.min(current, maxIndex)
@@ -397,14 +428,14 @@ export default function AwardsAndAffiliations() {
     return () => clearInterval(timer);
   }, [maxIndex]);
 
-  // Previous slide
+  // Previous
   const prev = () => {
     setActive((current) =>
       current <= 0 ? maxIndex : current - 1
     );
   };
 
-  // Next slide
+  // Next
   const next = () => {
     setActive((current) =>
       current >= maxIndex ? 0 : current + 1
@@ -419,6 +450,7 @@ export default function AwardsAndAffiliations() {
         <div className="mb-7 flex flex-col justify-between gap-5 md:flex-row md:items-center">
 
           <div className="max-w-[480px]">
+
             <p className="mb-3 font-jakarta text-[11px] font-semibold uppercase text-[#24139B] sm:text-base">
               {text.eyebrow}
             </p>
@@ -428,15 +460,18 @@ export default function AwardsAndAffiliations() {
               <br />
               {text.heading2}
             </h2>
+
           </div>
 
           <div className="flex flex-col items-start gap-3 md:items-end">
+
             <p className="max-w-[370px] font-jakarta text-left text-[12px] leading-[1.6] text-[#56516f] sm:text-[13px] md:text-right">
               {text.description}
             </p>
 
             {/* Carousel arrows */}
             <div className="flex gap-1.5">
+
               <ArrowButton
                 label={text.previousAward}
                 direction="left"
@@ -448,6 +483,7 @@ export default function AwardsAndAffiliations() {
                 direction="right"
                 onClick={next}
               />
+
             </div>
           </div>
         </div>
@@ -483,23 +519,31 @@ export default function AwardsAndAffiliations() {
 
         {/* AFFILIATIONS PANEL */}
         <div className="mt-7 rounded-[17px] border border-[#e4e0ef] bg-white px-5 py-5 sm:px-6 lg:px-6 lg:py-4">
+
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between lg:gap-7">
 
+            {/* Affiliation Description */}
             <div className="shrink-0 lg:max-w-[335px]">
+
               <h3 className="font-jakarta text-[18px] font-semibold leading-snug text-[#171717] sm:text-[19px]">
+
                 <span className="text-[#24139B]">
                   {text.affiliationTitle1}
                 </span>{" "}
+
                 {text.affiliationTitle2}
+
               </h3>
 
               <p className="mt-1 max-w-[320px] font-jakarta text-[12px] leading-[1.6] text-[#56516f] sm:text-[13px]">
                 {text.affiliationDescription}
               </p>
+
             </div>
 
-            {/* Affiliation logos */}
+            {/* Affiliation Logos */}
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-4 sm:gap-x-5 lg:flex-1 lg:justify-end lg:gap-x-4">
+
               {affiliations.map((logo) => (
                 <div
                   key={logo.src}
@@ -514,9 +558,12 @@ export default function AwardsAndAffiliations() {
                   />
                 </div>
               ))}
+
             </div>
+
           </div>
         </div>
+
       </div>
     </section>
   );

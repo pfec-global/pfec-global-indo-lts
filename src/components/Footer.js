@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -8,7 +9,7 @@ const footerContent = {
     description:
       "Study abroad with complete expert guidance, from your first conversation to departure.",
 
-    servicesTitle: "Services",
+    servicesTitle: "Explore",
     companyTitle: "Company",
     visitTitle: "Visit us in Jakarta",
 
@@ -30,7 +31,28 @@ const footerContent = {
       "Pondok Indah Plaza 5, Block A No. 10 Jl. Margaguna Raya, Kebayoran Baru Jakarta Selatan 12140",
 
     copyright:
-      "© 2026 PFEC Global. All Rights Reserved",
+      "© 2026 PFEC Global. All rights reserved.",
+
+    globalPresenceTitle: "Our Global Presence",
+
+    globalOffices: [
+      {
+        label: "Australia",
+        href: "https://pfecglobal.com.au/",
+      },
+      {
+        label: "Bangladesh",
+        href: "https://pfecglobal.com.bd/",
+      },
+      {
+        label: "India",
+        href: "https://pfecglobal.in/",
+      },
+      {
+        label: "Sri Lanka",
+        href: "https://pfecglobal.com.lk/",
+      },
+    ],
 
     legalLinks: [
       {
@@ -54,8 +76,8 @@ const footerContent = {
     description:
       "Kuliah di luar negeri dengan bimbingan ahli lengkap, mulai dari percakapan pertama hingga keberangkatan.",
 
-    servicesTitle: "Layanan",
-    companyTitle: "Company",
+    servicesTitle: "Jelajahi",
+    companyTitle: "Perusahaan",
     visitTitle: "Kunjungi kami di Jakarta",
 
     serviceLinks: [
@@ -66,8 +88,8 @@ const footerContent = {
     ],
 
     companyLinks: [
-      { label: "For parents", href: "#services" },
-      { label: "About PFEC Global", href: "#about" },
+      { label: "Untuk Orang Tua", href: "#services" },
+      { label: "Tentang PFEC Global", href: "#about" },
       { label: "FAQ", href: "#faq" },
       { label: "Pesan Konsultasi Gratis", href: "#consultation" },
     ],
@@ -76,7 +98,28 @@ const footerContent = {
       "Pondok Indah Plaza 5, Block A No. 10 Jl. Margaguna Raya, Kebayoran Baru Jakarta Selatan 12140",
 
     copyright:
-      "© 2026 PFEC Global. Hak Cipta Dilindungi Undang-Undang",
+      "© 2026 PFEC Global. Hak Cipta Dilindungi Undang-Undang.",
+
+    globalPresenceTitle: "Kehadiran Global Kami",
+
+    globalOffices: [
+      {
+        label: "Australia",
+        href: "https://pfecglobal.com.au/",
+      },
+      {
+        label: "Bangladesh",
+        href: "https://pfecglobal.com.bd/",
+      },
+      {
+        label: "India",
+        href: "https://pfecglobal.in/",
+      },
+      {
+        label: "Sri Lanka",
+        href: "https://pfecglobal.com.lk/",
+      },
+    ],
 
     legalLinks: [
       {
@@ -143,9 +186,7 @@ const socials = [
 export default function Footer() {
   const { language } = useLanguage();
 
-  const text =
-    footerContent[language] ||
-    footerContent.EN;
+  const text = footerContent[language] || footerContent.EN;
 
   return (
     <footer className="bg-[#100B36] font-jakarta text-white">
@@ -176,50 +217,46 @@ export default function Footer() {
                 </h3>
 
                 <ul className="mt-3 flex gap-3">
-                  {socials.map(
-                    ({ name, color, icon }) => (
-                      <li key={name}>
-                        <a
-                          href="#"
-                          aria-label={name}
-                          className={`flex h-9 w-9 items-center justify-center rounded-md text-white transition-opacity hover:opacity-80 ${color}`}
+                  {socials.map(({ name, color, icon }) => (
+                    <li key={name}>
+                      <a
+                        href="#"
+                        aria-label={name}
+                        className={`flex h-9 w-9 items-center justify-center rounded-md text-white transition-opacity hover:opacity-80 ${color}`}
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="h-6 w-6"
+                          fill="currentColor"
+                          aria-hidden="true"
                         >
-                          <svg
-                            viewBox="0 0 24 24"
-                            className="h-6 w-6"
-                            fill="currentColor"
-                            aria-hidden="true"
-                          >
-                            {icon}
-                          </svg>
-                        </a>
-                      </li>
-                    )
-                  )}
+                          {icon}
+                        </svg>
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </>
             )}
           </div>
 
-          {/* SERVICES */}
+          {/* EXPLORE */}
           <div>
             <h3 className="mb-4 font-jakarta text-[14px] font-bold text-white sm:text-[15px]">
               {text.servicesTitle}
             </h3>
 
             <ul className="space-y-3">
-              {text.serviceLinks.map(
-                ({ label, href }) => (
-                  <li key={href}>
-                    <a
-                      href={href}
-                      className="font-jakarta text-[12px] text-white/70 transition-colors hover:text-[#FBCB20] sm:text-[13px]"
-                    >
-                      {label}
-                    </a>
-                  </li>
-                )
-              )}
+              {text.serviceLinks.map(({ label, href }) => (
+                <li key={href}>
+                  <a
+                    href={href}
+                    className="font-jakarta text-[12px] text-white/70 transition-colors hover:text-[#FBCB20] sm:text-[13px]"
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -230,22 +267,20 @@ export default function Footer() {
             </h3>
 
             <ul className="space-y-3">
-              {text.companyLinks.map(
-                ({ label, href }) => (
-                  <li key={`${href}-${label}`}>
-                    <a
-                      href={href}
-                      className="font-jakarta text-[12px] text-white/70 transition-colors hover:text-[#FBCB20] sm:text-[13px]"
-                    >
-                      {label}
-                    </a>
-                  </li>
-                )
-              )}
+              {text.companyLinks.map(({ label, href }) => (
+                <li key={`${href}-${label}`}>
+                  <a
+                    href={href}
+                    className="font-jakarta text-[12px] text-white/70 transition-colors hover:text-[#FBCB20] sm:text-[13px]"
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* VISIT US */}
+          {/* JAKARTA OFFICE */}
           <div>
             <h3 className="mb-4 font-jakarta text-[14px] font-bold text-white sm:text-[15px]">
               {text.visitTitle}
@@ -264,32 +299,57 @@ export default function Footer() {
               </a>
             </address>
           </div>
+
+        </div>
+
+        {/* GLOBAL PRESENCE SECTION */}
+        <div className="mt-8 border-t border-white/10 pt-4 text-center sm:mt-9">
+
+          <h3 className="font-jakarta text-[12px] font-medium text-white/85 sm:text-[13px]">
+            {text.globalPresenceTitle}
+          </h3>
+
+          <ul className="mt-2 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            {text.globalOffices.map(({ label, href }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-jakarta text-[11px] text-white/65 underline decoration-white/40 underline-offset-[3px] transition-colors hover:text-[#FBCB20] sm:text-[12px]"
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+
         </div>
 
         {/* BOTTOM FOOTER */}
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/15 pt-7 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-6 flex flex-col gap-4 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
 
-          {/* Copyright */}
+          {/* COPYRIGHT */}
           <p className="font-jakarta text-[11px] text-white/65 sm:text-[12px]">
             {text.copyright}
           </p>
 
-          {/* Legal links */}
+          {/* LEGAL LINKS */}
           <ul className="flex flex-wrap gap-x-6 gap-y-2 lg:gap-x-8">
-            {text.legalLinks.map(
-              ({ label, href }) => (
-                <li key={label}>
-                  <a
-                    href={href}
-                    className="font-jakarta text-[11px] text-white/65 underline decoration-white/40 underline-offset-2 transition-colors hover:text-[#FBCB20] sm:text-[12px]"
-                  >
-                    {label}
-                  </a>
-                </li>
-              )
-            )}
+            {text.legalLinks.map(({ label, href }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  className="font-jakarta text-[11px] text-white/65 underline decoration-white/40 underline-offset-2 transition-colors hover:text-[#FBCB20] sm:text-[12px]"
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
           </ul>
+
         </div>
+
       </div>
     </footer>
   );
