@@ -7,6 +7,7 @@ import MadeForBoth from "@/components/MadeForBoth";
 import HowItWorks from "@/components/HowItWorks";
 import OurServices from "@/components/OurServices";
 import FindCourse from "@/components/FindCourse";
+import CourseFinder from "@/components/CourseFinder";
 import AwardsAndAffiliations from "@/components/AwardsAndAffiliations";
 import AboutPFEC from "@/components/AboutPFEC";
 import FAQ from "@/components/FAQ";
@@ -43,6 +44,9 @@ export default function Home() {
         <Reveal id="courses">
           <FindCourse />
         </Reveal>
+        <Reveal>
+          <CourseFinder />
+          </Reveal>
 
         <Reveal id="testimonials">
           <Testimonials />
@@ -54,7 +58,7 @@ export default function Home() {
         <Reveal id="about">
           <AboutPFEC />
         </Reveal>
-        <Reveal>
+        <Reveal id="faq">
           <FAQ />
         </Reveal>
         <Reveal>

@@ -80,6 +80,7 @@ const content = {
   },
 };
 
+
 export default function HowItWorks() {
   const { language } = useLanguage();
 
@@ -113,54 +114,35 @@ export default function HowItWorks() {
 
         {/* Steps */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step, index) => {
-            const isDefaultActive = index === 3;
-
-            return (
-              <article
-                key={step.number}
-                className={`group min-h-[184px] rounded-[20px] border p-5 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-[#100B36] hover:bg-[#100B36] hover:shadow-[0_12px_28px_rgba(16,11,54,0.13)] sm:p-[21px] ${
-                  isDefaultActive
-                    ? "border-[#100B36] bg-[#100B36] text-white"
-                    : "border-transparent bg-[#f7f6fc] text-[#100B36]"
-                }`}
+          {steps.map((step) => (
+            <article
+              key={step.number}
+              className="group min-h-[184px] rounded-[20px] border border-transparent bg-[#f7f6fc] p-5 text-[#100B36] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-[#100B36] hover:bg-[#100B36] hover:shadow-[0_12px_28px_rgba(16,11,54,0.13)] sm:p-[21px]"
+            >
+              {/* Number badge */}
+              <span
+                className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#24139b] font-jakarta text-lg font-extrabold text-[#ffd43b] transition-colors duration-300 group-hover:bg-[#ffd43b] group-hover:text-[#100B36]"
               >
-                {/* Number badge */}
-                <span
-                  className={`flex h-10 w-10 items-center justify-center rounded-xl font-jakarta text-lg font-extrabold transition-colors duration-300 ${
-                    isDefaultActive
-                      ? "bg-[#ffd43b] text-[#100B36]"
-                      : "bg-[#24139b] text-[#ffd43b] group-hover:bg-[#ffd43b] group-hover:text-[#100B36]"
-                  }`}
-                >
-                  {step.number}
-                </span>
+                {step.number}
+              </span>
 
-                {/* Step title */}
-                <h3
-                  className={`mt-4 font-jakarta text-[16px] font-extrabold leading-snug transition-colors duration-300 ${
-                    isDefaultActive
-                      ? "text-white"
-                      : "text-[#100B36] group-hover:text-white"
-                  }`}
-                >
-                  {step.title}
-                </h3>
+              {/* Step title */}
+              <h3
+                className="mt-4 font-jakarta text-[16px] font-extrabold leading-snug text-[#100B36] transition-colors duration-300 group-hover:text-white"
+              >
+                {step.title}
+              </h3>
 
-                {/* Description */}
-                <p
-                  className={`mt-3 font-jakarta text-[12px] leading-[1.6] transition-colors duration-300 ${
-                    isDefaultActive
-                      ? "text-white/85"
-                      : "text-[#514b70] group-hover:text-white/85"
-                  }`}
-                >
-                  {step.description}
-                </p>
-              </article>
-            );
-          })}
+              {/* Description */}
+              <p
+                className="mt-3 font-jakarta text-[12px] leading-[1.6] text-[#514b70] transition-colors duration-300 group-hover:text-white/85"
+              >
+                {step.description}
+              </p>
+            </article>
+          ))}
         </div>
+
       </div>
     </section>
   );
