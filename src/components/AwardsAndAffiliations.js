@@ -516,6 +516,7 @@ export default function AwardsAndAffiliations() {
             ))}
           </div>
         </div>
+        
 
         {/* AFFILIATIONS PANEL */}
         <div className="mt-7 rounded-[17px] border border-[#e4e0ef] bg-white px-5 py-5 sm:px-6 lg:px-6 lg:py-4">
