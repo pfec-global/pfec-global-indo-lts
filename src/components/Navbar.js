@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
@@ -37,6 +37,7 @@ const navContent = {
 
 export default function Navbar() {
   const [active, setActive] = useState(null);
+  const progressRef = useRef(null);
 
   // Global language state
   const { language, changeLanguage } = useLanguage();
@@ -75,6 +76,42 @@ export default function Navbar() {
       window.removeEventListener("scroll", onScroll);
     };
   }, [language]);
+
+  // Scroll progress bar
+  useEffect(() => {
+    let frame = null;
+
+    const update = () => {
+      frame = null;
+
+      const scrollable =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+      const progress =
+        scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0;
+
+      if (progressRef.current) {
+        progressRef.current.style.transform = `scaleX(${progress})`;
+      }
+    };
+
+    const onScroll = () => {
+      if (frame === null) {
+        frame = requestAnimationFrame(update);
+      }
+    };
+
+    update();
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame !== null) cancelAnimationFrame(frame);
+    };
+  }, []);
 
   const closeMenu = (event) => {
     event.currentTarget
@@ -251,6 +288,18 @@ export default function Navbar() {
           </details>
 
         </div>
+      </div>
+
+      {/* SCROLL PROGRESS BAR */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-full h-[3px]"
+      >
+        <div
+          ref={progressRef}
+          style={{ transform: "scaleX(0)" }}
+          className="h-full origin-left bg-linear-to-r from-[#24139b] to-[#ffd52a]"
+        />
       </div>
     </header>
   );

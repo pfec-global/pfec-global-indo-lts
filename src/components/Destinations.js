@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -192,8 +192,70 @@ function ArrowButton({ direction, onClick, label }) {
   );
 }
 
+const AUTOPLAY_MS = 3000;
+const DRAG_THRESHOLD = 5;
+
+// Scroll the carousel by one card in the given direction.
+function scrollByCard(carousel, direction) {
+  const firstCard = carousel.querySelector("[data-country-card]");
+
+  const cardWidth = firstCard
+    ? firstCard.getBoundingClientRect().width
+    : 210;
+
+  const gap = 16;
+
+  carousel.scrollBy({
+    left: direction * (cardWidth + gap),
+    behavior: "smooth",
+  });
+}
+
+// Smoothly scroll to the card nearest the current position, then call `done`.
+function settleOnNearestCard(carousel, done) {
+  const carouselLeft = carousel.getBoundingClientRect().left;
+  const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+
+  const positions = [
+    ...carousel.querySelectorAll("[data-country-card]"),
+  ].map((card) =>
+    Math.min(
+      card.getBoundingClientRect().left - carouselLeft + carousel.scrollLeft,
+      maxScroll
+    )
+  );
+
+  const target = positions.reduce(
+    (nearest, position) =>
+      Math.abs(position - carousel.scrollLeft) <
+      Math.abs(nearest - carousel.scrollLeft)
+        ? position
+        : nearest,
+    carousel.scrollLeft
+  );
+
+  let finished = false;
+
+  const finish = () => {
+    if (finished) return;
+    finished = true;
+    carousel.removeEventListener("scrollend", finish);
+    done();
+  };
+
+  carousel.addEventListener("scrollend", finish);
+  setTimeout(finish, 600);
+
+  carousel.scrollTo({ left: target, behavior: "smooth" });
+}
+
 export default function Countries() {
   const carouselRef = useRef(null);
+  const [paused, setPaused] = useState(false);
+
+  // Mouse drag state: start position and whether it moved past the threshold.
+  const drag = useRef(null);
+  const suppressClick = useRef(false);
 
   const { language } = useLanguage();
 
@@ -205,21 +267,95 @@ export default function Countries() {
 
     if (!carousel) return;
 
-    const firstCard = carousel.querySelector(
-      "[data-country-card]"
-    );
-
-    const cardWidth = firstCard
-      ? firstCard.getBoundingClientRect().width
-      : 210;
-
-    const gap = 16;
-
-    carousel.scrollBy({
-      left: direction * (cardWidth + gap),
-      behavior: "smooth",
-    });
+    scrollByCard(carousel, direction);
   };
+
+  // Mouse drag to scroll (touch already scrolls natively).
+  const onPointerDown = (event) => {
+    if (event.pointerType !== "mouse" || event.button !== 0) return;
+
+    drag.current = {
+      startX: event.clientX,
+      scrollLeft: event.currentTarget.scrollLeft,
+      moved: false,
+    };
+  };
+
+  const onPointerMove = (event) => {
+    if (!drag.current) return;
+
+    const carousel = event.currentTarget;
+    const dx = event.clientX - drag.current.startX;
+
+    if (!drag.current.moved) {
+      if (Math.abs(dx) < DRAG_THRESHOLD) return;
+
+      drag.current.moved = true;
+      carousel.setPointerCapture(event.pointerId);
+      carousel.classList.add("is-dragging");
+    }
+
+    carousel.scrollLeft = drag.current.scrollLeft - dx;
+  };
+
+  const endDrag = (event) => {
+    if (!drag.current) return;
+
+    const { moved } = drag.current;
+    drag.current = null;
+
+    if (!moved) return;
+
+    const carousel = event.currentTarget;
+
+    // Swallow the click that follows a drag so cards don't open.
+    suppressClick.current = true;
+    setTimeout(() => {
+      suppressClick.current = false;
+    }, 0);
+
+    carousel.classList.remove("is-dragging");
+    carousel.classList.add("is-settling");
+
+    settleOnNearestCard(carousel, () =>
+      carousel.classList.remove("is-settling")
+    );
+  };
+
+  const onClickCapture = (event) => {
+    if (!suppressClick.current) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    suppressClick.current = false;
+  };
+
+  // Autoplay: advance one card, then return to the start after the last one.
+  useEffect(() => {
+    if (paused) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    const timer = setInterval(() => {
+      const carousel = carouselRef.current;
+
+      if (!carousel || document.hidden) return;
+
+      const atEnd =
+        carousel.scrollLeft + carousel.clientWidth >=
+        carousel.scrollWidth - 4;
+
+      if (atEnd) {
+        carousel.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        scrollByCard(carousel, 1);
+      }
+    }, AUTOPLAY_MS);
+
+    return () => clearInterval(timer);
+  }, [paused]);
 
   return (
     <section
@@ -270,6 +406,20 @@ export default function Countries() {
         {/* HORIZONTAL COUNTRY CAROUSEL */}
         <div
           ref={carouselRef}
+          onPointerEnter={() => setPaused(true)}
+          onPointerLeave={() => setPaused(false)}
+          onFocus={() => setPaused(true)}
+          onBlur={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget)) {
+              setPaused(false);
+            }
+          }}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={endDrag}
+          onPointerCancel={endDrag}
+          onClickCapture={onClickCapture}
+          onDragStart={(event) => event.preventDefault()}
           className="country-carousel flex gap-4 overflow-x-auto px-5 pb-2 sm:px-8 lg:px-12"
           aria-label={text.ariaLabel}
         >
@@ -323,6 +473,21 @@ export default function Countries() {
           -ms-overflow-style: none;
           overscroll-behavior-x: contain;
           -webkit-overflow-scrolling: touch;
+          cursor: grab;
+        }
+
+        .country-carousel.is-dragging,
+        .country-carousel.is-settling {
+          scroll-snap-type: none;
+        }
+
+        .country-carousel.is-dragging {
+          cursor: grabbing;
+          user-select: none;
+        }
+
+        .country-carousel.is-dragging :global(a) {
+          cursor: grabbing;
         }
 
         .country-carousel::-webkit-scrollbar {
