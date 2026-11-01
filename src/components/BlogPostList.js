@@ -33,7 +33,7 @@ export default function BlogPostList({ posts }) {
     <div ref={topRef} className="scroll-mt-24">
       {/* Sort on the left, search on the right */}
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <label className="flex items-center gap-2 text-sm font-semibold">
+        <label className="flex items-center gap-2 text-base font-semibold">
           <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M7 4v16m0 0l-3-3m3 3l3-3M17 20V4m0 0l-3 3m3-3l3 3" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -61,7 +61,7 @@ export default function BlogPostList({ posts }) {
             }}
             placeholder="Search Topic"
             aria-label="Search posts"
-            className="w-full rounded-lg border border-ink/10 bg-white py-2.5 pl-4 pr-10 text-sm outline-none transition focus:border-accent"
+            className="w-full rounded-lg border border-ink/10 bg-white py-2.5 pl-4 pr-10 text-base outline-none transition focus:border-accent"
           />
           <svg
             className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-accent"
@@ -80,17 +80,17 @@ export default function BlogPostList({ posts }) {
         // 1 card per row on mobile, 2 on tablet, 3 on desktop
         <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {visible.map((post) => (
-            <BlogCard key={post.id} post={post} />
+            <BlogCard key={post.id} post={post} largeText />
           ))}
         </div>
       ) : (
-        <p className="mt-6 rounded-xl bg-white px-4 py-12 text-center text-sm text-ink/70">
+        <p className="mt-6 rounded-xl bg-white px-4 py-12 text-center text-base text-ink/70">
           {query.trim() ? `No posts found for “${query.trim()}”.` : "There are no posts here yet."}
         </p>
       )}
 
       {/* Pagination */}
-      <div className="mt-8 flex flex-col items-center gap-4 text-xs sm:flex-row sm:justify-between sm:text-sm">
+      <div className="mt-8 flex flex-col items-center gap-4 text-base sm:flex-row sm:justify-between">
         <p className="text-ink/70">Displaying {PER_PAGE} Results per Page</p>
 
         <div className="flex items-center gap-8">

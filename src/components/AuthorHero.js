@@ -40,7 +40,7 @@ export default function AuthorHero({ author, stats }) {
               {author.bio && (
                 <>
                   <h2 className="mt-3 text-sm font-bold">Bio</h2>
-                  <p className="mt-1 text-sm text-ink/75">{author.bio}</p>
+                  <p className="mt-1 text-[14px] text-ink/75">{author.bio}</p>
                 </>
               )}
               {author.linkedin && (

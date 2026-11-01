@@ -3,7 +3,7 @@ import Link from "next/link";
 
 // One blog card on the blog list page: cover image, category tag, title, author and the updated / read time line.
 // The card has three separate links: the category tag, the author name, and the post itself (everywhere else).
-export default function BlogCard({ post, className = "" }) {
+export default function BlogCard({ post, className = "", largeText = false }) {
   return (
     <article
       className={`group relative flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm transition duration-300 hover:-translate-y-1.5 hover:shadow-xl ${className}`}
@@ -33,13 +33,15 @@ export default function BlogCard({ post, className = "" }) {
         >
           {post.tag}
         </Link>
-        <h3 className="mt-2 text-sm font-medium leading-snug transition-colors duration-300 group-hover:text-accent">
+        <h3
+          className={`mt-2 ${largeText ? "text-base" : "text-sm"} font-medium leading-snug transition-colors duration-300 group-hover:text-accent`}
+        >
           {/* after:inset-0 stretches this link over the whole card, so clicking the image or text opens the post */}
           <Link href={post.href} className="after:absolute after:inset-0">
             {post.title}
           </Link>
         </h3>
-        <p className="mt-auto pt-2 text-xs text-ink/75">
+        <p className={`mt-auto pt-2 ${largeText ? "text-base" : "text-xs"} text-ink/75`}>
           By{" "}
           <Link
             href={post.authorHref}
@@ -48,7 +50,7 @@ export default function BlogCard({ post, className = "" }) {
             {post.author}
           </Link>
         </p>
-        <p className="mt-1 text-[11px] text-ink/60">
+        <p className={`mt-1 ${largeText ? "text-base" : "text-[11px]"} text-ink/60`}>
           Last Updated on {post.updated} | {post.readTime}
         </p>
       </div>
