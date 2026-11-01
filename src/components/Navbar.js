@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 
 const navContent = {
@@ -15,6 +16,7 @@ const navContent = {
       { label: "Study Destinations", href: "#destinations" },
       { label: "Popular Courses", href: "#courses" },
       { label: "Awards", href: "#awards" },
+      { label: "Blog", href: "/blogs" },
       { label: "Testimonials", href: "#testimonials" },
       { label: "About PFEC", href: "#about" },
     ],
@@ -29,6 +31,7 @@ const navContent = {
       { label: "Destinasi Studi", href: "#destinations" },
       { label: "Program Populer", href: "#courses" },
       { label: "Penghargaan", href: "#awards" },
+      { label: "Blog", href: "/blogs" },
       { label: "Testimoni", href: "#testimonials" },
       { label: "Tentang PFEC", href: "#about" },
     ],
@@ -36,6 +39,7 @@ const navContent = {
 };
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [active, setActive] = useState(null);
   const progressRef = useRef(null);
 
@@ -46,8 +50,17 @@ export default function Navbar() {
   const content = navContent[language] || navContent.EN;
   const navLinks = content.links;
 
+  const resolveHref = (href) =>
+    href.startsWith("#") && pathname !== "/" ? `/${href}` : href;
+
+  const isActive = (href) =>
+    href.startsWith("#")
+      ? active === href
+      : pathname === href || pathname.startsWith(`${href}/`);
+
   useEffect(() => {
     const sections = navLinks
+      .filter(({ href }) => href.startsWith("#"))
       .map(({ href }) => document.querySelector(href))
       .filter(Boolean);
 
@@ -75,7 +88,7 @@ export default function Navbar() {
     return () => {
       window.removeEventListener("scroll", onScroll);
     };
-  }, [language]);
+  }, [language, navLinks, pathname]);
 
   // Scroll progress bar
   useEffect(() => {
@@ -202,12 +215,12 @@ export default function Navbar() {
             {navLinks.map(({ label, href }) => (
               <a
                 key={href}
-                href={href}
+                href={resolveHref(href)}
                 aria-current={
-                  active === href ? "location" : undefined
+                  isActive(href) ? "location" : undefined
                 }
                 className={`whitespace-nowrap text-[14px] transition-colors duration-200 2xl:text-[14px] ${
-                  active === href
+                  isActive(href)
                     ? "font-semibold text-[#24139b]"
                     : "font-medium text-[#252333] hover:text-[#24139b]"
                 }`}
@@ -219,7 +232,7 @@ export default function Navbar() {
 
           {/* DESKTOP CTA */}
           <a
-            href="#consultation"
+            href={pathname === "/" ? "#consultation" : "/#consultation"}
             className="hidden shrink-0 items-center justify-center rounded-full bg-[#24139b] px-6 py-3 text-[12px] font-bold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#3523b8] sm:inline-flex"
           >
             {content.consultation}
@@ -264,10 +277,10 @@ export default function Navbar() {
               {navLinks.map(({ label, href }) => (
                 <a
                   key={href}
-                  href={href}
+                  href={resolveHref(href)}
                   onClick={closeMenu}
                   className={`border-b border-[#f0edf6] py-3 text-sm transition-colors ${
-                    active === href
+                    isActive(href)
                       ? "font-semibold text-[#24139b]"
                       : "text-[#252333] hover:text-[#24139b]"
                   }`}
@@ -277,7 +290,7 @@ export default function Navbar() {
               ))}
 
               <a
-                href="#consultation"
+                href={pathname === "/" ? "#consultation" : "/#consultation"}
                 onClick={closeMenu}
                 className="mt-4 rounded-full bg-[#24139b] px-5 py-3 text-center text-sm font-bold text-white transition-colors hover:bg-[#3523b8]"
               >

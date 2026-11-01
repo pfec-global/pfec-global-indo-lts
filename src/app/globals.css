@@ -7,6 +7,12 @@
   --color-sun: #fbcb20;
   --color-accent: #e84b37;
 
+  /* Blog palette shared with the IND blog templates. */
+  --color-navy: #000423;
+  --color-indigo: #1d297c;
+  --color-ink: #121212;
+  --color-paper: #fdfdfd;
+
   /* Font Families */
   --font-sans: var(--font-montserrat);
   --font-jakarta: var(--font-plus-jakarta-sans);

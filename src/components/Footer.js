@@ -2,6 +2,7 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 
 const footerContent = {
@@ -23,7 +24,9 @@ const footerContent = {
     companyLinks: [
       { label: "For parents", href: "#services" },
       { label: "About PFEC Global", href: "#about" },
+      { label: "Blog", href: "/blogs" },
       { label: "FAQ", href: "#faq" },
+
       { label: "Book a Free Consultation", href: "#consultation" },
     ],
 
@@ -39,18 +42,22 @@ const footerContent = {
       {
         label: "Australia",
         href: "https://pfecglobal.com.au/",
+        flag: "🇦🇺",
       },
       {
         label: "Bangladesh",
         href: "https://pfecglobal.com.bd/",
+        flag: "🇧🇩",
       },
       {
         label: "India",
         href: "https://pfecglobal.in/",
+        flag: "🇮🇳",
       },
       {
         label: "Sri Lanka",
         href: "https://pfecglobal.com.lk/",
+        flag: "🇱🇰",
       },
     ],
 
@@ -106,18 +113,22 @@ const footerContent = {
       {
         label: "Australia",
         href: "https://pfecglobal.com.au/",
+        flag: "🇦🇺",
       },
       {
         label: "Bangladesh",
         href: "https://pfecglobal.com.bd/",
+        flag: "🇧🇩",
       },
       {
         label: "India",
         href: "https://pfecglobal.in/",
+        flag: "🇮🇳",
       },
       {
         label: "Sri Lanka",
         href: "https://pfecglobal.com.lk/",
+        flag: "🇱🇰",
       },
     ],
 
@@ -184,6 +195,7 @@ const socials = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
   const { language } = useLanguage();
 
   const text = footerContent[language] || footerContent.EN;
@@ -250,7 +262,7 @@ export default function Footer() {
               {text.serviceLinks.map(({ label, href }) => (
                 <li key={href}>
                   <a
-                    href={href}
+                    href={pathname === "/" || !href.startsWith("#") ? href : `/${href}`}
                     className="font-jakarta text-[12px] text-white/70 transition-colors hover:text-[#FBCB20] sm:text-[13px]"
                   >
                     {label}
@@ -270,7 +282,7 @@ export default function Footer() {
               {text.companyLinks.map(({ label, href }) => (
                 <li key={`${href}-${label}`}>
                   <a
-                    href={href}
+                    href={pathname === "/" || !href.startsWith("#") ? href : `/${href}`}
                     className="font-jakarta text-[12px] text-white/70 transition-colors hover:text-[#FBCB20] sm:text-[13px]"
                   >
                     {label}
@@ -310,14 +322,20 @@ export default function Footer() {
           </h3>
 
           <ul className="mt-2 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-            {text.globalOffices.map(({ label, href }) => (
+            {text.globalOffices.map(({ label, href, flag }) => (
               <li key={label}>
                 <a
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-jakarta text-[11px] text-white/65 underline decoration-white/40 underline-offset-[3px] transition-colors hover:text-[#FBCB20] sm:text-[12px]"
+                  className="inline-flex items-center gap-2 font-jakarta text-[11px] text-white/65 underline decoration-white/40 underline-offset-[3px] transition-colors hover:text-[#FBCB20] sm:text-[12px]"
                 >
+                  <span
+                    aria-hidden="true"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full text-[30px] leading-none"
+                  >
+                    {flag}
+                  </span>
                   {label}
                 </a>
               </li>

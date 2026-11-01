@@ -17,8 +17,14 @@ import ConsultationPopup from "@/components/ConsultationPopup";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import Reveal from "@/components/Reveal";
+import HomeBlogSlider from "@/components/HomeBlogSlider";
+import { getLatestBlogs } from "@/lib/blogs";
 
-export default function Home() {
+export const instant = false;
+
+export default async function Home() {
+  const latestBlogs = await getLatestBlogs(10);
+
   return (
     <>
       <Navbar />
@@ -54,6 +60,9 @@ export default function Home() {
 
         <Reveal id="awards">
           <AwardsAndAffiliations />
+        </Reveal>
+        <Reveal>
+          <HomeBlogSlider items={latestBlogs} />
         </Reveal>
         <Reveal id="about">
           <AboutPFEC />
