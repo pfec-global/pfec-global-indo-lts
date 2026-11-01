@@ -17,7 +17,7 @@ export default function BlogCategoryHero({ title, description }) {
       <motion.h1 {...fadeUpOnLoad(0.1)} className="mt-4 text-3xl font-bold text-navy sm:text-4xl">
         {title}
       </motion.h1>
-      <motion.p {...fadeUpOnLoad(0.2)} className="mx-auto mt-3 max-w-2xl text-base text-ink/75">
+      <motion.p {...fadeUpOnLoad(0.2)} className="mx-auto mt-3 max-w-2xl text-base text-[14px] text-ink/75">
         {description}
       </motion.p>
     </section>

@@ -10,16 +10,19 @@ const lorem =
 // name is the short label (card tag, category bar), title is the heading of its page.
 // inBar: true = listed in the "Explore by Category" bar under the hero of the blog list page.
 export const categories = [
-  { slug: "australia", name: "Australia", title: "Australia Blogs", description: lorem, inBar: true },
-  { slug: "uk", name: "UK", title: "UK Blogs", description: lorem, inBar: true },
-  { slug: "usa", name: "USA", title: "USA Blogs", description: lorem, inBar: true },
-  { slug: "canada", name: "Canada", title: "Canada Blogs", description: lorem, inBar: true },
-  { slug: "exams", name: "Exams", title: "Exam Blogs", description: lorem, inBar: true },
-  { slug: "ielts", name: "IELTS", title: "IELTS Blogs", description: lorem },
-  { slug: "pte", name: "PTE", title: "PTE Blogs", description: lorem },
-  { slug: "gre", name: "GRE", title: "GRE Blogs", description: lorem },
-  { slug: "english-skills", name: "English Skills", title: "English Skills Blogs", description: lorem },
-];
+  { slug: "australia", name: "Australia", title: "Australia Blogs", inBar: true },
+  { slug: "uk", name: "UK", title: "UK Blogs", inBar: true },
+  { slug: "usa", name: "USA", title: "USA Blogs", inBar: true },
+  { slug: "canada", name: "Canada", title: "Canada Blogs", inBar: true },
+  { slug: "exams", name: "Exams", title: "Exam Blogs", inBar: true },
+  { slug: "ielts", name: "IELTS", title: "IELTS Blogs" },
+  { slug: "pte", name: "PTE", title: "PTE Blogs" },
+  { slug: "gre", name: "GRE", title: "GRE Blogs" },
+  { slug: "english-skills", name: "English Skills", title: "English Skills Blogs" },
+].map((category) => ({
+  ...category,
+  description: `Articles, guides and updates about ${category.name}, written by the PFEC Global team.`,
+}));
 
 const categoryHref = (slug) => `/category/${slug}`;
 

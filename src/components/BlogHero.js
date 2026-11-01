@@ -12,10 +12,9 @@ export default function BlogHero() {
           <motion.h1 {...fadeUpOnLoad()} className="text-3xl font-bold text-navy sm:text-4xl">
             Blogs
           </motion.h1>
-          <motion.p {...fadeUpOnLoad(0.1)} className="mt-4 max-w-lg text-sm text-ink/75">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque fermentum nisi eget ante varius, at
-            dapibus justo dignissim. Praesent interdum pretium turpis. Suspendisse nec neque sodales, bibendum velit
-            id, ultrices augu
+          <motion.p {...fadeUpOnLoad(0.1)} className="mt-4 max-w-lg text-[14px] text-ink/75">
+            Explore expert guidance for every stage of your study abroad journey, from choosing the right destination
+            and preparing for English language tests to applying to universities and planning your student visa.
           </motion.p>
 
           {/* Search box - not connected yet: hook it up once the blogs come from real data */}

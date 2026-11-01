@@ -33,9 +33,7 @@ export default function BlogCard({ post, className = "", largeText = false }) {
         >
           {post.tag}
         </Link>
-        <h3
-          className={`mt-2 ${largeText ? "text-base" : "text-sm"} font-medium leading-snug transition-colors duration-300 group-hover:text-accent`}
-        >
+        <h3 className="mt-2 font-sans text-base font-medium leading-snug transition-colors duration-300 group-hover:text-accent">
           {/* after:inset-0 stretches this link over the whole card, so clicking the image or text opens the post */}
           <Link href={post.href} className="after:absolute after:inset-0">
             {post.title}
