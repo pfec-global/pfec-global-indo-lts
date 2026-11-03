@@ -5,6 +5,7 @@ import {
   Poppins,
   Montserrat,
 } from "next/font/google";
+import Script from "next/script";
 
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
@@ -48,6 +49,8 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
+const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID?.trim();
+
 export const metadata = {
   title: "PFEC Global | Study Abroad with Complete Expert Guidance",
   description:
@@ -83,6 +86,21 @@ export default function RootLayout({ children }) {
         <LanguageProvider>
           {children}
         </LanguageProvider>
+
+        {/* Google tag (gtag.js) - Google Ads, loaded on every page. The ID comes from NEXT_PUBLIC_GOOGLE_ADS_ID in .env */}
+        {googleAdsId && (
+          <>
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${googleAdsId}`} strategy="afterInteractive" />
+            <Script id="google-ads-gtag" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${googleAdsId}');
+              `}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );
