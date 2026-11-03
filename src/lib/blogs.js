@@ -277,6 +277,9 @@ export const getBlogPost = safely(async (slug, preview = false) => {
     ...card,
     slug: post.slug,
     image: cover?.url ? absolute(cover.url) : null,
+    // Size of the cover image, so the hero can show it whole at its own aspect ratio
+    imageWidth: cover?.width ?? null,
+    imageHeight: cover?.height ?? null,
     publishedAt: isoDate(post.published_time),
     modifiedAt: isoDate(post.updatedAt ?? post.published_time),
     // "21st September 2026 · 10:30 AM"

@@ -5,7 +5,7 @@ import { fadeUpOnLoad } from "@/lib/motion";
 import ShareLinks from "@/components/ShareLinks";
 
 // Hero of the blog details page: a card with the tag, title, author line, summary, share icons and cover image.
-// Desktop: text on the left, image on the right.
+// Desktop: text on the left, image on the right (the image column is the wider one).
 // Mobile: title and author line, then the image, then the summary and share icons.
 // Without a cover image the text takes the full width.
 export default function BlogPostHero({ post }) {
@@ -16,7 +16,7 @@ export default function BlogPostHero({ post }) {
     <section className="px-5 pt-4 sm:px-8 lg:px-12">
       <div
         className={`mx-auto grid max-w-[1440px] gap-6 rounded-xl bg-[#F3F3F8] p-5 shadow-md sm:p-8 lg:gap-x-12 lg:p-10 ${
-          post.image ? "lg:grid-cols-2" : ""
+          post.image ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]" : ""
         }`}
       >
         <motion.div {...fadeUpOnLoad()} className="lg:col-start-1 lg:self-end">
@@ -42,19 +42,19 @@ export default function BlogPostHero({ post }) {
           </p>
         </motion.div>
 
-        {/* On desktop the image sits in the second column, beside both text blocks */}
+        {/* On desktop the image sits in the second column, beside both text blocks.
+            The whole image is shown at its own aspect ratio (3:2 until its size is known), never cropped. */}
         {post.image && (
-          <div
-            className="relative mx-auto aspect-3/2 w-full max-w-xl overflow-hidden rounded-xl border-2 border-accent lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-center"
-          >
+          <div className="mx-auto w-full max-w-3xl overflow-hidden rounded-xl border-2 border-accent lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-center">
             <Image
               src={post.image}
               alt={post.imageAlt ?? ""}
-              fill
+              width={post.imageWidth || 1200}
+              height={post.imageHeight || 800}
               preload
               fetchPriority="high"
-              sizes="(min-width: 1024px) 576px, 100vw"
-              className="object-cover"
+              sizes="(min-width: 1024px) 768px, 100vw"
+              className="block h-auto w-full"
             />
           </div>
         )}
