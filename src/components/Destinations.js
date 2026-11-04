@@ -428,6 +428,12 @@ export default function Countries() {
               key={country.slug}
               data-country-card
               href={`#${country.slug}`}
+              // Opens the consultation popup. Not the "pop-up" class: its listener runs before
+              // onClickCapture above, so a drag of the carousel would open the popup too.
+              onClick={(event) => {
+                event.preventDefault();
+                window.dispatchEvent(new Event("open-consultation-popup"));
+              }}
               className="group relative h-[245px] w-[195px] shrink-0 snap-start overflow-hidden rounded-[16px] bg-[#100B36] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:h-[264px] sm:w-[212px] lg:h-[264px] lg:w-[212px]"
               aria-label={country.description}
             >

@@ -151,12 +151,10 @@ export default function FAQ() {
             </svg>
           </a>
 
-          {/* WhatsApp Button */}
+          {/* WhatsApp Button - opens the consultation popup */}
           <a
-            href="https://wa.me/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 inline-flex min-h-[39px] items-center gap-3 rounded-full border border-[#B8DCCB] bg-white px-4 py-2 font-jakarta text-[12px] font-semibold text-[#18794E] transition-colors hover:bg-[#EFFAF4] sm:text-[12px]"
+            href="#consultation"
+            className="pop-up mt-2 inline-flex min-h-[39px] items-center gap-3 rounded-full border border-[#B8DCCB] bg-white px-4 py-2 font-jakarta text-[12px] font-semibold text-[#18794E] transition-colors hover:bg-[#EFFAF4] sm:text-[12px]"
           >
             <svg
               viewBox="0 0 24 24"
