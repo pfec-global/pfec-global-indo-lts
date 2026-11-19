@@ -1,3 +1,4 @@
+
 import {
   Titan_One,
   Bebas_Neue,
@@ -5,6 +6,7 @@ import {
   Poppins,
   Montserrat,
 } from "next/font/google";
+
 import Script from "next/script";
 
 import "./globals.css";
@@ -51,10 +53,16 @@ const montserrat = Montserrat({
 
 const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID?.trim();
 
+/* ==========================================
+   SEO + FACEBOOK DOMAIN VERIFICATION
+========================================== */
+
 export const metadata = {
   title: "PFEC Global | Study Abroad with Complete Expert Guidance",
+
   description:
     "Study abroad with free 1-on-1 expert mentorship from shortlisting to visa. Trusted by 22,000+ students across 11 destinations.",
+
   robots: {
     index: false,
     follow: false,
@@ -63,7 +71,17 @@ export const metadata = {
       follow: false,
     },
   },
+
+  // Facebook Domain Verification
+  other: {
+    "facebook-domain-verification":
+      "3e0v6bckl824pqrwq9k0msp9ttyz05",
+  },
 };
+
+/* ==========================================
+   ROOT LAYOUT
+========================================== */
 
 export default function RootLayout({ children }) {
   return (
@@ -87,11 +105,18 @@ export default function RootLayout({ children }) {
           {children}
         </LanguageProvider>
 
-        {/* Google tag (gtag.js) - Google Ads, loaded on every page. The ID comes from NEXT_PUBLIC_GOOGLE_ADS_ID in .env */}
+        {/* Google Ads Tracking */}
         {googleAdsId && (
           <>
-            <Script src={`https://www.googletagmanager.com/gtag/js?id=${googleAdsId}`} strategy="afterInteractive" />
-            <Script id="google-ads-gtag" strategy="afterInteractive">
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${googleAdsId}`}
+              strategy="afterInteractive"
+            />
+
+            <Script
+              id="google-ads-gtag"
+              strategy="afterInteractive"
+            >
               {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
