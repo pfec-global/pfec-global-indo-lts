@@ -52,6 +52,7 @@ const montserrat = Montserrat({
 });
 
 const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID?.trim();
+const gtmId = process.env.NEXT_PUBLIC_GTM_ID?.trim();
 
 /* ==========================================
    SEO + FACEBOOK DOMAIN VERIFICATION
@@ -97,10 +98,45 @@ export default function RootLayout({ children }) {
         h-full antialiased
       `}
     >
+      <head>
+        {/* Google Tag Manager. The ID comes from NEXT_PUBLIC_GTM_ID in .env */}
+        {gtmId && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtm.js?id=${gtmId}`}
+            />
+            <script
+              id="gtm-init"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+                `,
+              }}
+            />
+          </>
+        )}
+      </head>
+
       <body
         className="flex min-h-full flex-col"
         suppressHydrationWarning
       >
+        {/* Google Tag Manager (noscript) */}
+        {gtmId && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+            />
+          </noscript>
+        )}
+
         <LanguageProvider>
           {children}
         </LanguageProvider>
