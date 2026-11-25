@@ -18,7 +18,7 @@ export default function BackToTop() {
   return (
     <button
       type="button"
-      aria-label="Back to top"
+      aria-label="Back tonpm top"
       tabIndex={visible ? 0 : -1}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       className={`fixed bottom-5 right-4 z-40 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-accent text-white shadow-[0_4px_14px_rgba(0,0,0,0.3)] transition duration-300 hover:opacity-85 sm:bottom-8 sm:right-8 xl:h-[3.6rem] xl:w-[3.6rem] ${

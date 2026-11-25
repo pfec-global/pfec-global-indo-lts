@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Count from "@/components/Count";
-
+import HomeBanner from "@/components/HomeBanner";
 import Destinations from "@/components/Destinations";
 import MadeForBoth from "@/components/MadeForBoth";
 import HowItWorks from "@/components/HowItWorks";
@@ -30,7 +30,7 @@ export default async function Home() {
       <Navbar />
       <main className="flex-1 overflow-x-clip bg-gradient-to-b from-[#fdfdfb] to-[#fffbe8]">
         <Reveal>
-          <Hero />
+          <HomeBanner />
         </Reveal>
         <Reveal delay={0.15}>
           <Count />
