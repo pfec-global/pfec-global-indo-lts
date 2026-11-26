@@ -92,7 +92,7 @@ const content = {
         description: "Negara",
       },
       {
-        value: 19,
+        value: 20,
         suffix: "+",
         label: "Tahun",
         description: "Pengalaman",
