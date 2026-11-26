@@ -55,7 +55,7 @@ const content = {
         description: "11 Countries",
       },
       {
-        value: 19,
+        value: 20,
         suffix: "+",
         label: "Years of",
         description: "Experience",
