@@ -752,7 +752,7 @@ export default function HomeBanner() {
             </p>
 
             <a
-              href="https://celebration.pfecglobal.com/"
+              href="https://celebration.pfecglobal.com/?utm_source=pfecglobal.id&utm_medium=referral&utm_campaign=celebration_2026&utm_content=homepage_banner"
               target="_blank"
               rel="noopener noreferrer"
               className="hero-cta"
